@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+	<LinearLayout
+		style="@style/ChooseContactBackground"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+	
+		<ImageView
+			android:src="@drawable/search"
+			android:layout_marginLeft="8px"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	
+		<MultiAutoCompleteTextView android:id="@+id/txtPhoneNo" 
+			android:textSize="18sp"
+			android:layout_margin="8px"
+			android:layout_width="0px"
+			android:layout_height="wrap_content"
+			android:layout_weight="1" />
+	</LinearLayout>
+    
+    
+    <TextView  
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"         
+        android:text="Message"
+        />     
+    <EditText 
+        android:id="@+id/txtMessage"  
+        android:layout_width="fill_parent" 
+        android:layout_height="150px"
+        android:gravity="top"         
+        />          
+    <Button 
+        android:id="@+id/btnSendSMS"  
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:text="Send SMS"
+        />    
+</LinearLayout>
