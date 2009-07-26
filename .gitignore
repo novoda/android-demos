@@ -1,0 +1,11 @@
+# need 
+bin/*
+gen/*
+gen
+.classpath
+.project
+default.*
+.settings/*
+build.properties
+.DS_Store
+
