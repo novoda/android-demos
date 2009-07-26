@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+     
+    
+	 <ListView android:id="@+id/android:list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0px"
+	    android:layout_weight="1"
+	    android:cacheColorHint="#00000000">
+	 </ListView>
+  
+  
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6px"
+		android:layout_marginBottom="8px"
+		android:layout_marginLeft="8px"
+		android:layout_marginRight="8px"
+		android:background="#00000000">
+	    
+	    
+	   	<ImageButton
+	   	android:id="@+id/button" 
+	    	android:layout_width="100px"
+	    	android:layout_height="100px"
+	    	android:src="@android:drawable/ic_menu_add"  />	
+	</LinearLayout>    	
+     
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="230px"
+		android:layout_height="wrap_content"
+	 	android:layout_marginTop="8px"
+	 	android:layout_marginBottom="8px"
+	 	android:layout_marginLeft="0px"
+	 	android:layout_marginRight="28px"
+	 	android:background="#cccccc00" >
+	
+		<EditText android:id="@+id/new_value_field"
+			android:textColor="#020905"
+			android:textSize="18sp"
+	      	android:layout_marginTop="6px"
+	      	android:layout_marginBottom="8px"
+	       	android:layout_marginLeft="12px"
+	       	android:layout_marginRight="12px"
+	       	android:layout_width="210px"
+	       	android:layout_height="wrap_content"
+	       	android:layout_weight="1"/>
+	
+	</LinearLayout>
+     
+  
+</LinearLayout>
