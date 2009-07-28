@@ -1,4 +1,5 @@
-# need 
+# need i
+bin
 bin/*
 gen/*
 gen
@@ -8,4 +9,8 @@ default.*
 .settings/*
 build.properties
 .DS_Store
-
+.class
+java/build
+java/*.log
+java/*.log.*
+target/
