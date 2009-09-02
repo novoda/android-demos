@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Each line is an activity result:" />
+		
+	<TextView android:text="Step1Result" android:id="@+id/step1result"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		
+	<TextView android:text="Step2Result" android:id="@+id/step2result"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		
+	<TextView android:text="Step3Result" android:id="@+id/step3result"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		
+</LinearLayout>

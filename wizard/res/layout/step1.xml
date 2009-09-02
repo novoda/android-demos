@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<EditText android:id="@+id/step1value" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></EditText>
+
+	<Button android:text="Next &gt;" android:id="@+id/goto2"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+
+</LinearLayout>
