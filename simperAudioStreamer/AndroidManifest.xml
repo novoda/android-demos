@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="novoda.audio"
+      android:versionCode="1"
+      android:versionName="1.0">
+      
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-sdk android:minSdkVersion="4" />
+    
+    <application 
+    	android:icon="@drawable/icon"
+    	android:label="Simple Audio Streamer">
+    	
+        <activity
+        	android:name=".StreamerInterface" 
+        	android:label="Audio Streaming example">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+            <intent-filter>
+     			<action android:name="android.intent.action.VIEW" />
+     			<action android:name="android.intent.action.BROWSABLE" />
+     			<category android:name="android.intent.category.DEFAULT" />
+     			<data android:mimeType="application/pls" />
+ 				<data android:mimeType="audio/x-scpls" />
+ 				<data android:mimeType="audio/x-mpegurl" />
+ 			</intent-filter>
+        </activity>
+        
+    	<service android:exported="true" android:name=".service.AudioStreamService" android:enabled="true"></service>
+    </application>
+
+</manifest> 
