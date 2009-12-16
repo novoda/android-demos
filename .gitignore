@@ -9,7 +9,7 @@ default.*
 .settings/*
 build.properties
 .DS_Store
-.class
+*.class
 java/build
 java/*.log
 java/*.log.*
