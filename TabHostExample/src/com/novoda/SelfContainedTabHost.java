@@ -2,9 +2,14 @@ package com.novoda;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TabHost;
 
 public class SelfContainedTabHost extends Activity {
+	
+	private static final String TAG = SelfContainedTabHost.class.getSimpleName(); 
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -14,16 +19,8 @@ public class SelfContainedTabHost extends Activity {
         TabHost tabs = (TabHost)this.findViewById(R.id.tabhost);
         tabs.setup();
 
-        TabHost.TabSpec one = tabs.newTabSpec("one");
-        one.setContent(R.id.tab1content);
-        one.setIndicator("TAB 1");
-        tabs.addTab(one);
-
-        TabHost.TabSpec two = tabs.newTabSpec("two");
-        two.setContent(R.id.tab2content);
-        two.setIndicator("TAB 2");
-        tabs.addTab(two);
-
+        tabs.addTab(tabs.newTabSpec("one").setContent(R.id.tab1content).setIndicator("TAB 1"));
+        tabs.addTab(tabs.newTabSpec("two").setContent(R.id.tab2content).setIndicator("TAB 2"));
         tabs.setCurrentTab(0);
     }
 }
