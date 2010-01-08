@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/div_list_item"
+	android:background="@drawable/list_item_style"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+	
+	<TextView 
+		android:id="@+id/txt_item"
+		android:layout_width="fill_parent"
+		android:textSize="14sp"
+    	android:layout_height="20dip" />
+       
+</LinearLayout>
