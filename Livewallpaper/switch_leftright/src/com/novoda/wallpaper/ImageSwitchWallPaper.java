@@ -3,6 +3,7 @@ package com.novoda.wallpaper;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -37,71 +38,11 @@ public class ImageSwitchWallPaper extends WallpaperService {
 
     class OutRunEngine extends Engine {
 
-		private final Paint mPaint = new Paint();
-        private float mOffset;
-        private float mTouchX = -1;
-        private float mTouchY = -1;
-        private long mStartTime;
-        private float mCenterX;
-        private float mCenterY;
-        
-        private boolean mDrivingForward = true;
-        private boolean mTurningLeft = false;
-        private boolean mTurningRight = false;
-        private boolean mDragEventAnimStarted = false;
-        
-		private Bitmap carRightBitmap;
-		private Bitmap carLeftBitmap;        
-        private Bitmap carFrontBitmap;
-        private Bitmap slidePic;
-        private boolean duringSlide = false;
-        
-    	private boolean mDragEventInProgress = false;
-    	private float mDragEventStartX = 0;
-
-        private final Runnable mDrawWallpaper = new Runnable() {
-            public void run() {
-                drawFrame();
-            }
-        };
-        private boolean mVisible;
-		private float xLastOffset;
-		private boolean takingACorner = false;
-
-
-        OutRunEngine() {
-        	 
-            mStartTime = SystemClock.elapsedRealtime();
-            
-            java.io.InputStream is;
-            is = getResources().openRawResource(R.drawable.day_front);
-            BitmapFactory.Options opts = new BitmapFactory.Options();
-            Bitmap bm;
-            
-            opts.inJustDecodeBounds = true;
-            bm = BitmapFactory.decodeStream(is, null, opts);
-            opts.inJustDecodeBounds = false;    // this will request the bm
-            bm = BitmapFactory.decodeStream(is, null, opts);
-            carFrontBitmap = bm;
-            
-            is = getResources().openRawResource(R.drawable.day_right);
-            opts = new BitmapFactory.Options();
-            
-            opts.inJustDecodeBounds = true;
-            bm = BitmapFactory.decodeStream(is, null, opts);
-            opts.inJustDecodeBounds = false;    // this will request the bm
-            bm = BitmapFactory.decodeStream(is, null, opts);
-            carRightBitmap = bm;
-            
-            is = getResources().openRawResource(R.drawable.day_left);
-            opts = new BitmapFactory.Options();
-            
-            opts.inJustDecodeBounds = true;
-            bm = BitmapFactory.decodeStream(is, null, opts);
-            opts.inJustDecodeBounds = false;    // this will request the bm
-            bm = BitmapFactory.decodeStream(is, null, opts);
-            carLeftBitmap = bm;
-            
+		OutRunEngine() {
+            Resources res = getResources();
+            carFrontBitmap = res.getIdentifier("day_front", "drawable", "com.novoda.wallpaper");
+            carRightBitmap = res.getIdentifier("day_right", "drawable", "com.novoda.wallpaper");
+            carLeftBitmap = res.getIdentifier("day_left", "drawable", "com.novoda.wallpaper");
         }
 
         @Override
@@ -187,7 +128,7 @@ public class ImageSwitchWallPaper extends WallpaperService {
             	
             	if( (mDragEventStartX < 150) && draggedLotsLeft ){
             		Log.d(TAG, "Driving animation started < Left");
-            		takingACorner =true;
+            		takingACorner =true;	
             		slidePic = carLeftBitmap;
             		new Timer().schedule(new TimerTask(){
 						@Override
@@ -250,7 +191,7 @@ public class ImageSwitchWallPaper extends WallpaperService {
         private void drawCar(Canvas c) {
     		
         	if(takingACorner){
-    			c.drawBitmap(slidePic, 20, 0, null);
+    			c.drawBitmap(BitmapFactory.decodeResource(getResources(), slidePic), 20, 120, null);
     		}else{
     			
 	        	if(mDragEventInProgress){
@@ -260,7 +201,7 @@ public class ImageSwitchWallPaper extends WallpaperService {
 //	        			c.drawBitmap(carLeftBitmap, 20, 0, null);
 //	        		}
 	        	}else{
-	        		c.drawBitmap(carFrontBitmap, 20, 0, null);
+	        		c.drawBitmap(BitmapFactory.decodeResource(getResources(), carFrontBitmap), 20, 120, null);
 	        	}
     		}
 		}
@@ -270,6 +211,32 @@ public class ImageSwitchWallPaper extends WallpaperService {
                 c.drawCircle(mTouchX, mTouchY, 80, mPaint);
             }
         }
+
+		private final Paint mPaint = new Paint();
+		private float mOffset;
+		private float mTouchX = -1;
+		private float mTouchY = -1;
+		private float mCenterX;
+		private float mCenterY;
+		private boolean mDrivingForward = true;
+		private boolean mTurningLeft = false;
+		private boolean mTurningRight = false;
+		private boolean mDragEventAnimStarted = false;
+		private int carRightBitmap;
+		private int carLeftBitmap;
+		private int carFrontBitmap;
+		private int slidePic;
+		private boolean duringSlide = false;
+		private boolean mDragEventInProgress = false;
+		private float mDragEventStartX = 0;
+		private final Runnable mDrawWallpaper = new Runnable() {
+		    public void run() {
+		        drawFrame();
+		    }
+		};
+		private boolean mVisible;
+		private float xLastOffset;
+		private boolean takingACorner = false;
 
     }
 }

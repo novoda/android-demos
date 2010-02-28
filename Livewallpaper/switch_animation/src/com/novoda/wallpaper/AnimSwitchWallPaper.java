@@ -36,20 +36,15 @@ public class AnimSwitchWallPaper extends WallpaperService {
 
 		OutRunEngine() {
         	Resources res = getResources();
-        	int id =0;
+        	
         	for (int i = 0; i< FRONT_RES; i++) {
-        		id = res.getIdentifier("front_day00" + (i + 1), "drawable", "com.novoda.wallpaper");
-        		mFrontPics[i] = BitmapFactory.decodeResource(res, id);
+        		mFrontPicIds[i] = res.getIdentifier("front_day00" + (i + 1), "drawable", "com.novoda.wallpaper");
         	}
-        	id=0;
         	for (int i = 0; i< LEFT_RES; i++) {
-        		id = res.getIdentifier("left_day00" + (i + 1), "drawable", "com.novoda.wallpaper");
-        		mLeftPics[i] = BitmapFactory.decodeResource(res, id);
+        		mLeftPicIds[i] = res.getIdentifier("left_day00" + (i + 1), "drawable", "com.novoda.wallpaper");
         	}
-        	id=0;
         	for (int i = 0; i< RIGHT_RES; i++) {
-        		id = res.getIdentifier("right_day00" + (i + 1), "drawable", "com.novoda.wallpaper");
-        		mRightPics[i] = BitmapFactory.decodeResource(res, id);
+        		mRightPicIds[i] = res.getIdentifier("right_day00" + (i + 1), "drawable", "com.novoda.wallpaper");
         	}
         }
         
@@ -78,13 +73,6 @@ public class AnimSwitchWallPaper extends WallpaperService {
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
-            float w = mFrontPics[0].getWidth();
-            float h = mFrontPics[0].getHeight();
-            float s = width / (float)w;
-            mMatrix.reset();
-            mMatrix.setScale(s, s);
-            
-            mPosY = (height - (h * s)) / 2f;
             drawFrame();
         }
 
@@ -178,13 +166,13 @@ public class AnimSwitchWallPaper extends WallpaperService {
     		
         	if(takingACorner){
         		if(currentDirection == DRIVING_RIGHT){
-	        		drawAnim(c, mRightPics);        			
+	        		drawAnim(c, mRightPicIds);        			
         		}else{
-	        		drawAnim(c, mLeftPics);
+	        		drawAnim(c, mLeftPicIds);
         		}
     		}else{
 	        	if(!mDragEventInProgress){
-	        		drawAnim(c, mFrontPics);
+	        		drawAnim(c, mFrontPicIds);
 	        	}else{
 /*
  * Uncomment this to respond 
@@ -200,8 +188,8 @@ public class AnimSwitchWallPaper extends WallpaperService {
     		}
 		}
 
-        void drawAnim(Canvas c, Bitmap[] pics) {
-        	c.drawBitmap(pics[picIdx], mMatrix, mPaint);
+        void drawAnim(Canvas c, int[] pics) {
+        	c.drawBitmap(BitmapFactory.decodeResource(getResources(), pics[picIdx]), 0, 100, null);
         	++picIdx;
         	if (picIdx == FRONT_RES) picIdx = 0;
         }
@@ -223,9 +211,9 @@ public class AnimSwitchWallPaper extends WallpaperService {
 		private static final int FRONT_RES = 4;
 		private static final int LEFT_RES = 4;
 		private static final int RIGHT_RES = 4;
-		private final Bitmap[] mFrontPics = new Bitmap[FRONT_RES];
-		private final Bitmap[] mRightPics = new Bitmap[RIGHT_RES];
-		private final Bitmap[] mLeftPics = new Bitmap[LEFT_RES];
+		private final int[] mFrontPicIds = new int[FRONT_RES];
+		private final int[] mRightPicIds = new int[RIGHT_RES];
+		private final int[] mLeftPicIds = new int[LEFT_RES];
 
 		private final Runnable mDrawWallpaper = new Runnable() {
 		    public void run() {
