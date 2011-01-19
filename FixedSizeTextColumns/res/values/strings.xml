@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Fixed Size Text Columns</string>
-    <string name="zoom_in">Zoom in</string>
-    <string name="zoom_out">Zoom out</string>
-    <string name="choose_view">Choose View</string>
+    <string name="main_menu_zoom_in">Zoom in</string>
+    <string name="main_menu_zoom_out">Zoom out</string>
+    <string name="main_menu_choose_view">Choose View</string>
 </resources>

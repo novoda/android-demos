@@ -10,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-public class HelloWebView extends Activity {
+public class HelloWebView extends Activity{
 
 	private static final int DIALOG_CHOOSE_VIEW_ID = 0;
 	private WebView webView;
@@ -20,7 +20,7 @@ public class HelloWebView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.webview_main);
-	    webView = (WebView) findViewById(R.id.webview);
+	    webView = (WebView) findViewById(R.id.webview_main);
 	    webView.loadUrl("file:///android_asset/two_columns.html");
 	    fontSize = webView.getSettings().getDefaultFontSize();
 	}
@@ -28,25 +28,30 @@ public class HelloWebView extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.webview_menu, menu);
+	    inflater.inflate(R.menu.webview_main_menu, menu);
 	    return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	    case R.id.zoom_in:
-	    	fontSizePlus();
-	        return true;
-	    case R.id.choose_view:
-	    	showDialog(DIALOG_CHOOSE_VIEW_ID);
-	    	return true;
-	    case R.id.zoom_out:
-	    	fontSizeMinus();
-	        return true;
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
+		boolean result;
+		switch (item.getItemId()) {
+			case R.id.main_menu_zoom_in:
+				fontSizePlus();
+				result = true;
+				break;
+			case R.id.main_menu_choose_view:
+				showDialog(DIALOG_CHOOSE_VIEW_ID);
+				result = true;
+				break;
+			case R.id.main_menu_zoom_out:
+				fontSizeMinus();
+				result = true;
+				break;
+			default:
+				result = super.onOptionsItemSelected(item);
+		}
+		return result;
 	}
 	
 	private void fontSizePlus() {
@@ -61,11 +66,17 @@ public class HelloWebView extends Activity {
 	
 	@Override
 	protected Dialog onCreateDialog(int id) {
+		Dialog dialog = null;
+		
 		switch (id) {
 			case DIALOG_CHOOSE_VIEW_ID:
-				return getChooseViewDialog();
+				dialog = getChooseViewDialog();
+				break;
+			default:
+				dialog = super.onCreateDialog(id);
 		}
-		return null;
+		
+		return dialog;
 	}
 	
 	private Dialog getChooseViewDialog() {
