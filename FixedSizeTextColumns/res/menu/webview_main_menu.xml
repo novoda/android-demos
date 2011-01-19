@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@id/main_menu_zoom_in" android:icon="@drawable/ic_menu_zoom_in"
-		android:title="@string/main_menu_zoom_in" />
-	<item android:id="@id/main_menu_choose_view" android:icon="@drawable/ic_menu_choose_view"
-		android:title="@string/main_menu_choose_view" />
-	<item android:id="@id/main_menu_zoom_out" android:icon="@drawable/ic_menu_zoom_out"
-		android:title="@string/main_menu_zoom_out" />
+	<item android:id="@id/menu_action_zoom_in" android:icon="@drawable/ic_menu_zoom_in"
+		android:title="@string/menu_action_zoom_in" />
+	<item android:id="@id/menu_action_choose_view" android:icon="@drawable/ic_menu_choose_view"
+		android:title="@string/menu_action_choose_view" />
+	<item android:id="@id/menu_action_zoom_out" android:icon="@drawable/ic_menu_zoom_out"
+		android:title="@string/menu_action_zoom_out" />
 </menu>

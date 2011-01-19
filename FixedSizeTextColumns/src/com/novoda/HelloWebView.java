@@ -36,15 +36,15 @@ public class HelloWebView extends Activity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean result;
 		switch (item.getItemId()) {
-			case R.id.main_menu_zoom_in:
+			case R.id.menu_action_zoom_in:
 				fontSizePlus();
 				result = true;
 				break;
-			case R.id.main_menu_choose_view:
+			case R.id.menu_action_choose_view:
 				showDialog(DIALOG_CHOOSE_VIEW_ID);
 				result = true;
 				break;
-			case R.id.main_menu_zoom_out:
+			case R.id.menu_action_zoom_out:
 				fontSizeMinus();
 				result = true;
 				break;
@@ -55,13 +55,11 @@ public class HelloWebView extends Activity{
 	}
 	
 	private void fontSizePlus() {
-	    fontSize++;
-	    webView.getSettings().setDefaultFontSize(fontSize);
+	    webView.getSettings().setDefaultFontSize(++fontSize);
 	}
 
 	private void fontSizeMinus() {
-	    fontSize--;
-	    webView.getSettings().setDefaultFontSize(fontSize);
+	    webView.getSettings().setDefaultFontSize(--fontSize);
 	}
 	
 	@Override

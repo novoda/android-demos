@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<item type="id" name="webview_main"/>
-	<item type="id" name="main_menu_zoom_in"/>
-	<item type="id" name="main_menu_zoom_out"/>
-	<item type="id" name="main_menu_choose_view"/>
+	<item type="id" name="menu_action_zoom_in"/>
+	<item type="id" name="menu_action_zoom_out"/>
+	<item type="id" name="menu_action_choose_view"/>
 </resources>
