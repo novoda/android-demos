@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Pinch Zoom Detector</string>
+	<string name="toast_zooming_started">Zooming Started</string>
+	<string name="toast_zooming_in">Zooming In</string>
+	<string name="toast_zooming_out">Zooming Out</string>
+	<string name="toast_zooming_stopped">Zooming Stopped</string>
+</resources>
+
