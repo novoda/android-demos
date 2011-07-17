@@ -22,8 +22,22 @@ import android.widget.TextView;
 public class Encrypt extends Activity {
 
 	private static final String SECRET_PASSWORD_TO_ENCRYPT = "secretPassword";
-	private static final String TAG = Encrypt.class.getSimpleName();
+	private static final String TAG = "Encrypt";
 	
+    final String CIPHER_TYPE = "PBEWithMD5AndDES/CBC/PKCS5Padding";
+    final String ALGORITHM = "PBEWithMD5AndDES";
+    final String CHARSET = "UTF-8";
+
+    /*
+     * Change string for your app. How you secure this key is up to yourself.
+     * I'm all ears as too suggestions for best practices in securing this key within the app programatically.
+     */
+    final String SECRET_KEY = "some_string";
+    
+    final byte[] SALT = {
+    		(byte) 0x03, (byte) 0x64
+    };
+    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,32 +70,24 @@ public class Encrypt extends Activity {
     }
     
     
-    public String crypt(int mode, String subject) throws Base64DecoderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,  InvalidAlgorithmParameterException, InvalidKeyException, InvalidKeySpecException, NoSuchPaddingException,  BadPaddingException, UnsupportedEncodingException, IllegalBlockSizeException {
-        byte[] salt = {
-        		(byte) 0x03, (byte) 0x64
-        };
-        
-        final String cipherType = "PBEWithMD5AndDES/CBC/PKCS5Padding";
-        final String secretKey = "some_string";
-        final String algorithm = "PBEWithMD5AndDES";
-        final String charset = "UTF-8";
+    public String crypt(int mode, String encryption_subject) throws Base64DecoderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,  InvalidAlgorithmParameterException, InvalidKeyException, InvalidKeySpecException, NoSuchPaddingException,  BadPaddingException, UnsupportedEncodingException, IllegalBlockSizeException {
 
-        final PBEParameterSpec ps = new javax.crypto.spec.PBEParameterSpec(salt, 20);
-		final SecretKeyFactory kf = SecretKeyFactory.getInstance(algorithm);
-		final SecretKey k = kf.generateSecret(new javax.crypto.spec.PBEKeySpec(secretKey.toCharArray()));
-        final Cipher crypter = Cipher.getInstance(cipherType);
+        final PBEParameterSpec ps = new javax.crypto.spec.PBEParameterSpec(SALT, 20);
+		final SecretKeyFactory kf = SecretKeyFactory.getInstance(ALGORITHM);
+		final SecretKey k = kf.generateSecret(new javax.crypto.spec.PBEKeySpec(SECRET_KEY.toCharArray()));
+        final Cipher crypter = Cipher.getInstance(CIPHER_TYPE);
         
         String result;
         
 		switch(mode){
 	        case Cipher.DECRYPT_MODE:
 	        	crypter.init(Cipher.DECRYPT_MODE, k, ps);
-	            result = new String(crypter.doFinal(Base64.decode(subject)), charset);
+	            result = new String(crypter.doFinal(Base64.decode(encryption_subject)), CHARSET);
 	        	break;
 	        case Cipher.ENCRYPT_MODE:
 	        default:
 	        	crypter.init(Cipher.ENCRYPT_MODE, k, ps);
-	            result = Base64.encode(crypter.doFinal(subject.getBytes(charset)));
+	            result = Base64.encode(crypter.doFinal(encryption_subject.getBytes(CHARSET)));
         }
         
         return result;
