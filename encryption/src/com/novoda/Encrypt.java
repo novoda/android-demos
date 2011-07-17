@@ -38,10 +38,10 @@ public class Encrypt extends Activity {
     public String getAsHash(String var) {
         String passwordHashed;
         try {
-            passwordHashed = crypt(Cipher.ENCRYPT_MODE, SECRET_PASSWORD_TO_ENCRYPT);
+            passwordHashed = crypt(Cipher.ENCRYPT_MODE, var);
         } catch (Exception e) {
         	Log.e(TAG, "Problem encrypting string" ,e);
-            passwordHashed = SECRET_PASSWORD_TO_ENCRYPT;
+            passwordHashed = "you should not see this";
 		}
     	return passwordHashed;
     }
