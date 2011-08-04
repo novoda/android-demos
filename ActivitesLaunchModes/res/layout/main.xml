@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@+id/main_layout">
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:id="@+id/header"
+		android:textSize="18sp"
+		android:textStyle="bold"
+		android:textColor="@android:color/white"
+		android:padding="4dp" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/header"
+		android:layout_above="@+id/btn_standard"
+		android:id="@+id/lifecycle_content"
+		android:padding="4dp"
+		android:textSize="15sp"
+		android:scrollbars="vertical"
+		android:textColor="@android:color/white" />
+
+	<LinearLayout
+		android:layout_width="100dp"
+		android:layout_height="fill_parent"
+		android:layout_below="@+id/header"
+		android:layout_above="@+id/btn_standard"
+		android:background="@android:color/white"
+		android:layout_alignParentRight="true"
+		android:layout_margin="4dp"
+		android:padding="2dp"
+		android:gravity="bottom"
+		android:orientation="vertical"
+		android:id="@+id/current_stack_view">
+<!--		<ImageView-->
+<!--			android:layout_width="fill_parent"-->
+<!--			android:layout_height="10dp"-->
+<!--			android:background="@color/red"-->
+<!--			android:layout_margin="2dp" />-->
+<!--		<ImageView-->
+<!--			android:layout_width="fill_parent"-->
+<!--			android:layout_height="10dp"-->
+<!--			android:background="@color/yellow"-->
+<!--			android:layout_margin="2dp"/>-->
+<!--		<ImageView-->
+<!--			android:layout_width="fill_parent"-->
+<!--			android:layout_height="10dp"-->
+<!--			android:background="@color/blue"-->
+<!--			android:layout_margin="2dp" />-->
+<!--		<ImageView-->
+<!--			android:layout_width="fill_parent"-->
+<!--			android:layout_height="10dp"-->
+<!--			android:background="@color/green" -->
+<!--			android:layout_margin="2dp"/>-->
+	</LinearLayout>
+
+	<Button
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/btn_singletop"
+		android:onClick="onStandardClick"
+		android:id="@+id/btn_standard"
+		android:text="standard"
+		android:textColor="@color/green" />
+
+	<Button
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/btn_singletask"
+		android:onClick="onSingleTopClick"
+		android:id="@+id/btn_singletop"
+		android:text="singleTop"
+		android:textColor="@color/blue" />
+
+	<Button
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/btn_singleInstance"
+		android:onClick="onSingleTaskClick"
+		android:id="@+id/btn_singletask"
+		android:text="singleTask"
+		android:textColor="#ff6600" />
+
+	<Button
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:onClick="onSingleInstanceClick"
+		android:id="@+id/btn_singleInstance"
+		android:text="singleInstance"
+		android:textColor="@color/red" />
+
+</RelativeLayout>
