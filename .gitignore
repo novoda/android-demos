@@ -7,6 +7,7 @@ gen
 .project
 default.*
 .settings/*
+**/.settings/*
 build.properties
 .DS_Store
 *.class

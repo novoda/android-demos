@@ -50,12 +50,6 @@ public abstract class BaseActivity extends Activity {
 	};
 	
 	@Override
-	public void onBackPressed() {
-		log();
-		super.onBackPressed();
-	}
-
-	@Override
 	public void onContentChanged() {
 		log();
 		super.onContentChanged();
