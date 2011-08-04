@@ -64,7 +64,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_above="@+id/btn_singletop"
-		android:onClick="onStandardClick"
+		android:onClick="generalOnClick"
 		android:id="@+id/btn_standard"
 		android:text="standard"
 		android:textColor="@color/green" />
@@ -73,7 +73,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_above="@+id/btn_singletask"
-		android:onClick="onSingleTopClick"
+		android:onClick="generalOnClick"
 		android:id="@+id/btn_singletop"
 		android:text="singleTop"
 		android:textColor="@color/blue" />
@@ -82,7 +82,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_above="@+id/btn_singleInstance"
-		android:onClick="onSingleTaskClick"
+		android:onClick="generalOnClick"
 		android:id="@+id/btn_singletask"
 		android:text="singleTask"
 		android:textColor="#ff6600" />
@@ -91,7 +91,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
-		android:onClick="onSingleInstanceClick"
+		android:onClick="generalOnClick"
 		android:id="@+id/btn_singleInstance"
 		android:text="singleInstance"
 		android:textColor="@color/red" />

@@ -14,6 +14,8 @@ public class BaseApplication extends Application{
 	
 	private ActivityManager manager;
 	
+	private boolean intentFilterMode;
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -45,6 +47,14 @@ public class BaseApplication extends Application{
 	
 	public Stack<BaseActivity> getCurrentStack(){
 		return tasks.get(getCurrentTaskId());
+	}
+	
+	public void setIntentFilterMode(boolean mode){
+		intentFilterMode = mode;
+	}
+	
+	public boolean isIntentFilterMode(){
+		return intentFilterMode;
 	}
 	
 }
