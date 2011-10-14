@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- 
+STLYING KEY
+
+	_THEME
+	_WIDTH_HEIGHT  	
+-->
+	<!-- _THEME -->
+    <style name="Theme" parent="android:Theme" />
+    <style name="Theme.Demo" parent="android:style/Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+        <!-- <item name="android:windowContentOverlay">@null</item> -->
+        <item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:windowAnimationStyle">@style/Animation.ActivityTransition</item>
+    </style>
+
+
+    <!-- Base style for animations.  This style specifies no animations. -->
+    <style name="Animation" />
+    
+	<!-- Standard animations for a full-screen window or activity. -->
+    <style name="Animation.ActivityTransition" parent="@android:style/Animation.Activity">
+		<item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_close_enter</item>
+ 		<item name="android:activityCloseExitAnimation">@anim/activity_close_exit</item>
+<!--        <item name="android:taskOpenEnterAnimation">@android:anim/task_open_enter</item> -->
+<!--        <item name="android:taskOpenExitAnimation">@android:anim/task_open_exit</item> -->
+<!--        <item name="android:taskCloseEnterAnimation">@android:anim/task_close_enter</item> -->
+<!--        <item name="android:taskCloseExitAnimation">@android:anim/task_close_exit</item> -->
+<!--        <item name="android:taskToFrontEnterAnimation">@android:anim/task_open_enter</item> -->
+<!--        <item name="android:taskToFrontExitAnimation">@android:anim/task_open_exit</item> -->
+<!--        <item name="android:taskToBackEnterAnimation">@android:anim/task_close_enter</item> -->
+<!--        <item name="android:taskToBackExitAnimation">@android:anim/task_close_exit</item> -->
+<!--        <item name="android:wallpaperOpenEnterAnimation">@android:anim/wallpaper_open_enter</item> -->
+<!--        <item name="android:wallpaperOpenExitAnimation">@android:anim/wallpaper_open_exit</item> -->
+<!--        <item name="android:wallpaperCloseEnterAnimation">@android:anim/wallpaper_close_enter</item> -->
+<!--        <item name="android:wallpaperCloseExitAnimation">@android:anim/wallpaper_close_exit</item> -->
+<!--        <item name="android:wallpaperIntraOpenEnterAnimation">@android:anim/wallpaper_intra_open_enter</item> -->
+<!--        <item name="android:wallpaperIntraOpenExitAnimation">@android:anim/wallpaper_intra_open_exit</item> -->
+<!--        <item name="android:wallpaperIntraCloseEnterAnimation">@android:anim/wallpaper_intra_close_enter</item> -->
+<!--        <item name="android:wallpaperIntraCloseExitAnimation">@android:anim/wallpaper_intra_close_exit</item> -->
+    </style>
+    
+</resources>
