@@ -1,0 +1,284 @@
+{
+    "results":[
+        {
+            "from_user_id_str":"166411715",
+            "profile_image_url":"http://a2.twimg.com/sticky/default_profile_images/default_profile_5_normal.png",
+            "created_at":"Sat, 29 Jan 2011 12:55:53 +0000",
+            "from_user":"javinpaul",
+            "id_str":"31334717215215616",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Cajo, the easiest way to accomplish distributed computing in Java http://t.co/lRVcMIB via @AddThis",
+            "id":31334717215215616,
+            "from_user_id":166411715,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitter.com/tweetbutton&quot; rel=&quot;nofollow&quot;&gt;Tweet Button&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"156448494",
+            "profile_image_url":"http://a0.twimg.com/profile_images/332590072/me_normal.jpg",
+            "created_at":"Sat, 29 Jan 2011 12:13:29 +0000",
+            "from_user":"stoimenpopov",
+            "id_str":"31324047023284224",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Programming Android Online Book http://t.co/2hcqGYI",
+            "id":31324047023284224,
+            "from_user_id":156448494,
+            "geo":null,
+            "iso_language_code":"nl",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitter.com/tweetbutton&quot; rel=&quot;nofollow&quot;&gt;Tweet Button&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"27450865",
+            "profile_image_url":"http://a0.twimg.com/profile_images/742522411/me-grey_normal.jpg",
+            "created_at":"Fri, 28 Jan 2011 20:13:30 +0000",
+            "from_user":"trevorhinson",
+            "id_str":"31082460104097792",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Java Code Geeks Aspect Oriented Programming with Spring AOP ... http://bit.ly/gBaRoe",
+            "id":31082460104097792,
+            "from_user_id":27450865,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://www.trevorhinson.com&quot; rel=&quot;nofollow&quot;&gt;Trevor Hinson&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"142160370",
+            "profile_image_url":"http://a0.twimg.com/profile_images/1107027237/fsznajdermanAvatar_normal.jpg",
+            "created_at":"Fri, 28 Jan 2011 15:04:21 +0000",
+            "from_user":"fsznajderman",
+            "id_str":"31004660080836608",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"#FF @Yapiroo @antoine_sd @Abderrazakk @aheritier @fsarradin @SlimTebourbi @jverrecchia @javacodegeeks @chanezon",
+            "id":31004660080836608,
+            "from_user_id":142160370,
+            "geo":null,
+            "iso_language_code":"fr",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://seesmic.com/app&quot; rel=&quot;nofollow&quot;&gt;Seesmic Web&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"26704",
+            "profile_image_url":"http://a2.twimg.com/profile_images/54576135/glider_normal.png",
+            "created_at":"Fri, 28 Jan 2011 12:20:19 +0000",
+            "from_user":"yamanetoshi",
+            "id_str":"30963377899569153",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Java Code Geeks: Programming Android Online Book: Java Code Geeks: Programming Android Online BookWednesday, 26 ... http://bit.ly/gZ0BOD",
+            "id":30963377899569153,
+            "from_user_id":26704,
+            "geo":null,
+            "iso_language_code":"nl",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitterfeed.com&quot; rel=&quot;nofollow&quot;&gt;twitterfeed&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"24851557",
+            "profile_image_url":"http://a2.twimg.com/profile_images/935457246/3-Speed_Intestellar_Cruiser-Layout1_normal.jpg",
+            "created_at":"Fri, 28 Jan 2011 08:39:00 +0000",
+            "from_user":"rpreibold",
+            "id_str":"30907683796156416",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Cajo, the easiest way to accomplish distributed computing in Java ...: \u201cDistributed computing is becoming increa... http://bit.ly/e7krIx",
+            "id":30907683796156416,
+            "from_user_id":24851557,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitterfeed.com&quot; rel=&quot;nofollow&quot;&gt;twitterfeed&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"175079023",
+            "profile_image_url":"http://a3.twimg.com/profile_images/1175975504/DukeWithRedStrat-small_normal.png",
+            "created_at":"Fri, 28 Jan 2011 05:44:09 +0000",
+            "from_user":"marceldullaart",
+            "id_str":"30863681898151937",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Google humor: &quot;@javacodegeeks: Android API includes a WTF log method! It stands for What a Terrible Failure, lol http://bit.ly/9XhrcG\u201d",
+            "id":30863681898151937,
+            "from_user_id":175079023,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitter.com/&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"8617734",
+            "profile_image_url":"http://a3.twimg.com/profile_images/344837501/ChipAnd_Rufus_normal.jpg",
+            "created_at":"Thu, 27 Jan 2011 23:48:56 +0000",
+            "from_user":"chipzt",
+            "id_str":"30774288508260352",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"RT @javacodegeeks: Cajo, the easiest way to accomplish distributed computing in Java http://goo.gl/fb/q4R5R",
+            "id":30774288508260352,
+            "from_user_id":8617734,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://www.google.com/support/youtube/bin/answer.py?hl=en&amp;answer=164577&quot; rel=&quot;nofollow&quot;&gt;Google&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"153214018",
+            "profile_image_url":"http://a1.twimg.com/profile_images/1228115665/avatar-fear-the-bunny_normal.jpg",
+            "created_at":"Thu, 27 Jan 2011 22:37:22 +0000",
+            "from_user":"pen7agram",
+            "id_str":"30756277718097920",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Java Code Geeks: Programming Android Online Book http://t.co/q2u87eU",
+            "id":30756277718097920,
+            "from_user_id":153214018,
+            "geo":null,
+            "iso_language_code":"nl",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitter.com/tweetbutton&quot; rel=&quot;nofollow&quot;&gt;Tweet Button&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"122831839",
+            "profile_image_url":"http://a2.twimg.com/profile_images/1177403124/logo_jcg_73x73_normal.png",
+            "created_at":"Thu, 27 Jan 2011 21:46:30 +0000",
+            "from_user":"javacodegeeks",
+            "id_str":"30743475129417728",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Cajo, the easiest way to accomplish distributed computing in Java http://goo.gl/fb/q4R5R",
+            "id":30743475129417728,
+            "from_user_id":122831839,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://www.google.com/support/youtube/bin/answer.py?hl=en&amp;answer=164577&quot; rel=&quot;nofollow&quot;&gt;Google&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"167141194",
+            "profile_image_url":"http://a0.twimg.com/profile_images/1148255502/BLiNC_logo_normal.png",
+            "created_at":"Thu, 27 Jan 2011 19:03:07 +0000",
+            "from_user":"baselogic",
+            "id_str":"30702359977918464",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"#java Aspect Oriented Programming with Spring AOP: Java Code Geeks http://bit.ly/dYaWm5 jb",
+            "id":30702359977918464,
+            "from_user_id":167141194,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitterfeed.com&quot; rel=&quot;nofollow&quot;&gt;twitterfeed&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"122831839",
+            "profile_image_url":"http://a2.twimg.com/profile_images/1177403124/logo_jcg_73x73_normal.png",
+            "created_at":"Thu, 27 Jan 2011 18:43:25 +0000",
+            "from_user":"javacodegeeks",
+            "id_str":"30697402478370817",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Aspect Oriented Programming Spring AOP http://goo.gl/fb/Ag8GD",
+            "id":30697402478370817,
+            "from_user_id":122831839,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://www.google.com/support/youtube/bin/answer.py?hl=en&amp;answer=164577&quot; rel=&quot;nofollow&quot;&gt;Google&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"146737491",
+            "profile_image_url":"http://a1.twimg.com/profile_images/1160209343/maggy_avatar_hand_normal.png",
+            "created_at":"Thu, 27 Jan 2011 18:10:10 +0000",
+            "from_user":"maggyX84",
+            "id_str":"30689035584282624",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"RT @javacodegeeks: Programming Android Online Book http://goo.gl/fb/4bFjG",
+            "id":30689035584282624,
+            "from_user_id":146737491,
+            "geo":null,
+            "iso_language_code":"nl",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://www.google.com/support/youtube/bin/answer.py?hl=en&amp;answer=164577&quot; rel=&quot;nofollow&quot;&gt;Google&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"142160370",
+            "profile_image_url":"http://a0.twimg.com/profile_images/1107027237/fsznajdermanAvatar_normal.jpg",
+            "created_at":"Thu, 27 Jan 2011 17:43:10 +0000",
+            "from_user":"fsznajderman",
+            "id_str":"30682238626562048",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"Android Quick Preferences Tutorial http://bit.ly/hyNSEE",
+            "id":30682238626562048,
+            "from_user_id":142160370,
+            "geo":null,
+            "iso_language_code":"en",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;"
+        },
+        {
+            "from_user_id_str":"15058226",
+            "profile_image_url":"http://a1.twimg.com/profile_images/461496225/marcoerikestrada3wb_normal.jpg",
+            "created_at":"Thu, 27 Jan 2011 15:21:05 +0000",
+            "from_user":"Han_Cholo",
+            "id_str":"30646481841033216",
+            "metadata":{
+                "result_type":"recent"
+            },
+            "to_user_id":null,
+            "text":"RT @javacodegeeks: Programming Android Online Book http://goo.gl/fb/4bFjG",
+            "id":30646481841033216,
+            "from_user_id":15058226,
+            "geo":null,
+            "iso_language_code":"nl",
+            "to_user_id_str":null,
+            "source":"&lt;a href=&quot;http://www.twittergadget.com&quot; rel=&quot;nofollow&quot;&gt;tGadget&lt;/a&gt;"
+        }
+    ],
+    "max_id":31335751476056064,
+    "since_id":0,
+    "refresh_url":"?since_id=31335751476056064&q=javacodegeeks",
+    "next_page":"?page=2&max_id=31335751476056064&q=javacodegeeks",
+    "results_per_page":15,
+    "page":1,
+    "completed_in":0.169141,
+    "since_id_str":"0",
+    "max_id_str":"31335751476056064",
+    "query":"javacodegeeks"
+}
