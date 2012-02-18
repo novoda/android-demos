@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="novoda.demo.fragments.list"
+	android:versionCode="55"
+	android:versionName="3.5.1">
+
+    <uses-sdk
+    	android:minSdkVersion="4"
+    	android:targetSdkVersion="13"/>
+
+    <application
+    	android:icon="@drawable/ic_launcher"
+    	android:label="@string/application_label"
+		android:theme="@android:style/Theme.NoTitleBar">
+
+		<activity
+			android:name=".activities.List"
+			android:label="@string/application_label">
+			
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:name=".activities.Details" />
+		
+    </application>
+</manifest>
