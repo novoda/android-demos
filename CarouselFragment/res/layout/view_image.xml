@@ -42,7 +42,7 @@
         android:layout_height="40dip"
         android:background="#cc000000"
         android:scaleType="fitXY"
-        android:src="@drawable/panoramio_logo" />
+        android:src="@drawable/novoda_bot" />
 
     <TextView
         android:id="@+id/title_1"
