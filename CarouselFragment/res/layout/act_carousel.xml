@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:id="@+id/featured"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:textSize="200sp"
+        android:text="1"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <FrameLayout
+        android:id="@+id/carousel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#88000000"
+        android:layout_gravity="bottom"
+        android:focusable="true" />
+
+</FrameLayout>

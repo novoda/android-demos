@@ -29,18 +29,16 @@ class GalleryAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 987654l;
+        return position;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         if (convertView == null) {
-            // Make up a new view
             final LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.gallery_item, null);
+            view = inflater.inflate(R.layout.carousel_gallery_li, null);
         } else {
-            // Use convertView if it is available
             view = convertView;
         }
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);

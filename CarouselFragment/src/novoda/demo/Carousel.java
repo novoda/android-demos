@@ -28,12 +28,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Gallery;
+import android.widget.TextView;
 
-public class CarouselActivity extends Activity {
+public class Carousel extends Activity {
 
     private static int count;
 
-    private int visibleItemIndex;
+    private int selectedCarouselItemIndex;
+
+	private TextView featuredId;
 
     private static Context mContext;
 
@@ -44,7 +47,8 @@ public class CarouselActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         mContext = this;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_image);
+        setContentView(R.layout.act_carousel);
+        featuredId = (TextView)findViewById(R.id.featured);
     }
 
     @Override
@@ -52,10 +56,7 @@ public class CarouselActivity extends Activity {
 	    switch (keyCode) {
 	    case KeyEvent.KEYCODE_MEDIA_REWIND:
 	    case KeyEvent.KEYCODE_DPAD_LEFT: {
-	        fragment = CarouselFragment.newInstance(visibleItemIndex - 1);
-	
-	        // Execute a transaction, replacing any existing fragment
-	        // with this one inside the frame.
+	        fragment = CarouselFragment.newInstance(selectedCarouselItemIndex - 1);
 	        FragmentTransaction ft = getFragmentManager().beginTransaction();
 	        ft.replace(R.id.carousel, fragment);
 	        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -66,10 +67,7 @@ public class CarouselActivity extends Activity {
 	    case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
 	    case KeyEvent.KEYCODE_DPAD_RIGHT: {
 	       
-	        fragment = CarouselFragment.newInstance(visibleItemIndex + 1);
-	
-	        // Execute a transaction, replacing any existing fragment
-	        // with this one inside the frame.
+	        fragment = CarouselFragment.newInstance(selectedCarouselItemIndex + 1);
 	        FragmentTransaction ft = getFragmentManager().beginTransaction();
 	        ft.replace(R.id.carousel, fragment);
 	        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -79,10 +77,7 @@ public class CarouselActivity extends Activity {
 	    }
 	    case KeyEvent.KEYCODE_DPAD_DOWN: {
 	        
-	        fragment = CarouselFragment.newInstance(visibleItemIndex);
-	
-	        // Execute a transaction, replacing any existing fragment
-	        // with this one inside the frame.
+	        fragment = CarouselFragment.newInstance(selectedCarouselItemIndex);
 	        FragmentTransaction ft = getFragmentManager().beginTransaction();
 	        ft.replace(R.id.carousel, fragment);
 	        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -117,14 +112,14 @@ public class CarouselActivity extends Activity {
 	    public View onCreateView(
 	            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	        super.onCreateView(inflater, container, savedInstanceState);
-	        Gallery gallery = (Gallery) inflater.inflate(R.layout.image_gallery, null);
+	        Gallery gallery = (Gallery) inflater.inflate(R.layout.carousel_gallery, null);
 	
 	        // In dual-pane mode, the list view highlights the selected item.
 	        gallery.setAdapter(new GalleryAdapter(mContext));
 	        gallery.setOnItemClickListener(new OnItemClickListener() {
 	            public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 	                count = position;
-//	                ((CarouselActivity) mContext).showImage();
+	                ((Carousel) mContext).setSelectedId(id);
 	                FragmentTransaction ft = getFragmentManager().beginTransaction();
 	                ft.hide(fragment);
 	                ft.commit();
@@ -136,5 +131,9 @@ public class CarouselActivity extends Activity {
 	
 	        return gallery;
 	    }
+	}
+
+	protected void setSelectedId(long id) {
+		featuredId.setText(Long.toString(id));
 	}
 }
