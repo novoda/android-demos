@@ -1,1 +1,1 @@
-Make sure to link LeftNavBarlibrary to the LeftNavBarExample project!
+Make sure to link LeftNavBarLibrary to the LeftNavBarExample project!
