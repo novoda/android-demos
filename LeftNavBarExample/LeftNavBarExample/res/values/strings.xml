@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, CarouselActivity!</string>
+    <string name="app_name">LeftNavBarExample</string>
+    <string name="item_text">Item</string>
+    <string name="taba">Tab A</string>
+    <string name="tabb">Tab B</string>
+    <string name="tabc">Tab C</string>
+    <string name="tabd">Tab D</string>
+
+</resources>
