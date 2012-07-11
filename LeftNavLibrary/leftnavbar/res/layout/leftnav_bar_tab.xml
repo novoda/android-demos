@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.example.google.tv.leftnavbar.TabFrame xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.tv.leftnavbar.TabFrame xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/leftnav_bar_tab"
     style="@style/Widget.ActionBarView_TabView"
     android:layout_width="match_parent"
@@ -42,4 +42,4 @@
         android:duplicateParentState="true"
         />
 
-</com.example.google.tv.leftnavbar.TabFrame>
+</com.google.tv.leftnavbar.TabFrame>

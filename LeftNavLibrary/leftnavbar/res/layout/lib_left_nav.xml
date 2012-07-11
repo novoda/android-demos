@@ -15,7 +15,7 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <com.example.google.tv.leftnavbar.LeftNavView xmlns:android="http://schemas.android.com/apk/res/android"   android:id="@+id/left_nav"
+  <com.google.tv.leftnavbar.LeftNavView xmlns:android="http://schemas.android.com/apk/res/android"   android:id="@+id/left_nav"
         style="@android:style/Widget.Holo.ActionBar"
         android:layout_width="@dimen/left_nav_collapsed_apparent_width"
         android:layout_height="match_parent" 

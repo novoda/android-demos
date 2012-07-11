@@ -15,7 +15,7 @@
 -->
  <merge xmlns:android="http://schemas.android.com/apk/res/android">
  
- <com.example.google.tv.leftnavbar.TitleBarView xmlns:android="http://schemas.android.com/apk/res/android"  android:id="@+id/title_container"
+ <com.google.tv.leftnavbar.TitleBarView xmlns:android="http://schemas.android.com/apk/res/android"  android:id="@+id/title_container"
         style="?android:attr/windowTitleBackgroundStyle"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/title_bar_height"
