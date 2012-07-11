@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.google.tv.leftnavbar</groupId>
     <artifactId>leftnavbar-lib-parent</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>leftnavbar-lib</artifactId>

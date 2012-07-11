@@ -9,7 +9,7 @@
 
   <groupId>com.google.tv.leftnavbar</groupId>
   <artifactId>leftnavbar-lib-parent</artifactId>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>leftnavbar-lib-parent</name>
 
