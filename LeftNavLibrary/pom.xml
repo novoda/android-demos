@@ -36,8 +36,8 @@
 
   <scm>
     <url>http://github.com/novoda/Commons/tree/${scm.branch}</url>
-    <connection>scm:git:git://github.com/novoda/Commons.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/novoda/Commons.git</developerConnection>
+    <connection>scm:git:git://github.com/novoda/android.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/novoda/android.git</developerConnection>
   </scm>
 
 
