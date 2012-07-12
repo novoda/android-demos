@@ -6,6 +6,8 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="15" />
+    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -20,6 +22,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Receivers -->
+
+        <receiver android:name="com.novoda.location.receiver.LocationChanged" >
+            <intent-filter>
+                <action android:name="com.novoda.location.ACTIVE_LOCATION_UPDATE_ACTION" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.novoda.location.receiver.PassiveLocationChanged" />
+        
+        <receiver
+            android:name="com.novoda.location.receiver.UnregisterPassiveListenerOnLostConnectivity"
+            enabled="false" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.novoda.location.receiver.UnregisterPassiveListenerOnLowBattery" >
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.novoda.location.receiver.RestorePassiveListenerBoot" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        
     </application>
 
 </manifest>
