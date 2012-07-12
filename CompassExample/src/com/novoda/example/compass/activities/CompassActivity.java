@@ -1,4 +1,8 @@
-package com.novoda.example.compass;
+package com.novoda.example.compass.activities;
+
+import com.novoda.example.compass.R;
+import com.novoda.example.compass.R.layout;
+import com.novoda.example.compass.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
