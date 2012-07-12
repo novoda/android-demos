@@ -22,5 +22,4 @@ public class CompassActivity extends Activity {
         return true;
     }
 
-    
 }

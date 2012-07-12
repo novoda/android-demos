@@ -7,12 +7,11 @@ import com.novoda.location.LocatorSettings;
 import android.app.Application;
 
 public class NovoCompass extends Application {
-    
-    
+
     public static final String PACKAGE_NAME = "com.novoda.example.compass";
     public static final String LOCATION_UPDATE_ACTION = "com.com.novoda.example.compas.ACTION_FRESH_LOCATION";
     private Locator locator;
-    
+
     @Override
     public void onCreate() {
         super.onCreate();
