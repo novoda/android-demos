@@ -37,6 +37,9 @@ public abstract class BasicSensorActivity extends SherlockFragmentActivity imple
     private SensorManager sensorManager;
     private Sensor acclSensor;
     private Sensor magFieldSensor;
+    
+    private double bearing = 0;
+    private int rotationDegrees = 0;
 
 
     public BroadcastReceiver freshLocationReceiver = new BroadcastReceiver() {
@@ -152,7 +155,24 @@ public abstract class BasicSensorActivity extends SherlockFragmentActivity imple
             floatBearing += magField.getDeclination();
         if (floatBearing < 0)
             floatBearing += 360;
-        //GlobalData.setBearing((int) floatBearing);
+        setBearing(floatBearing);
+        setRotationInDegrees(floatBearing);
+    }
+
+    private void setRotationInDegrees(double floatBearing) {
+        this.bearing = floatBearing;        
+    }
+
+    private void setBearing(double floatBearing) {
+       this.rotationDegrees =  (int)(360 - floatBearing);
+    }
+    
+    public int getRotation(){
+        return rotationDegrees;
+    }
+    
+    public double getBearing(){
+        return bearing;
     }
 
     private void setmagValues(SensorEvent event) {
