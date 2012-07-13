@@ -3,6 +3,7 @@
     <string name="app_name">CompassExample</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="menu_enable_compass_rotation">Use compass to rotate</string>    
     <string name="title_activity_compass">Compass</string>
 
 </resources>

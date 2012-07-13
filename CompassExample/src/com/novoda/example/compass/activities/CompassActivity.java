@@ -1,55 +1,60 @@
 package com.novoda.example.compass.activities;
 
+import com.actionbarsherlock.view.Menu;
 import com.novoda.example.compass.R;
+import com.novoda.example.compass.utils.CompassUtils;
 
-import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CompassActivity extends BasicSensorActivity {
+
+    private boolean isCompassEnabled;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
-        
+        isCompassEnabled = false;
+        refreshText();
     }
-    
+
+    private void refreshText() {
+        String text = isCompassEnabled ? (" Direction = " + CompassUtils.getDirectionFromBearing(getBearing())
+                + " Rotation in degress " + getRotation()) : "Compass disabled";
+        updateText(text);
+    }
+
     @Override
     public void onSensorChanged(SensorEvent evt) {
         super.onSensorChanged(evt);
-        updateText();
+        refreshText();
     }
 
-    private void updateText() {
-        TextView text = (TextView)findViewById(android.R.id.text1);
-        String dirTxt = getDirectionFromBearing(getBearing());
-        text.setText(" Direction = " + dirTxt + " Rotation in degress " + getRotation());
-        
+    private void updateText(String textString) {
+        TextView text = (TextView) findViewById(android.R.id.text1);
+        text.setText(textString);
     }
 
-    private String getDirectionFromBearing(double bearing) {
-        int range = (int) (bearing / (360f / 16f));
-        String dirTxt = "";
-        if (range == 15 || range == 0)
-            dirTxt = "N";
-        else if (range == 1 || range == 2)
-            dirTxt = "NE";
-        else if (range == 3 || range == 4)
-            dirTxt = "E";
-        else if (range == 5 || range == 6)
-            dirTxt = "SE";
-        else if (range == 7 || range == 8)
-            dirTxt = "S";
-        else if (range == 9 || range == 10)
-            dirTxt = "SW";
-        else if (range == 11 || range == 12)
-            dirTxt = "W";
-        else if (range == 13 || range == 14)
-            dirTxt = "NW";
-        return dirTxt;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.activity_compass, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_enable_compass_rotation:
+            isCompassEnabled = !isCompassEnabled;
+            String text = isCompassEnabled ? "Compass rotation has been enabled!"
+                    : "Compass rotation has been disabled";
+            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
