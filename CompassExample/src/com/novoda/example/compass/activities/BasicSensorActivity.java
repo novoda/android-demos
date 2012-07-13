@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.novoda.example.compass.NovoCompass;
+import com.novoda.example.compass.utils.CompassUtils;
 import com.novoda.example.compass.utils.LowPassFilter;
 import com.novoda.location.exception.NoProviderAvailable;
 
@@ -164,7 +165,7 @@ public abstract class BasicSensorActivity extends SherlockFragmentActivity imple
     }
 
     private void setBearing(double floatBearing) {
-       this.rotationDegrees =  (int)(360 - floatBearing);
+       this.rotationDegrees = CompassUtils.getRotationDegreesFromBearing(floatBearing);
     }
     
     public int getRotation(){
