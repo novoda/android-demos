@@ -8,16 +8,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
-public class RotatedImageView extends View implements SensorEventListener {
+public class RotatedImageView extends View {
 
     private static final int INVALID_POINTER_ID = -1;
 
@@ -341,17 +338,6 @@ public class RotatedImageView extends View implements SensorEventListener {
 
     public void updateCompassDegrees(float degrees) {
         compass_degrees = -degrees;
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        // TODO Auto-generated method stub
         invalidate();
     }
 

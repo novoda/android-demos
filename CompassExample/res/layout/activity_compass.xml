@@ -1,16 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+  android:layout_height="match_parent" android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id="@android:id/text1"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/hello_world"
-        tools:context=".CompassActivity" />
+  <TextView android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@android:id/text1"
+    android:padding="@dimen/padding_medium" android:layout_weight="10" />
 
-</RelativeLayout>
+  <com.novoda.example.compass.view.RotatedImageView
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_weight="1" android:id="@+id/image" />
+
+
+</LinearLayout>
