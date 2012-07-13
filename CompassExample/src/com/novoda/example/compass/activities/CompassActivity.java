@@ -3,6 +3,7 @@ package com.novoda.example.compass.activities;
 import com.actionbarsherlock.view.Menu;
 import com.novoda.example.compass.R;
 import com.novoda.example.compass.utils.CompassUtils;
+import com.novoda.example.compass.view.RotatableImageView;
 import com.novoda.example.compass.view.RotatedImageView;
 
 import android.hardware.SensorEvent;
@@ -13,13 +14,13 @@ import android.widget.Toast;
 public class CompassActivity extends BasicSensorActivity {
 
     private boolean isCompassEnabled;
-    private RotatedImageView image;
+    private RotatableImageView image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
-         image = (RotatedImageView) findViewById(R.id.image);
+         image = (RotatableImageView) findViewById(R.id.image);
         isCompassEnabled = false;
         refreshText();
     }
@@ -32,7 +33,7 @@ public class CompassActivity extends BasicSensorActivity {
     
     private void refreshImageRotation() {
         if (isCompassEnabled){ 
-            image.updateCompassDegrees(getRotation());
+            image.setRotationInDegrees(getRotation());
         }
     }
 
@@ -61,7 +62,7 @@ public class CompassActivity extends BasicSensorActivity {
         switch (item.getItemId()) {
         case R.id.menu_enable_compass_rotation:
             isCompassEnabled = !isCompassEnabled;
-            image.setCompassActivated(isCompassEnabled, getRotation());
+            image.useCompassToRotate(isCompassEnabled);
             String text = isCompassEnabled ? "Compass rotation has been enabled!"
                     : "Compass rotation has been disabled";
             Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();

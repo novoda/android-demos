@@ -6,7 +6,7 @@
     android:layout_height="match_parent" android:id="@android:id/text1"
     android:padding="@dimen/padding_medium" android:layout_weight="10" />
 
-  <com.novoda.example.compass.view.RotatedImageView
+  <com.novoda.example.compass.view.RotatableImageView
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:layout_weight="1" android:id="@+id/image" />
 
