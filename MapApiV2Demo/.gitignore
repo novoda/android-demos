@@ -8,29 +8,34 @@
 # Java class files
 *.class
 
+# Jar files
+*.jar
+
+#ApkLibs
+*.apklib
+
 # generated files
 bin/
 gen/
-out/
 
 # Local configuration file (sdk path, etc)
 local.properties
+project.properties
+default.properties
 
-.project
-.classpath
-.settings
-target/
-libs/
 classes/
-gen-external-apklibs/
 
-# IDEA Ignores
+
+#IntelliJ IDEA#
 *.iml
 *.ipr
 *.iws
-.idea/
-local.properties
-project.properties
+.idea
+target
 
-# MAC
-*.DS_Store
+#Eclipse#
+.settings
+.classpath
+.project
+app/gen-external-apklibs/
+*.orig
