@@ -30,7 +30,7 @@
 
     <receiver
       android:name="com.novoda.location.receiver.UnregisterPassiveListenerOnLostConnectivity"
-      enabled="false">
+      android:enabled="false">
       <intent-filter>
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
       </intent-filter>
