@@ -1,3 +1,4 @@
-include 'CustomActivityTransition'
 include 'CarouselFragment'
-//include 'CompassExample'
+include 'ContactSelector'
+include 'CustomActivityTransition'
+include 'CustomTabsHack'
