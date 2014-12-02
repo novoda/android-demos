@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.novoda"
-        minSdkVersion 3
+        minSdkVersion 7
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
