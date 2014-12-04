@@ -12,6 +12,8 @@
 bin/
 gen/
 out/
+build.log
+build-log.xml
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -23,6 +25,8 @@ target/
 libs/
 classes/
 gen-external-apklibs/
+build/
+tmp/
 
 # IDEA Ignores
 *.iml
@@ -31,6 +35,10 @@ gen-external-apklibs/
 .idea/
 local.properties
 project.properties
+.gradle/
 
 # MAC
 *.DS_Store
+
+build
+lint-results.xml
