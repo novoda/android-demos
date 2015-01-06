@@ -17,10 +17,7 @@
 	package="com.example.google.tv.leftnavbar">
 	
 	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="12" />
-	
-	<application android:label="LeftNavBarLibrary">
 
-		
-	</application>
+  <application />
 
 </manifest>
