@@ -77,8 +77,7 @@ public class LeftNavBar extends ActionBar {
      * Display options applied by default.
      */
     public static final int DEFAULT_DISPLAY_OPTIONS = ActionBar.DISPLAY_SHOW_HOME
-            | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE
-            | LeftNavBar.DISPLAY_ALWAYS_EXPANDED;
+            | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE;
 
     private Context mContext;
 
