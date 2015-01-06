@@ -26,3 +26,4 @@ project(':PushNotifications').projectDir = new File('PushNotifications/c2dm_urba
 include 'simperAudioStreamer'
 include 'sms'
 include 'TabHostExample'
+include 'TabHostMultipleActivityBrowsing'

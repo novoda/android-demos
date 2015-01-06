@@ -1,0 +1,14 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.novoda"
+        minSdkVersion 3
+        targetSdkVersion 16
+        versionCode 1
+        versionName "1.0"
+    }
+}
