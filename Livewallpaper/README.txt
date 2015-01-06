@@ -1,1 +1,0 @@
-Since Android 2.1
