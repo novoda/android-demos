@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.novoda.urbanairship.demo"
         minSdkVersion 14
-        targetSdkVersion 16
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
