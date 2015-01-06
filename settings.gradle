@@ -22,5 +22,6 @@ include 'MultipleContacts'
 include 'MultpileActivityTabHost'
 include 'PinchZoomDetector'
 include 'PushNotifications'
-project(':PushNotifications').projectDir = new File('PushNotifications/c2dm_urban_airship') 
+project(':PushNotifications').projectDir = new File('PushNotifications/c2dm_urban_airship')
 include 'simperAudioStreamer'
+include 'sms'
