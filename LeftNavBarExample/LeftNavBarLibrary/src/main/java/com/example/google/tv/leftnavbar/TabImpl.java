@@ -37,6 +37,7 @@ abstract class TabImpl extends Tab {
     private Object mTag;
     private Drawable mIcon;
     private CharSequence mText;
+    private CharSequence mContentDescription;
     private int mPosition;
     private View mCustomView;
 
@@ -97,6 +98,11 @@ abstract class TabImpl extends Tab {
     }
 
     @Override
+    public CharSequence getContentDescription() {
+        return mContentDescription;
+    }
+
+    @Override
     public Tab setIcon(Drawable icon) {
         mIcon = icon;
         return this;
@@ -108,14 +114,25 @@ abstract class TabImpl extends Tab {
     }
 
     @Override
+    public Tab setText(int resId) {
+        return setText(mContext.getResources().getText(resId));
+    }
+
+    @Override
     public Tab setText(CharSequence text) {
         mText = text;
         return this;
     }
 
     @Override
-    public Tab setText(int resId) {
-        return setText(mContext.getResources().getText(resId));
+    public Tab setContentDescription(int resId) {
+        return setContentDescription(mContext.getResources().getText(resId));
+    }
+
+    @Override
+    public Tab setContentDescription(CharSequence contentDesc) {
+        mContentDescription = contentDesc;
+        return this;
     }
 
     //----------------------------------------------------------------------------------------------
