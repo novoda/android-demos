@@ -16,7 +16,6 @@
 
 package com.example.google.tv.leftnavbar;
 
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
@@ -445,6 +444,26 @@ public class LeftNavBar extends ActionBar {
     @Override
     public void setCustomView(int resId) {
         setCustomView(LayoutInflater.from(mContext).inflate(resId, mLeftNav, false));
+    }
+
+    @Override
+    public void setIcon(int resId) {
+        // Ignored in this example
+    }
+
+    @Override
+    public void setIcon(Drawable icon) {
+        // Ignored in this example
+    }
+
+    @Override
+    public void setLogo(int resId) {
+        // Ignored in this example
+    }
+
+    @Override
+    public void setLogo(Drawable logo) {
+        // Ignored in this example
     }
 
     // ----------------------------------------------------------------------------------------------
