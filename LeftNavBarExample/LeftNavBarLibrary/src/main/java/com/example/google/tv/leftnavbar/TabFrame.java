@@ -27,7 +27,7 @@ import android.widget.TextView;
 /**
  * Container for tabs, responsible for handling events and setting the correct state.
  */
-class TabFrame extends LinearLayout {
+public class TabFrame extends LinearLayout {
 
     private boolean mConfigured;
     private boolean mIsCustom;
