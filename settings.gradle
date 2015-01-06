@@ -25,3 +25,4 @@ include 'PushNotifications'
 project(':PushNotifications').projectDir = new File('PushNotifications/c2dm_urban_airship')
 include 'simperAudioStreamer'
 include 'sms'
+include 'TabHostExample'
