@@ -19,3 +19,4 @@ include 'LivewallpaperSwitchLeftRight'
 project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/switch_leftright') 
 include 'MapApiV2Demo'
 include 'MultipleContacts'
+include 'MultpileActivityTabHost'
