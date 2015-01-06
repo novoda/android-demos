@@ -17,3 +17,4 @@ include 'LivewallpaperSwitchAnimation'
 project(':LivewallpaperSwitchAnimation').projectDir = new File('Livewallpaper/switch_animation') 
 include 'LivewallpaperSwitchLeftRight'
 project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/switch_leftright') 
+include 'MapApiV2Demo'

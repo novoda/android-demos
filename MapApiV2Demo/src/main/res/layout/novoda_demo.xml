@@ -4,13 +4,13 @@
               style="@style/Match"
               android:orientation="vertical">
 
-  <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+  <fragment 
             android:id="@+id/map"
             style="@style/Match"
             android:layout_weight="0.2"
             android:name="com.novoda.mapdemo.fragment.NovodaMapFragment"/>
 
-  <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+  <fragment 
             android:id="@+id/image_fragment"
             style="@style/Match"
             android:layout_weight="0.8"
