@@ -13,3 +13,7 @@ project(':LeftNavBarLibrary').projectDir = new File('LeftNavBarExample/LeftNavBa
 include 'LeftNavBarExample'
 project(':LeftNavBarExample').projectDir = new File('LeftNavBarExample/Example') 
 include 'ListStyles'
+include 'LivewallpaperSwitchAnimation'
+project(':LivewallpaperSwitchAnimation').projectDir = new File('Livewallpaper/switch_animation') 
+include 'LivewallpaperSwitchLeftRight'
+project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/switch_leftright') 
