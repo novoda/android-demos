@@ -20,3 +20,4 @@ project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/sw
 include 'MapApiV2Demo'
 include 'MultipleContacts'
 include 'MultpileActivityTabHost'
+include 'PinchZoomDetector'
