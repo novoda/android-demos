@@ -12,3 +12,4 @@ include 'LeftNavBarLibrary'
 project(':LeftNavBarLibrary').projectDir = new File('LeftNavBarExample/LeftNavBarLibrary') 
 include 'LeftNavBarExample'
 project(':LeftNavBarExample').projectDir = new File('LeftNavBarExample/Example') 
+include 'ListStyles'
