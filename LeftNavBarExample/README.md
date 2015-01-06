@@ -1,1 +1,0 @@
-Make sure to link LeftNavBarLibrary to the LeftNavBarExample project!
