@@ -18,3 +18,4 @@ project(':LivewallpaperSwitchAnimation').projectDir = new File('Livewallpaper/sw
 include 'LivewallpaperSwitchLeftRight'
 project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/switch_leftright') 
 include 'MapApiV2Demo'
+include 'MultipleContacts'
