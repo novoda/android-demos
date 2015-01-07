@@ -1,0 +1,22 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    //'Google Inc.:Google APIs:21'
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.novoda.urbanairship.demo"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    compile files('libs/urbanairship-lib-1.0.7.jar')
+    //compile 'com.android.support:support-v4:21.0.3'
+    //compile 'com.google.android.gms:play-services:6.5.87'
+}

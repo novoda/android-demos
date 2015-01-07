@@ -2,19 +2,14 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 'Google Inc.:Google APIs:21'
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.novoda"
-        minSdkVersion 3
+        minSdkVersion 7
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
-}
-
-
-dependencies {
-  compile 'com.google.code.gson:gson:2.3.1'
 }

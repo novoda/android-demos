@@ -18,3 +18,14 @@ project(':LivewallpaperSwitchAnimation').projectDir = new File('Livewallpaper/sw
 include 'LivewallpaperSwitchLeftRight'
 project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/switch_leftright') 
 include 'MapApiV2Demo'
+include 'MultipleContacts'
+include 'MultpileActivityTabHost'
+include 'PinchZoomDetector'
+include 'PushNotifications'
+project(':PushNotifications').projectDir = new File('PushNotifications/c2dm_urban_airship')
+include 'simperAudioStreamer'
+include 'sms'
+include 'TabHostExample'
+include 'TabHostMultipleActivityBrowsing'
+include 'TabHostSelfContainedTabBrowsing'
+include 'wizard'

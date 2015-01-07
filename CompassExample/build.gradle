@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.novoda.example.compass"
         minSdkVersion 9
-        targetSdkVersion 20
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -16,6 +16,6 @@ android {
 
 dependencies {
   compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-  compile 'com.android.support:support-v4:20.0.0'
+  compile 'com.android.support:support-v4:21.0.0'
   compile files('libs/novocation-core-1.0.8.jar')
 }
