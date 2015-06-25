@@ -5,10 +5,12 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.novoda.sms"
+        applicationId "com.novoda.demo.sms"
         minSdkVersion 3
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
 }
+
+apply plugin: 'android-command'

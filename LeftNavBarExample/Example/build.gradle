@@ -4,7 +4,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "novoda.demo"
+        applicationId "com.novoda.demo.leftnavbarexample.example"
         minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
@@ -15,3 +15,4 @@ android {
 dependencies {
     compile project(':LeftNavBarLibrary')
 }
+apply plugin: 'android-command'

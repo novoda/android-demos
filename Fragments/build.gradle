@@ -6,7 +6,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "novoda.demo.fragments.list"
+        applicationId "com.novoda.demo.fragments"
         minSdkVersion 7
         targetSdkVersion 21
         versionCode 1
@@ -18,3 +18,4 @@ dependencies {
   compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
   compile 'com.android.support:support-v4:21.0.0'
 }
+apply plugin: 'android-command'

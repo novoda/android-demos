@@ -6,10 +6,12 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.novoda.wallpaper"
+        applicationId "com.novoda.demo.livewallpaper.switchleftright"
         minSdkVersion 7
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
 }
+
+apply plugin: 'android-command'

@@ -5,10 +5,12 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "novoda.audio"
+        applicationId "com.novoda.demo.simperaudiostreamer"
         minSdkVersion 4
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
 }
+
+apply plugin: 'android-command'
