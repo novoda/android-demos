@@ -114,7 +114,6 @@ public class Carousel extends Activity {
 	        super.onCreateView(inflater, container, savedInstanceState);
 	        Gallery gallery = (Gallery) inflater.inflate(R.layout.carousel_gallery, null);
 	
-	        // In dual-pane mode, the list view highlights the selected item.
 	        gallery.setAdapter(new GalleryAdapter(mContext));
 	        gallery.setOnItemClickListener(new OnItemClickListener() {
 	            public void onItemClick(AdapterView<?> l, View v, int position, long id) {
