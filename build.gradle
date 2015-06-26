@@ -4,7 +4,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath 'com.novoda:gradle-android-command-plugin:1.4.0'
     }
 }
 
@@ -12,54 +11,4 @@ allprojects {
     repositories {
         jcenter()
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
-}
-
-task updateDemos() << {
-    File globalReadme = new File("README.md")
-    writeGlobalReadmeHeader(globalReadme)
-    FileTree tree = fileTree(dir: '.', include: "*/**/build.gradle")
-    tree.each { File file ->
-        updateBuildGradle(file)
-        updateReadme(file)
-        if (isAndroidApp(file)) {
-            updateDemoList(file, globalReadme)
-        }
-    }
-}
-
-private void updateBuildGradle(File file) {
-    String packageSuffix = relativePath(file.parentFile).toLowerCase()
-    packageSuffix = packageSuffix.replaceAll("/", ".")
-    packageSuffix = packageSuffix.replaceAll("_", "")
-    println "Updating $packageSuffix ..."
-    if (!file.text.contains("applicationId \"com.novoda.demo.$packageSuffix\"")) {
-        ant.replaceregexp(file: file, match: "applicationId (\\S*)", replace: "applicationId \"com.novoda.demo.$packageSuffix\"")
-    }
-}
-
-private void updateReadme(File file) {
-    String projectName = relativePath(file.parentFile)
-    File readme = new File(file.parentFile, "README.md")
-    if (!readme.exists()) {
-        readme.withWriterAppend { w ->
-            w << "#Demo $projectName\n\n"
-        }
-    }
-}
-
-private void updateDemoList(File file, File globalReadme) {
-    String projectName = relativePath(file.parentFile)
-    globalReadme << "* [$projectName](http://github.com/novoda/android-demos/tree/master/$projectName)\n"
-}
-
-private writeGlobalReadmeHeader(File globalReadme) {
-    globalReadme.write("#Android Demos\n\nThis is a collection of basic android examples created by Novoda.\n\n")
-}
-
-private boolean isAndroidApp(File file) {
-    file.text.contains("apply plugin: 'com.android.application'")
 }
