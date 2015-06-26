@@ -18,4 +18,3 @@ dependencies {
   compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
   compile 'com.android.support:support-v4:21.0.0'
 }
-apply plugin: 'android-command'

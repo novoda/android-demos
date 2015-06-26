@@ -39,10 +39,6 @@ private void updateBuildGradle(File file) {
     if (!file.text.contains("applicationId \"com.novoda.demo.$packageSuffix\"")) {
         ant.replaceregexp(file: file, match: "applicationId (\\S*)", replace: "applicationId \"com.novoda.demo.$packageSuffix\"")
     }
-    if (isAndroidApp(file) &&
-            !file.text.contains("apply plugin: 'android-command'")) {
-        file << "\napply plugin: 'android-command'\n"
-    }
 }
 
 private void updateReadme(File file) {

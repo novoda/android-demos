@@ -18,4 +18,3 @@ android {
     }
 }
 
-apply plugin: 'android-command'
