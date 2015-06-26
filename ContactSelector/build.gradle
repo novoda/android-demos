@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.novoda.demo.contactselector"
-        minSdkVersion 3
+        minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
