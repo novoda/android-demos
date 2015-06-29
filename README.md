@@ -1,4 +1,4 @@
-#Android Demos
+#Android Demos [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
 This is a collection of basic android examples created by Novoda.
 
