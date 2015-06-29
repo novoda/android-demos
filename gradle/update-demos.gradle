@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 task updateDemos() << {
     File globalReadme = new File("README.md")
     writeGlobalReadmeHeader(globalReadme)
@@ -9,6 +11,7 @@ task updateDemos() << {
             updateDemoList(file, globalReadme)
         }
     }
+    writeGlobalReadmeFooter(globalReadme)
 }
 
 private void updateBuildGradle(File file) {
@@ -37,7 +40,14 @@ private void updateDemoList(File file, File globalReadme) {
 }
 
 private writeGlobalReadmeHeader(File globalReadme) {
-    globalReadme.write("#Android Demos\n\nThis is a collection of basic android examples created by Novoda.\n\n")
+    globalReadme.write("#Android Demos [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)\n\n" +
+            "This is a collection of basic android examples created by Novoda.\n\n")
+}
+
+private writeGlobalReadmeFooter(File globalReadme) {
+    globalReadme.append("#Demos of Novoda Open Source libraries and projects\n\n")
+    def demofile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/master/assets/demos.json".toURL().text)
+    demofile.demos.each({ globalReadme.append("* [$it.title]($it.url)\n") })
 }
 
 private boolean isAndroidApp(File file) {
