@@ -6,7 +6,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.novoda.example.compass"
+        applicationId "com.novoda.demo.compassexample"
         minSdkVersion 9
         targetSdkVersion 21
         versionCode 1
@@ -19,3 +19,4 @@ dependencies {
   compile 'com.android.support:support-v4:21.0.0'
   compile files('libs/novocation-core-1.0.8.jar')
 }
+

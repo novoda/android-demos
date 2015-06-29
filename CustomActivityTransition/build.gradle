@@ -6,10 +6,11 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "novoda.demo"
+        applicationId "com.novoda.demo.customactivitytransition"
         minSdkVersion 4
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
 }
+

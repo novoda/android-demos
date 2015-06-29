@@ -6,7 +6,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.novoda"
+        applicationId "com.novoda.demo.customtabshack"
         minSdkVersion 3
         targetSdkVersion 21
         versionCode 1
@@ -17,3 +17,4 @@ android {
         abortOnError false
     }
 }
+
