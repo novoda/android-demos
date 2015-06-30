@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.TabHost;
 
 public class SelfContainedTabHost extends Activity {
-	
-	private static final String TAG = SelfContainedTabHost.class.getSimpleName(); 
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
