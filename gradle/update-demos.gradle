@@ -26,7 +26,7 @@ private void updateReadme(File file) {
     File readme = new File(file.parentFile, "README.md")
     if (!readme.exists()) {
         readme.withWriterAppend { w ->
-            w << "#Demo $projectName\n\n"
+            w << "#Demo $projectName [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)\n\n"
         }
     }
 }

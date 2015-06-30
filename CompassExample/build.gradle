@@ -8,7 +8,8 @@ android {
     defaultConfig {
         applicationId "com.novoda.demo.compassexample"
         minSdkVersion 9
-        targetSdkVersion 21
+        maxSdkVersion 15
+        targetSdkVersion 15
         versionCode 1
         versionName "1.0"
     }
