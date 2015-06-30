@@ -7,7 +7,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Contacts.People;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 public class ContactSelector extends Activity {
     private static final int PICK_CONTACT = 1;
     private static final int LOADER_ID_CONTACT = 1;
-    private Button btnContacts;
     private TextView txtContacts;
 
     @Override
@@ -25,14 +23,14 @@ public class ContactSelector extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        btnContacts = (Button) findViewById(R.id.btn_contacts);
         txtContacts = (TextView) findViewById(R.id.txt_contacts);
 
+        final Button btnContacts = (Button) findViewById(R.id.btn_contacts);
         btnContacts.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent(Intent.ACTION_PICK, People.CONTENT_URI);
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(intent, PICK_CONTACT);
             }
         });
