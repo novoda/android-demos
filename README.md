@@ -27,3 +27,13 @@ This is a collection of basic android examples created by Novoda.
 * [TabHostMultipleActivityBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostMultipleActivityBrowsing)
 * [TabHostSelfContainedTabBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostSelfContainedTabBrowsing)
 * [wizard](http://github.com/novoda/android-demos/tree/master/wizard)
+#Demos of Novoda Open Source libraries and projects
+
+* [Simple Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-simple)
+* [Extended Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-extended)
+* [Demo for Reactive Espresso Testing](https://github.com/novoda/rxpresso/tree/master/demo)
+* [Demo for Landing Strip (sliding viewpager tab strip)](https://github.com/novoda/landing-strip/tree/master/demo)
+* [Demo for Reactive Mocking](https://github.com/novoda/rxmocks/tree/master/demo)
+* [Demo for image based palettes](https://github.com/novoda/material-painter)
+* [Demo for Merlin (network connectivity)](https://github.com/novoda/merlin/tree/master/demo)
+* [Demo for simple XML parsing](https://github.com/novoda/simple-easy-xml-parser/tree/master/demoAndroid)
