@@ -51,11 +51,11 @@ private writeGlobalReadmeFooter(File globalReadme) {
 
     globalReadme.append("#Further NOS work\n")
     globalReadme.append("##All NOS libraries\n")
-    def libfile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/gradle-plugins/assets/libs.json".toURL().text)
+    def libfile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/master/assets/libs.json".toURL().text)
     libfile.libs.each({ globalReadme.append("* [$it.title]($it.url)\n") })
 
     globalReadme.append("##All NOS gradle plugins\n")
-    def gradlepluginfile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/gradle-plugins/assets/gradle-plugins.json".toURL().text)
+    def gradlepluginfile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/master/assets/gradle-plugins.json".toURL().text)
     gradlepluginfile.get("gradle-plugins").each({ globalReadme.append("* [$it.title]($it.url)\n") })
 }
 
