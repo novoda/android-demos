@@ -20,6 +20,7 @@ project(':LivewallpaperSwitchLeftRight').projectDir = new File('Livewallpaper/sw
 include 'MapApiV2Demo'
 include 'MultipleContacts'
 include 'MultpileActivityTabHost'
+include 'OptionalDependencies'
 include 'PinchZoomDetector'
 include 'PushNotifications'
 project(':PushNotifications').projectDir = new File('PushNotifications/c2dm_urban_airship')
