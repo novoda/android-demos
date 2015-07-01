@@ -21,4 +21,3 @@ dependencies {
   compile files('libs/novocation-core-1.0.8.jar')
 }
 
-apply plugin: 'android-command'

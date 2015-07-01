@@ -15,4 +15,3 @@ android {
 dependencies {
     compile project(':LeftNavBarLibrary')
 }
-apply plugin: 'android-command'

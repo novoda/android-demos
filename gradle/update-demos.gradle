@@ -1,0 +1,64 @@
+import groovy.json.JsonSlurper
+
+task updateDemos() << {
+    File globalReadme = new File("README.md")
+    writeGlobalReadmeHeader(globalReadme)
+    FileTree tree = fileTree(dir: '.', include: "*/**/build.gradle")
+    tree.each { File file ->
+        updateBuildGradle(file)
+        updateReadme(file)
+        if (isAndroidApp(file)) {
+            updateDemoList(file, globalReadme)
+        }
+    }
+    writeGlobalReadmeFooter(globalReadme)
+}
+
+private void updateBuildGradle(File file) {
+    String packageSuffix = relativePath(file.parentFile).toLowerCase()
+    packageSuffix = packageSuffix.replaceAll("/", ".")
+    packageSuffix = packageSuffix.replaceAll("_", "")
+    println "Updating $packageSuffix ..."
+    if (!file.text.contains("applicationId \"com.novoda.demo.$packageSuffix\"")) {
+        ant.replaceregexp(file: file, match: "applicationId (\\S*)", replace: "applicationId \"com.novoda.demo.$packageSuffix\"")
+    }
+}
+
+private void updateReadme(File file) {
+    String projectName = relativePath(file.parentFile)
+    File readme = new File(file.parentFile, "README.md")
+    if (!readme.exists()) {
+        readme.withWriterAppend { w ->
+            w << "#Demo $projectName [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)\n\n"
+        }
+    }
+}
+
+private void updateDemoList(File file, File globalReadme) {
+    String projectName = relativePath(file.parentFile)
+    globalReadme << "* [$projectName](http://github.com/novoda/android-demos/tree/master/$projectName)\n"
+}
+
+private writeGlobalReadmeHeader(File globalReadme) {
+    globalReadme.write("#Android Demos [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)\n\n" +
+            "This is a collection of basic android examples created by Novoda.\n\n")
+}
+
+private writeGlobalReadmeFooter(File globalReadme) {
+    globalReadme.append("#Demos of Novoda Open Source (NOS) libraries and projects\n")
+    def demofile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/master/assets/demos.json".toURL().text)
+    demofile.demos.each({ globalReadme.append("* [$it.title]($it.url)\n") })
+
+    globalReadme.append("#Further NOS work\n")
+    globalReadme.append("##All NOS libraries\n")
+    def libfile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/master/assets/libs.json".toURL().text)
+    libfile.libs.each({ globalReadme.append("* [$it.title]($it.url)\n") })
+
+    globalReadme.append("##All NOS gradle plugins\n")
+    def gradlepluginfile = new JsonSlurper().parseText("https://raw.githubusercontent.com/novoda/novoda/master/assets/gradle-plugins.json".toURL().text)
+    gradlepluginfile.get("gradle-plugins").each({ globalReadme.append("* [$it.title]($it.url)\n") })
+}
+
+private boolean isAndroidApp(File file) {
+    file.text.contains("apply plugin: 'com.android.application'")
+}

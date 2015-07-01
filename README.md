@@ -1,4 +1,4 @@
-#Android Demos
+#Android Demos [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
 This is a collection of basic android examples created by Novoda.
 
@@ -27,3 +27,28 @@ This is a collection of basic android examples created by Novoda.
 * [TabHostMultipleActivityBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostMultipleActivityBrowsing)
 * [TabHostSelfContainedTabBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostSelfContainedTabBrowsing)
 * [wizard](http://github.com/novoda/android-demos/tree/master/wizard)
+#Demos of Novoda Open Source (NOS) libraries and projects
+
+* [Simple Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-simple)
+* [Extended Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-extended)
+* [Demo for Reactive Espresso Testing](https://github.com/novoda/rxpresso/tree/master/demo)
+* [Demo for Landing Strip (sliding viewpager tab strip)](https://github.com/novoda/landing-strip/tree/master/demo)
+* [Demo for Reactive Mocking](https://github.com/novoda/rxmocks/tree/master/demo)
+* [Demo for image based palettes](https://github.com/novoda/material-painter)
+* [Demo for Merlin (network connectivity)](https://github.com/novoda/merlin/tree/master/demo)
+* [Demo for simple XML parsing](https://github.com/novoda/simple-easy-xml-parser/tree/master/demoAndroid)
+#Further NOS work
+
+##All NOS libraries
+* [Download Manager](https://github.com/novoda/download-manager)
+* [Merlin - Connectivity Checker](https://github.com/novoda/merlin)
+* [Landing Strip](https://github.com/novoda/landing-strip)
+* [Sqlite Provider](https://github.com/novoda/sqlite-provider)
+* [Notils](https://github.com/novoda/notils)
+* [Simple XML Parser](https://github.com/novoda/simple-easy-xml-parser)
+* [RxPresso](https://github.com/novoda/rxpresso)
+##Gradle plugins
+* [Bintray Release](https://github.com/novoda/bintray-release)
+* [Sqlite Analyzer](https://github.com/novoda/sqlite-analyzer)
+* [Android Command Plugin](https://github.com/novoda/gradle-android-command-plugin)
+* [Compare Reports](https://github.com/novoda/spikes/tree/master/compare-reports)
