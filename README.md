@@ -19,6 +19,7 @@ This is a collection of basic android examples created by Novoda.
 * [MapApiV2Demo](http://github.com/novoda/android-demos/tree/master/MapApiV2Demo)
 * [MultipleContacts](http://github.com/novoda/android-demos/tree/master/MultipleContacts)
 * [MultpileActivityTabHost](http://github.com/novoda/android-demos/tree/master/MultpileActivityTabHost)
+* [OptionalDependencies](http://github.com/novoda/android-demos/tree/master/OptionalDependencies)
 * [PinchZoomDetector](http://github.com/novoda/android-demos/tree/master/PinchZoomDetector)
 * [PushNotifications/c2dm_urban_airship](http://github.com/novoda/android-demos/tree/master/PushNotifications/c2dm_urban_airship)
 * [simperAudioStreamer](http://github.com/novoda/android-demos/tree/master/simperAudioStreamer)
@@ -28,7 +29,6 @@ This is a collection of basic android examples created by Novoda.
 * [TabHostSelfContainedTabBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostSelfContainedTabBrowsing)
 * [wizard](http://github.com/novoda/android-demos/tree/master/wizard)
 #Demos of Novoda Open Source (NOS) libraries and projects
-
 * [Simple Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-simple)
 * [Extended Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-extended)
 * [Demo for Reactive Espresso Testing](https://github.com/novoda/rxpresso/tree/master/demo)
@@ -38,7 +38,6 @@ This is a collection of basic android examples created by Novoda.
 * [Demo for Merlin (network connectivity)](https://github.com/novoda/merlin/tree/master/demo)
 * [Demo for simple XML parsing](https://github.com/novoda/simple-easy-xml-parser/tree/master/demoAndroid)
 #Further NOS work
-
 ##All NOS libraries
 * [Download Manager](https://github.com/novoda/download-manager)
 * [Merlin - Connectivity Checker](https://github.com/novoda/merlin)
@@ -47,7 +46,7 @@ This is a collection of basic android examples created by Novoda.
 * [Notils](https://github.com/novoda/notils)
 * [Simple XML Parser](https://github.com/novoda/simple-easy-xml-parser)
 * [RxPresso](https://github.com/novoda/rxpresso)
-##Gradle plugins
+##All NOS gradle plugins
 * [Bintray Release](https://github.com/novoda/bintray-release)
 * [Sqlite Analyzer](https://github.com/novoda/sqlite-analyzer)
 * [Android Command Plugin](https://github.com/novoda/gradle-android-command-plugin)
