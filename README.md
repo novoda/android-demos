@@ -21,7 +21,6 @@ This is a collection of basic android examples created by Novoda.
 * [MultpileActivityTabHost](http://github.com/novoda/android-demos/tree/master/MultpileActivityTabHost)
 * [OptionalDependencies](http://github.com/novoda/android-demos/tree/master/OptionalDependencies)
 * [PinchZoomDetector](http://github.com/novoda/android-demos/tree/master/PinchZoomDetector)
-* [PushNotifications/c2dm_urban_airship](http://github.com/novoda/android-demos/tree/master/PushNotifications/c2dm_urban_airship)
 * [simperAudioStreamer](http://github.com/novoda/android-demos/tree/master/simperAudioStreamer)
 * [sms](http://github.com/novoda/android-demos/tree/master/sms)
 * [TabHostExample](http://github.com/novoda/android-demos/tree/master/TabHostExample)

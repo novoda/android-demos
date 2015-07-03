@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="app_name">Push Sample</string>
-  <string name="short_app_name">PushSample</string>
-
-  <string name="app_description">
-      © 2011 Urban Airship, Inc. All Rights Reserved.\n\n
-  </string>
-</resources>
