@@ -8,7 +8,7 @@
               
     <application
         android:label="@string/wallpapers"
-        android:icon="@drawable/ic_launcher_wallpaper">
+        android:icon="@drawable/ic_launcher">
 
         <service
             android:label="@string/title"

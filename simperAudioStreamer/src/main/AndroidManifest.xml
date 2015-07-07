@@ -8,7 +8,7 @@
     <uses-sdk android:minSdkVersion="4" />
     
     <application 
-    	android:icon="@drawable/icon"
+    	android:icon="@drawable/ic_launcher"
     	android:label="Simple Audio Streamer">
     	
         <activity
