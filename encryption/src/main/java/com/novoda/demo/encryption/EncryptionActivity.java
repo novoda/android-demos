@@ -1,4 +1,14 @@
-package com.novoda;
+package com.novoda.demo.encryption;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import com.novoda.R;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -14,16 +24,12 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEParameterSpec;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
+public class EncryptionActivity extends Activity {
 
-public class Encrypt extends Activity {
-
-	private static final String SECRET_PASSWORD_TO_ENCRYPT = "secretPassword";
+	private static final String SECRET_DATA_TO_ENCRYPT = "secretPassword";
 	private static final String TAG = "Encrypt";
-	
+    private static final String PREFERENCE_KEY_SECURED_DATA = "KEY_SECURED_DATA";
+
     final String CIPHER_TYPE = "PBEWithMD5AndDES/CBC/PKCS5Padding";
     final String ALGORITHM = "PBEWithMD5AndDES";
     final String CHARSET = "UTF-8";
@@ -42,13 +48,17 @@ public class Encrypt extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        String hash = getAsHash(SECRET_PASSWORD_TO_ENCRYPT);
-        
+
+        updateTextViews();
+    }
+
+    private void updateTextViews() {
+        String hash = PreferenceManager.getDefaultSharedPreferences(this).getString(PREFERENCE_KEY_SECURED_DATA, "Click the save button to store the password in preferences");
+
         ((TextView)findViewById(R.id.txt_encrypted)).setText(hash);
         ((TextView)findViewById(R.id.txt_unencrypted)).setText(getUnhashed(hash));
     }
-    
+
     public String getAsHash(String var) {
         String passwordHashed;
         try {
@@ -91,5 +101,17 @@ public class Encrypt extends Activity {
         }
         
         return result;
+    }
+
+    public void onSaveClick(View view){
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putString(PREFERENCE_KEY_SECURED_DATA, getAsHash(SECRET_DATA_TO_ENCRYPT)).commit();
+        updateTextViews();
+    }
+
+    public void onDeleteClick(View view) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.clear().commit();
+        updateTextViews();
     }
 }
