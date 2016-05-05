@@ -25,28 +25,14 @@ public class MainActivity extends AppCompatActivity {
         resetSignInStateOnRotation(savedInstanceState);
 
         signInButton = (Button) findViewById(R.id.main_activity_sign_in_button);
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Application.isSignedIn()) {
-                    Application.setSignedOut();
-                    refreshUi();
-                } else {
-                    startActivity(SignInActivity.createIntent());
-                }
-            }
-        });
+        signInButton.setOnClickListener(onSignInOutClicked);
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1) {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(getPackageManager().getLaunchIntentForPackage(adapter.getItem(position)));
-                    }
-                });
+                view.setOnClickListener(onItemClicked);
+                view.setTag(position);
                 return view;
             }
         };
@@ -60,6 +46,26 @@ public class MainActivity extends AppCompatActivity {
             Application.setSignedOut();
         }
     }
+
+    private final View.OnClickListener onSignInOutClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (Application.isSignedIn()) {
+                Application.setSignedOut();
+                refreshUi();
+            } else {
+                startActivity(SignInActivity.createIntent());
+            }
+        }
+    };
+
+    private final View.OnClickListener onItemClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String packageName = adapter.getItem((Integer) v.getTag());
+            startActivity(DetailsActivity.createIntent(packageName));
+        }
+    };
 
     @Override
     protected void onResume() {

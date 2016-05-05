@@ -24,6 +24,13 @@
       </intent-filter>
     </activity>
 
+    <activity android:name=".DetailsActivity">
+      <intent-filter>
+        <action android:name="${applicationId}.DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>
