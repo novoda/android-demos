@@ -1,3 +1,5 @@
+#### Overview
+
 A simple application with three screens:
  - Main screen
  - Details screen
@@ -11,7 +13,8 @@ Anyone of:
  - Kalabash
  - Sikuli
  
- Current Acceptance Criteria:
+
+####Current Acceptance Criteria:
  
  Given
  When
