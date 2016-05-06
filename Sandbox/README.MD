@@ -36,6 +36,18 @@ Anyone of:
  Then I go to the apps details
  ```
  
+ ```
+ Given I am signed in
+ When I click sign out button
+ Then I sign out 
+ ```
+ 
+  ```
+ Given I am signed out
+ When I click sign in button
+ Then I go to the sign in page 
+ ```
+ 
  Sign in:
  
  ```
