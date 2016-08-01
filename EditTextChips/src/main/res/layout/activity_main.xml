@@ -15,27 +15,6 @@
         android:text="@string/eyeem" />
 
     <Button
-        android:id="@+id/klinker"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/klinker" />
-
-    <Button
-        android:id="@+id/doodle"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/doodle" />
-
-    <Button
-        android:id="@+id/plumillon"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/plumillon" />
-
-    <Button
         android:id="@+id/splitwise"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="match_parent"

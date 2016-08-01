@@ -2,6 +2,7 @@
 <manifest package="com.novoda.demo.edittextchips"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -19,18 +20,6 @@
         <activity
             android:name="com.novoda.demo.edittextchips.EyeemActivity"
             android:label="@string/eyeem" />
-
-        <activity
-            android:name="com.novoda.demo.edittextchips.KlinkerActivity"
-            android:label="@string/klinker" />
-
-        <activity
-            android:name="com.novoda.demo.edittextchips.DoodleActivity"
-            android:label="@string/doodle" />
-
-        <activity
-            android:name="com.novoda.demo.edittextchips.PlumillionActivity"
-            android:label="@string/plumillon" />
 
         <activity
             android:name="com.novoda.demo.edittextchips.SplitwiseActivity"
