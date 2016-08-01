@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EditText Chips</string>
+    <string name="eyeem">Chips library [eyeem]</string>
+    <string name="klinker">Android Chips Edit Text [klinker41]</string>
+    <string name="doodle">Android Material Chips [doodle]</string>
+    <string name="plumillon">ChipView [plumillon]</string>
+    <string name="splitwise">TokenAutoComplete [splitwise]</string>
+</resources>
