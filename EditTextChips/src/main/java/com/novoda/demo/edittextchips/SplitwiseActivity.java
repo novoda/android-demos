@@ -37,7 +37,6 @@ public class SplitwiseActivity extends Activity {
         };
         SplitwiseTagsView tagsView = (SplitwiseTagsView) findViewById(R.id.tags);
         tagsView.setAdapter(adapter);
-        tagsView.setPrefix("Your bestest friends: "); // Doesn't seem to allow suffix.
         tagsView.allowDuplicates(false);
     }
 
@@ -53,24 +52,6 @@ public class SplitwiseActivity extends Activity {
 
         String getName() {
             return name;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Tag tag = (Tag) o;
-            return name.equals(tag.name);
-
-        }
-
-        @Override
-        public int hashCode() {
-            return name != null ? name.hashCode() : 0;
         }
 
         @Override
