@@ -7,6 +7,7 @@ This is a collection of basic android examples created by Novoda.
 * [ContactSelector](http://github.com/novoda/android-demos/tree/master/ContactSelector)
 * [CustomActivityTransition](http://github.com/novoda/android-demos/tree/master/CustomActivityTransition)
 * [DynamicListItems](http://github.com/novoda/android-demos/tree/master/DynamicListItems)
+* [EditTextChips](https://github.com/novoda/android-demos/tree/master/EditTextChips)
 * [encryption](http://github.com/novoda/android-demos/tree/master/encryption)
 * [FixedSizeTextColumns](http://github.com/novoda/android-demos/tree/master/FixedSizeTextColumns)
 * [Fragments](http://github.com/novoda/android-demos/tree/master/Fragments)
