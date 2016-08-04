@@ -63,7 +63,7 @@ public class EyeemActivity extends Activity {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                // no-op
             }
 
             @Override
@@ -75,7 +75,7 @@ public class EyeemActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                // no-op
             }
         };
     }
