@@ -6,14 +6,14 @@ import com.tokenautocomplete.HintSpan;
 import android.text.Editable;
 import android.text.Spanned;
 
-class SplitwiseHintTextWatcher extends HintSafeTextWatcher {
+class HintTextWatcher extends HintSafeTextWatcher {
 
-    private SplitwiseTagsView splitwiseTagsView;
+    private final TagsView tagsView;
     private final CharSequence suffixHint;
     private final HintSpan suffixHintSpannable;
 
-    SplitwiseHintTextWatcher(SplitwiseTagsView splitwiseTagsView, CharSequence suffixHint, HintSpan suffixHintSpannable) {
-        this.splitwiseTagsView = splitwiseTagsView;
+    HintTextWatcher(TagsView tagsView, CharSequence suffixHint, HintSpan suffixHintSpannable) {
+        this.tagsView = tagsView;
         this.suffixHint = suffixHint;
         this.suffixHintSpannable = suffixHintSpannable;
     }
@@ -53,7 +53,7 @@ class SplitwiseHintTextWatcher extends HintSafeTextWatcher {
     void addHint(Editable text) {
         text.insert(text.length(), suffixHint);
         text.setSpan(suffixHintSpannable, text.length() - suffixHint.length(), text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        splitwiseTagsView.setSelection(text.length() - suffixHint.length());
+        tagsView.setSelection(text.length() - suffixHint.length());
     }
 
     private void removeHint(Editable text) {

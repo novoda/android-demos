@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
-class SplitwiseTagViewAdapter {
+class TagViewAdapter {
 
     private final Context context;
 
-    SplitwiseTagViewAdapter(Context context) {
+    TagViewAdapter(Context context) {
         this.context = context;
     }
 

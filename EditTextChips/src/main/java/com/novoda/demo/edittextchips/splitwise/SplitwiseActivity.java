@@ -29,7 +29,7 @@ public class SplitwiseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splitwise);
-        SplitwiseTagsView tagsView = (SplitwiseTagsView) findViewById(R.id.tags);
+        TagsView tagsView = (TagsView) findViewById(R.id.tags);
 
         tagsView.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.SelectDeselect);
         tagsView.setDeletionStyle(TokenCompleteTextView.TokenDeleteStyle.SelectThenDelete);

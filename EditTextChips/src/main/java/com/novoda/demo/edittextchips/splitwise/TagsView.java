@@ -9,23 +9,23 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SplitwiseTagsView extends TokenCompleteTextView<Tag> {
+public class TagsView extends TokenCompleteTextView<Tag> {
 
     private final CharSequence suffixHint;
-    private final SplitwiseHintTextWatcher hintTextWatcher;
-    private final SplitwiseTagViewAdapter adapter;
+    private final HintTextWatcher hintTextWatcher;
+    private final TagViewAdapter adapter;
 
-    public SplitwiseTagsView(Context context, AttributeSet attrs) {
+    public TagsView(Context context, AttributeSet attrs) {
         super(context, attrs);
         suffixHint = getHint();
         HintSpan suffixHintSpannable = new HintSpan(null, hintStyle(), (int) getTextSize(), getHintTextColors(), getHintTextColors());
-        hintTextWatcher = new SplitwiseHintTextWatcher(this, suffixHint, suffixHintSpannable);
+        hintTextWatcher = new HintTextWatcher(this, suffixHint, suffixHintSpannable);
 
         hintTextWatcher.addHint(getText());
         addTextChangedListener(hintTextWatcher);
         setHint("");
 
-        adapter = new SplitwiseTagViewAdapter(context);
+        adapter = new TagViewAdapter(context);
     }
 
     private int hintStyle() {
