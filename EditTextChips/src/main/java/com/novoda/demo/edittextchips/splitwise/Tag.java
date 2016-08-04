@@ -1,4 +1,4 @@
-package com.novoda.demo.edittextchips;
+package com.novoda.demo.edittextchips.splitwise;
 
 import java.io.Serializable;
 

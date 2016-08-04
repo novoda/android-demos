@@ -1,5 +1,8 @@
 package com.novoda.demo.edittextchips;
 
+import com.novoda.demo.edittextchips.eyeem.EyeemActivity;
+import com.novoda.demo.edittextchips.splitwise.SplitwiseActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

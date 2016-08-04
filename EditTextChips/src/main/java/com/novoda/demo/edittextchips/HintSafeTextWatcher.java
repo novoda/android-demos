@@ -3,7 +3,7 @@ package com.novoda.demo.edittextchips;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-abstract class HintSafeTextWatcher implements TextWatcher {
+public abstract class HintSafeTextWatcher implements TextWatcher {
 
     private boolean selfUpdateInProgress;
 
@@ -36,6 +36,6 @@ abstract class HintSafeTextWatcher implements TextWatcher {
         selfUpdateInProgress = false;
     }
 
-    abstract void onTextChanged(Editable text);
+    protected abstract void onTextChanged(Editable text);
 
 }

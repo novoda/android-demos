@@ -1,4 +1,6 @@
-package com.novoda.demo.edittextchips;
+package com.novoda.demo.edittextchips.splitwise;
+
+import com.novoda.demo.edittextchips.R;
 
 import android.app.Activity;
 import android.content.Context;

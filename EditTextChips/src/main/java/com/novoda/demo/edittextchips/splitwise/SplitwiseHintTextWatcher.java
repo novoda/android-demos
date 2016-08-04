@@ -1,5 +1,6 @@
-package com.novoda.demo.edittextchips;
+package com.novoda.demo.edittextchips.splitwise;
 
+import com.novoda.demo.edittextchips.HintSafeTextWatcher;
 import com.tokenautocomplete.HintSpan;
 
 import android.text.Editable;
@@ -18,7 +19,7 @@ class SplitwiseHintTextWatcher extends HintSafeTextWatcher {
     }
 
     @Override
-    void onTextChanged(Editable text) {
+    protected void onTextChanged(Editable text) {
         String rawText = text.toString();
         if (!textContainsHint(text) && (rawText.isEmpty() || containsSpansOnly(rawText))) {
             addHint(text);

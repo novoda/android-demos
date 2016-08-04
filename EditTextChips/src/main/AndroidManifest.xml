@@ -18,11 +18,11 @@
         </activity>
 
         <activity
-            android:name="com.novoda.demo.edittextchips.EyeemActivity"
+            android:name="com.novoda.demo.edittextchips.eyeem.EyeemActivity"
             android:label="@string/eyeem" />
 
         <activity
-            android:name="com.novoda.demo.edittextchips.SplitwiseActivity"
+            android:name="com.novoda.demo.edittextchips.splitwise.SplitwiseActivity"
             android:label="@string/splitwise" />
 
     </application>

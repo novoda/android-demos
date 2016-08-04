@@ -1,5 +1,6 @@
-package com.novoda.demo.edittextchips;
+package com.novoda.demo.edittextchips.splitwise;
 
+import com.novoda.demo.edittextchips.R;
 import com.tokenautocomplete.FilteredArrayAdapter;
 import com.tokenautocomplete.TokenCompleteTextView;
 
@@ -20,7 +21,7 @@ public class SplitwiseActivity extends Activity {
     };
     private static final char[] SPLIT_CHARS = new char[]{',', ';', '\n'};
 
-    static Intent intent(Context context) {
+    public static Intent intent(Context context) {
         return new Intent(context, SplitwiseActivity.class);
     }
 

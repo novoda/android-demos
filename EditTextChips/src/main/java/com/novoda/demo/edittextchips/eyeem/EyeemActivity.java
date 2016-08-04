@@ -1,7 +1,8 @@
-package com.novoda.demo.edittextchips;
+package com.novoda.demo.edittextchips.eyeem;
 
 import com.eyeem.chips.AutocompletePopover;
 import com.eyeem.chips.ChipsEditText;
+import com.novoda.demo.edittextchips.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,7 +27,7 @@ public class EyeemActivity extends Activity {
     private ChipsEditText chips;
     private AutocompletePopover popover;
 
-    static Intent intent(Context context) {
+    public static Intent intent(Context context) {
         return new Intent(context, EyeemActivity.class);
     }
 
