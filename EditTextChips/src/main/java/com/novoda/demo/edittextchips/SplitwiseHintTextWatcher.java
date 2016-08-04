@@ -28,7 +28,7 @@ class SplitwiseHintTextWatcher extends HintSafeTextWatcher {
     }
 
     private boolean containsSpansOnly(String rawText) {
-        return rawText.matches("(,, )*");
+        return rawText.matches("( )*(,, )*");
     }
 
     boolean textContainsHint(Editable text) {
@@ -43,7 +43,7 @@ class SplitwiseHintTextWatcher extends HintSafeTextWatcher {
         if (textContainsHint(text)) {
             String rawText = text.toString();
             String rawTextWithoutHint = rawText.substring(0, rawText.length() - suffixHint.length());
-            return !rawTextWithoutHint.matches("(,, )*");
+            return !containsSpansOnly(rawTextWithoutHint);
         } else {
             return false;
         }
