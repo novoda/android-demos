@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import java.io.Serializable;
-
 public class SplitwiseActivity extends Activity {
 
     private static final Tag[] TAGS = new Tag[]{
@@ -33,31 +31,11 @@ public class SplitwiseActivity extends Activity {
         SplitwiseTagsView tagsView = (SplitwiseTagsView) findViewById(R.id.tags);
 
         tagsView.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.SelectDeselect);
-        tagsView.setDeletionStyle(TokenCompleteTextView.TokenDeleteStyle.Clear); // TODO: fix this
+        tagsView.setDeletionStyle(TokenCompleteTextView.TokenDeleteStyle.SelectThenDelete);
         tagsView.setSplitChar(SPLIT_CHARS);
 
         tagsView.setAdapter(new TagAdapter(this, android.R.layout.simple_list_item_1, TAGS));
         tagsView.allowDuplicates(false);
-    }
-
-    // If your objects cannot be made Serializable, please look at
-    // https://github.com/splitwise/TokenAutoComplete#restoring-the-view-state
-    static class Tag implements Serializable {
-
-        private final String name;
-
-        Tag(String name) {
-            this.name = name;
-        }
-
-        String getName() {
-            return name;
-        }
-
-        @Override
-        public String toString() {
-            return "#" + getName();
-        }
     }
 
     private static class TagAdapter extends FilteredArrayAdapter<Tag> {
