@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class EyeemActivity extends Activity {
 
-    private static final ArrayList<String> YOLO_SUGGESTIONS = new ArrayList<String>() {{
+    private static final ArrayList<String> TAG_SUGGESTIONS = new ArrayList<String>() {{
         add("tagWeir");
         add("tagSmith");
         add("tagJordan");
@@ -50,12 +50,12 @@ public class EyeemActivity extends Activity {
         return new ChipsEditText.AutocompleteResolver() {
             @Override
             public ArrayList<String> getSuggestions(String query) throws Exception {
-                return YOLO_SUGGESTIONS;
+                return TAG_SUGGESTIONS;
             }
 
             @Override
             public ArrayList<String> getDefaultSuggestions() {
-                return YOLO_SUGGESTIONS;
+                return TAG_SUGGESTIONS;
             }
         };
     }
