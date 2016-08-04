@@ -21,44 +21,54 @@ class HintTextWatcher extends HintSafeTextWatcher {
     @Override
     protected void onTextChanged(Editable text) {
         String rawText = text.toString();
-        if (!textContainsHint(text) && (rawText.isEmpty() || containsSpansOnly(rawText))) {
+        if (!textContainsHint(text) && isNotCurrentlyTyping(rawText)) {
             addHint(text);
-        } else if (doesNotContainJustSpansAndHint(text)) {
+        } else if (textContainsHint(text) && isCurrentlyTyping(text)) {
             removeHint(text);
         }
-    }
-
-    private boolean containsSpansOnly(String rawText) {
-        return rawText.matches("(( )*,, )*");
     }
 
     boolean textContainsHint(Editable text) {
         if (text.length() < suffixHint.length()) {
             return false;
         }
-        return text.getSpans(text.length() - suffixHint.length(), text.length(), HintSpan.class).length > 0;
+        return text.getSpans(hintStartPosition(text), text.length(), HintSpan.class).length > 0;
     }
 
+    private int hintStartPosition(Editable text) {
+        return text.length() - suffixHint.length();
+    }
 
-    private boolean doesNotContainJustSpansAndHint(Editable text) {
-        if (textContainsHint(text)) {
-            String rawText = text.toString();
-            String rawTextWithoutHint = rawText.substring(0, rawText.length() - suffixHint.length());
-            return !containsSpansOnly(rawTextWithoutHint);
-        } else {
-            return false;
-        }
+    private boolean isNotCurrentlyTyping(String rawText) {
+        // means either the text is empty or we have only tokens (no half-written stuff)
+        return rawText.isEmpty() || containsSpansOnly(rawText);
+    }
+
+    private boolean containsSpansOnly(String rawText) {
+        // doesn't take into account the hint, just tokens
+        return rawText.matches("(( )*,, )*");
+    }
+
+    private boolean isCurrentlyTyping(Editable text) {
+        // in the middle of typing (there's text that isn't a token yet)
+        return doesNotContainJustSpans(text);
+    }
+
+    private boolean doesNotContainJustSpans(Editable text) {
+        String rawText = text.toString();
+        String rawTextWithoutHint = rawText.substring(0, rawText.length() - suffixHint.length());
+        return !containsSpansOnly(rawTextWithoutHint);
     }
 
     void addHint(Editable text) {
         text.insert(text.length(), suffixHint);
-        text.setSpan(suffixHintSpannable, text.length() - suffixHint.length(), text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tagsView.setSelection(text.length() - suffixHint.length());
+        text.setSpan(suffixHintSpannable, hintStartPosition(text), text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tagsView.setSelection(hintStartPosition(text));
     }
 
     private void removeHint(Editable text) {
         text.removeSpan(suffixHintSpannable);
-        text.replace(text.length() - suffixHint.length(), text.length(), "");
+        text.replace(hintStartPosition(text), text.length(), "");
     }
 
     boolean isHintVisible(Editable text) {
