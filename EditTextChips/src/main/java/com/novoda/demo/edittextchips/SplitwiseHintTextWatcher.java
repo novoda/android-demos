@@ -28,7 +28,7 @@ class SplitwiseHintTextWatcher extends HintSafeTextWatcher {
     }
 
     private boolean containsSpansOnly(String rawText) {
-        return rawText.matches("( )*(,, )*");
+        return rawText.matches("(( )*,, )*");
     }
 
     boolean textContainsHint(Editable text) {
