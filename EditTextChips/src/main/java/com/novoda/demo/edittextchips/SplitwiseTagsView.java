@@ -51,7 +51,7 @@ public class SplitwiseTagsView extends TokenCompleteTextView<SplitwiseActivity.T
     }
 
     private boolean isSelectingHint(int selStart) {
-        return selStart > getText().length() - suffixHint.length();
+        return selStart >= getText().length() - suffixHint.length();
     }
 
     @Override
