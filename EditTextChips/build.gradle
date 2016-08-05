@@ -1,11 +1,5 @@
 apply plugin: 'com.android.application'
 
-repositories {
-    maven {
-      url 'http://dl.bintray.com/novoda/maven'
-    }
-}
-
 dependencies {
   compile 'com.eyeem.chips:library:0.9.0@aar'
   compile 'com.android.support:appcompat-v7:24.1.1'
