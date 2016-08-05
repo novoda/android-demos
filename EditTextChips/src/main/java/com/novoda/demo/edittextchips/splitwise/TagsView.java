@@ -63,8 +63,8 @@ public class TagsView extends TokenCompleteTextView<Tag> {
     protected void onSelectionChanged(int selStart, int selEnd) {
         super.onSelectionChanged(selStart, selEnd);
         if (isHintVisible() && isSelectingHint(selStart)) {
-            //Don't let users select the hint
-            setSelection(getText().length() - suffixHint.length());
+            // Don't let users select the hint
+            setSelection(hintStartPosition());
         }
     }
 
@@ -73,7 +73,11 @@ public class TagsView extends TokenCompleteTextView<Tag> {
     }
 
     private boolean isSelectingHint(int selStart) {
-        return selStart >= getText().length() - suffixHint.length();
+        return selStart >= hintStartPosition();
+    }
+
+    private int hintStartPosition() {
+        return getText().length() - suffixHint.length();
     }
 
 }
