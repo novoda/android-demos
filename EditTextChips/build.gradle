@@ -1,0 +1,21 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+  compile 'com.eyeem.chips:library:0.9.0@aar'
+  compile 'com.android.support:appcompat-v7:24.1.1'
+  compile "com.novoda:tokenautocomplete:0.0.1@aar"
+}
+
+android {
+  compileSdkVersion 23
+  buildToolsVersion "23.0.3"
+
+  defaultConfig {
+    applicationId "com.novoda.demo.edittextchips"
+    minSdkVersion 16
+    targetSdkVersion 23
+    versionCode 1
+    versionName "1.0"
+  }
+}
+

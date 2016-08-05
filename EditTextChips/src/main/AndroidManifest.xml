@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.novoda.demo.edittextchips"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light">
+
+        <activity
+            android:name="com.novoda.demo.edittextchips.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.novoda.demo.edittextchips.eyeem.EyeemActivity"
+            android:label="@string/eyeem" />
+
+        <activity
+            android:name="com.novoda.demo.edittextchips.splitwise.SplitwiseActivity"
+            android:label="@string/splitwise" />
+
+    </application>
+</manifest> 
