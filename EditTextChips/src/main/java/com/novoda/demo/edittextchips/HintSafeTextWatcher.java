@@ -8,7 +8,7 @@ public abstract class HintSafeTextWatcher implements TextWatcher {
     private boolean selfUpdateInProgress;
 
     /**
-     * According to the documentation it's modifying the text from this method is an error so we don't need to worry.
+     * According to the documentation modifying the text from this method is an error so we don't need to worry.
      */
     @Override
     public final void beforeTextChanged(CharSequence text, int start, int count, int after) {
@@ -16,7 +16,7 @@ public abstract class HintSafeTextWatcher implements TextWatcher {
     }
 
     /**
-     * According to the documentation it's modifying the text from this method is an error so we don't need to worry.
+     * According to the documentation modifying the text from this method is an error so we don't need to worry.
      */
     @Override
     public final void onTextChanged(CharSequence text, int start, int before, int count) {
