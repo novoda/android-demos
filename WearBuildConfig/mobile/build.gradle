@@ -9,9 +9,46 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+        buildConfigField 'boolean', 'PLAY_SERVICES', "true"
+    }
+
+    buildTypes {
+        debug
+        release
+    }
+
+    productFlavors {
+
+        flavorDimensions 'environment', 'playServices'
+
+        noPlayServices {
+            dimension 'playServices'
+
+            buildConfigField 'boolean', 'PLAY_SERVICES', 'false'
+        }
+
+        playServices {
+            dimension 'playServices'
+            //uses default PLAY_SERVICES value
+        }
+
+        preProduction {
+            dimension 'environment'
+        }
+
+        production {
+            dimension 'environment'
+        }
     }
 }
 
+configurations {
+    productionPlayServicesReleaseWearApp
+    preProductionPlayServicesReleaseWearApp
+}
+
 dependencies {
-    wearApp project(':WearBuildConfigWear')
+    productionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionRelease')
+    preProductionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'preProductionRelease')
 }
