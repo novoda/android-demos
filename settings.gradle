@@ -26,3 +26,7 @@ include 'TabHostExample'
 include 'TabHostSelfContainedTabBrowsing'
 include 'wizard'
 include 'EditTextChips'
+include 'WearBuildConfigMobile'
+project(':WearBuildConfigMobile').projectDir = new File('WearBuildConfig/mobile')
+include 'WearBuildConfigWear'
+project(':WearBuildConfigWear').projectDir = new File('WearBuildConfig/wear')
