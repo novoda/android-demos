@@ -1,0 +1,24 @@
+android {
+
+    signingConfigs {
+        debug {
+            storeFile file("$rootProject.projectDir/WearBuildConfig/shared-config/demo.keystore")
+            storePassword 'demo1234'
+            keyAlias 'debugkey'
+            keyPassword 'debug1234'
+        }
+        qa {
+            storeFile file("$rootProject.projectDir/WearBuildConfig/shared-config/demo.keystore")
+            storePassword 'demo1234'
+            keyAlias 'qakey'
+            keyPassword 'qa1234'
+        }
+        release {
+            storeFile file("$rootProject.projectDir/WearBuildConfig/shared-config/demo.keystore")
+            storePassword 'demo1234'
+            keyAlias 'releasekey'
+            keyPassword 'release1234'
+        }
+    }
+
+}

@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply from: "$rootProject.projectDir/WearBuildConfig/shared-config/android-signing.gradle"
+
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
@@ -14,8 +17,18 @@ android {
     }
 
     buildTypes {
-        debug
-        release
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
+        }
+
+        qaRelease.initWith(buildTypes.release)
+        qaRelease {
+            signingConfig signingConfigs.qa
+        }
     }
 
     productFlavors {
