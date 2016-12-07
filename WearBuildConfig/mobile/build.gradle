@@ -59,9 +59,13 @@ android {
 configurations {
     productionPlayServicesReleaseWearApp
     preProductionPlayServicesReleaseWearApp
+    productionPlayServicesQaReleaseWearApp
+    preProductionPlayServicesQaReleaseWearApp
 }
 
 dependencies {
     productionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionRelease')
     preProductionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'preProductionRelease')
+    productionPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionQaRelease')
+    preProductionPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'preProductionQaRelease')
 }
