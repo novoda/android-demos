@@ -46,7 +46,7 @@ android {
             //uses default PLAY_SERVICES value
         }
 
-        preProduction {
+        development {
             dimension 'environment'
         }
 
@@ -57,15 +57,15 @@ android {
 }
 
 configurations {
+    developmentPlayServicesReleaseWearApp
     productionPlayServicesReleaseWearApp
-    preProductionPlayServicesReleaseWearApp
+    developmentPlayServicesQaReleaseWearApp
     productionPlayServicesQaReleaseWearApp
-    preProductionPlayServicesQaReleaseWearApp
 }
 
 dependencies {
+    developmentPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentRelease')
     productionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionRelease')
-    preProductionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'preProductionRelease')
+    developmentPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentQaRelease')
     productionPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionQaRelease')
-    preProductionPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'preProductionQaRelease')
 }
