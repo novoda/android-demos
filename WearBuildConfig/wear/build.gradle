@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: "$rootProject.projectDir/WearBuildConfig/shared-config/android-signing.gradle"
+apply from: rootProject.file('WearBuildConfig/shared-config/android-signing.gradle')
 
 android {
     compileSdkVersion 25
