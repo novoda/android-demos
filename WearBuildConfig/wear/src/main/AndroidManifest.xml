@@ -5,8 +5,17 @@
   <uses-feature android:name="android.hardware.type.watch" />
 
   <application
-    android:theme="@android:style/Theme.DeviceDefault"
-    android:label="Watch application">
+    android:label="@string/app_name"
+    android:theme="@android:style/Theme.DeviceDefault">
+
+    <activity
+      android:name=".DemoActivity"
+      android:label="@string/title_activity_demo">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
 
   </application>
 

@@ -1,0 +1,7 @@
+<resources>
+
+  <string name="app_name">Watch Demo application</string>
+  <string name="title_activity_demo">Demo Activity</string>
+  <string name="hello_world">Hello Watch World!</string>
+
+</resources>

@@ -3,6 +3,6 @@
   package="com.novoda.demo.wearbuildconfig">
 
   <application
-    android:label="Mobile application" />
+    android:label="@string/app_name" />
 
 </manifest>
