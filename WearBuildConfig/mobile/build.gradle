@@ -25,8 +25,8 @@ android {
             signingConfig signingConfigs.release
         }
 
-        qaRelease.initWith(buildTypes.release)
-        qaRelease {
+        qa.initWith(buildTypes.release)
+        qa {
             signingConfig signingConfigs.qa
         }
     }
@@ -59,13 +59,13 @@ android {
 configurations {
     developmentPlayServicesReleaseWearApp
     productionPlayServicesReleaseWearApp
-    developmentPlayServicesQaReleaseWearApp
-    productionPlayServicesQaReleaseWearApp
+    developmentPlayServicesQaWearApp
+    productionPlayServicesQaWearApp
 }
 
 dependencies {
     developmentPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentRelease')
     productionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionRelease')
-    developmentPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentQaRelease')
-    productionPlayServicesQaReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionQaRelease')
+    developmentPlayServicesQaWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentQa')
+    productionPlayServicesQaWearApp project(path: ':WearBuildConfigWear', configuration: 'productionQa')
 }

@@ -24,8 +24,8 @@ android {
             signingConfig signingConfigs.release
         }
 
-        qaRelease.initWith(buildTypes.release)
-        qaRelease {
+        qa.initWith(buildTypes.release)
+        qa {
             signingConfig signingConfigs.qa
         }
     }
