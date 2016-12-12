@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: rootProject.file('WearBuildConfig/shared-config/android-signing.gradle')
+apply from: rootProject.file('shared-config/android-signing.gradle')
 
 
 android {
@@ -64,8 +64,8 @@ configurations {
 }
 
 dependencies {
-    developmentPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentRelease')
-    productionPlayServicesReleaseWearApp project(path: ':WearBuildConfigWear', configuration: 'productionRelease')
-    developmentPlayServicesQaWearApp project(path: ':WearBuildConfigWear', configuration: 'developmentQa')
-    productionPlayServicesQaWearApp project(path: ':WearBuildConfigWear', configuration: 'productionQa')
+    developmentPlayServicesReleaseWearApp project(path: ':wear', configuration: 'developmentRelease')
+    productionPlayServicesReleaseWearApp project(path: ':wear', configuration: 'productionRelease')
+    developmentPlayServicesQaWearApp project(path: ':wear', configuration: 'developmentQa')
+    productionPlayServicesQaWearApp project(path: ':wear', configuration: 'productionQa')
 }
