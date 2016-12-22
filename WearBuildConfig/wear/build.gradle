@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+apply from: rootProject.file('shared-config/android-signing.gradle')
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    publishNonDefault true
+
+    defaultConfig {
+        applicationId "com.novoda.demo.wearbuildconfig"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
+        }
+
+        qa.initWith(buildTypes.release)
+        qa {
+            signingConfig signingConfigs.qa
+        }
+    }
+
+    productFlavors {
+        development
+        production
+    }
+}
+

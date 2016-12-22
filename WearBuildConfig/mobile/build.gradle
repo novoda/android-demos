@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply from: rootProject.file('shared-config/android-signing.gradle')
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        applicationId "com.novoda.demo.wearbuildconfig"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField 'boolean', 'PLAY_SERVICES', "true"
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
+        }
+
+        qa.initWith(buildTypes.release)
+        qa {
+            signingConfig signingConfigs.qa
+        }
+    }
+
+    productFlavors {
+
+        flavorDimensions 'environment', 'playServices'
+
+        noPlayServices {
+            dimension 'playServices'
+
+            buildConfigField 'boolean', 'PLAY_SERVICES', 'false'
+        }
+
+        playServices {
+            dimension 'playServices'
+            //uses default PLAY_SERVICES value
+        }
+
+        development {
+            dimension 'environment'
+        }
+
+        production {
+            dimension 'environment'
+        }
+    }
+}
+
+configurations {
+    developmentPlayServicesReleaseWearApp
+    productionPlayServicesReleaseWearApp
+    developmentPlayServicesQaWearApp
+    productionPlayServicesQaWearApp
+}
+
+dependencies {
+    developmentPlayServicesReleaseWearApp project(path: ':wear', configuration: 'developmentRelease')
+    productionPlayServicesReleaseWearApp project(path: ':wear', configuration: 'productionRelease')
+    developmentPlayServicesQaWearApp project(path: ':wear', configuration: 'developmentQa')
+    productionPlayServicesQaWearApp project(path: ':wear', configuration: 'productionQa')
+}
