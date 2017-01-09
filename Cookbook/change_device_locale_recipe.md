@@ -1,4 +1,4 @@
-Change the device local for instrumentation tests
+Change the Device Locale for Instrumentation Tests
 ===================
 
 Internationalisation can be hard on Android so you might end up writing automated tests that should run on a `Device` with a specific `Locale`.
