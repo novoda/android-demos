@@ -19,10 +19,14 @@ class LocaleTestRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                Locale defaultLocale = Locale.getDefault();
-                changeLocaleTo(locale);
-                base.evaluate();
-                changeLocaleTo(defaultLocale);
+               Locale defaultLocale = Locale.getDefault();
+               try {
+                   changeLocaleTo(locale);
+                   base.evaluate();
+
+               } finally {
+                   changeLocaleTo(defaultLocale);
+               }
             }
 
             private void changeLocaleTo(Locale locale) {
