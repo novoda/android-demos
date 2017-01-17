@@ -52,13 +52,13 @@ There is a table in the documentation summarising available sizes
 
 The process is the same as loading a regular ad:
 
-1. In the activity, initialise MobileAds:
+####1. In the activity, initialise MobileAds:
 
 ```
 MobileAds.initialize(getApplicationContext(), getString(R.string.ad_app_id));
 ```
 
-2. Load the view and build a request:
+####2. Load the view and build a request:
 
 ```
 NativeExpressAdView mAdView = (NativeExpressAdView) findViewById(R.id.adViewExpress);
