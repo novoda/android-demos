@@ -1,10 +1,10 @@
-#Description
-===================
+Description
+===========
 
 A series of common coding recipes that will help you building great apps.
 
-##Android
-===================
+Android
+-------
 
 [Change the Device Locale for Instrumentation Tests ](change_device_locale_recipe.md)
 
