@@ -5,7 +5,7 @@ Internationalisation can be hard on Android so you might end up writing automate
 
 To avoid code duplication you can use this `TestRule`, which changes the `Locale` of a device to a given one before a test runs and afterwards back to the original one.
 
-```
+``` java
 class LocaleTestRule implements TestRule {
 
     private final Locale locale;
@@ -52,7 +52,7 @@ class LocaleTestRule implements TestRule {
 
 You can use this rule together with the `ActivityTestRule` in your instrumentation test.
 
-```
+``` java
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
