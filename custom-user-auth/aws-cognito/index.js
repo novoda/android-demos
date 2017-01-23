@@ -13,7 +13,7 @@ const qs = require('querystring');
 
 exports.handler = function (event, context, callback) {
   // Will need setting up API Gateway to pass in querystring params
-  // as shown here http://stackoverflow.com/questions/31329958/how-to-pass-a-querystring-or-route-parameter-to-aws-lambda-from-amazon-api-gatew
+  // as shown here http://stackoverflow.com/a/31857201/1180029
   const params = qs.parse(event.querystring);
   const username = params.username;
   const password = params.password;
