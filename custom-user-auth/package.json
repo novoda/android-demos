@@ -1,0 +1,14 @@
+{
+  "name": "custom-user-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "cd aws-cognito ; npm install ; cd ../common ; npm install ; cd ../firebase-auth ; npm install ; cd ..",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "cognito-auth-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec 'node-lambda run'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.7.24",
+    "bluebird": "^3.4.7",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "node-lambda": "^0.8.11",
+    "nodemon": "^1.11.0"
+  }
+}

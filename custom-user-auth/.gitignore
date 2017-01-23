@@ -1,0 +1,4 @@
+.credentials/
+node_modules/
+client_secret.json
+.DS_Store
