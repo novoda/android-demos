@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private TaskRepository taskRepository;
     private EditText taskEditTitle;
     private EditText taskEditDate;
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private Task createTask() {
         String strDate = taskEditDate.getText().toString();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
         try {
             date = dateFormat.parse(strDate);
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             TextView taskDate = (TextView) taskLayout.findViewById(R.id.task_date);
 
             taskTitle.setText(task.getName());
-            taskDate.setText(task.getExpiration().toString());
+            taskDate.setText(dateFormat.format(task.getExpiration()));
 
             tasksList.addView(taskLayout);
         }
