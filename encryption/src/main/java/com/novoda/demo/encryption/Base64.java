@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.novoda;
+package com.novoda.demo.encryption;
 
 
 // This code was converted from code at http://iharder.sourceforge.net/base64/
