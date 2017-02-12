@@ -1,15 +1,5 @@
 package com.novoda.example.compass.activities;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.novoda.example.compass.NovoCompass;
-import com.novoda.example.compass.utils.CompassUtils;
-import com.novoda.example.compass.utils.LowPassFilter;
-import com.novoda.location.exception.NoProviderAvailable;
-
-import android.hardware.SensorManager;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +8,18 @@ import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.novoda.example.compass.NovoCompass;
+import com.novoda.example.compass.utils.CompassUtils;
+import com.novoda.example.compass.utils.LowPassFilter;
+import com.novoda.location.exception.NoProviderAvailable;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class BasicSensorActivity extends SherlockFragmentActivity implements SensorEventListener {
 
@@ -30,7 +29,8 @@ public abstract class BasicSensorActivity extends SherlockFragmentActivity imple
     private static final float grav[] = new float[3]; 
     private static final float mag[] = new float[3]; 
     private static final float rotation[] = new float[9]; 
-    private static final float orientation[] = new float[3]; 
+    private static final float orientation[] = new float[3];
+    private static final String TAG = "BasicSensorActivity";
     private static float smoothed[] = new float[3];
 
     private Location location;
