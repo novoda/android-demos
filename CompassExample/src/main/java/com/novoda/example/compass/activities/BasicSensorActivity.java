@@ -20,6 +20,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 
 public abstract class BasicSensorActivity extends SherlockFragmentActivity implements SensorEventListener {
 
@@ -103,7 +104,7 @@ public abstract class BasicSensorActivity extends SherlockFragmentActivity imple
         try {
             NovoCompass.getLocator().startLocationUpdates();
         } catch (NoProviderAvailable np) {
-            // TODO add implementation
+            Log.e(TAG, "There is no provider available", np);
         }
     }
 
