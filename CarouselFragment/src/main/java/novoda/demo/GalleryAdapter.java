@@ -1,16 +1,17 @@
 package novoda.demo;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 class GalleryAdapter extends BaseAdapter {
 
@@ -42,16 +43,17 @@ class GalleryAdapter extends BaseAdapter {
             view = convertView;
         }
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        
+
         Bitmap image = null;
         try {
-            InputStream bitmap=mContext.getAssets().open("placeholder.png");
-            image=BitmapFactory.decodeStream(bitmap);
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            InputStream bitmap = mContext.getAssets().open("placeholder.png");
+            image = BitmapFactory.decodeStream(bitmap);
+        } catch (IOException exception) {
+            Log.e("GalleryAdapter.class", "Something happen when you have tried to open the file placeholder.png", exception);
         }
-        
+
         imageView.setImageBitmap(image);
         return view;
     }
+
 }
