@@ -15,6 +15,7 @@ import java.io.InputStream;
 
 class GalleryAdapter extends BaseAdapter {
 
+    private static final String TAG = "GalleryAdapter";
     private final Context mContext;
 
     public GalleryAdapter(Context c) {
@@ -42,6 +43,7 @@ class GalleryAdapter extends BaseAdapter {
         } else {
             view = convertView;
         }
+
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
 
         Bitmap image = null;
@@ -49,11 +51,10 @@ class GalleryAdapter extends BaseAdapter {
             InputStream bitmap = mContext.getAssets().open("placeholder.png");
             image = BitmapFactory.decodeStream(bitmap);
         } catch (IOException exception) {
-            Log.e("GalleryAdapter.class", "Something happen when you have tried to open the file placeholder.png", exception);
+            Log.e(TAG, "Something happen when you have tried to open the file placeholder.png", exception);
         }
 
         imageView.setImageBitmap(image);
         return view;
     }
-
 }
