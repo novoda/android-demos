@@ -1,11 +1,23 @@
 package com.novoda.activity;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.novoda.R;
+import com.novoda.model.Result;
+import com.novoda.model.SearchResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,23 +27,10 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.novoda.R;
-import com.novoda.model.Result;
-import com.novoda.model.SearchResponse;
-
 public class JsonRequest extends Activity {
 	
 	private static final String SEARCH = "Droidcon";
+    private static final String TAG = "JsonRequest.class";
 	String url = "http://search.twitter.com/search.json?q=" + SEARCH;
 	
     @Override
@@ -82,7 +81,7 @@ public class JsonRequest extends Activity {
         } 
         catch (IOException e) {
            getRequest.abort();
-           Log.w(getClass().getSimpleName(), "Error for URL " + url, e);
+           Log.e(TAG, "Error for URL " + url, e);
         }
         return null;
      }
