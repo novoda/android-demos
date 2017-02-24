@@ -71,17 +71,17 @@ public class JsonRequest extends Activity {
            final int statusCode = getResponse.getStatusLine().getStatusCode();
            
            if (statusCode != HttpStatus.SC_OK) { 
-              Log.w(getClass().getSimpleName(), "Error " + statusCode + " for URL " + url); 
+              Log.w(getClass().getSimpleName(), "An error occurred with this URL: " + url + "  Http status code: " + statusCode);
               return null;
            }
 
            HttpEntity getResponseEntity = getResponse.getEntity();
            return getResponseEntity.getContent();
            
-        } 
+        }
         catch (IOException e) {
            getRequest.abort();
-           Log.e(TAG, "Error for URL " + url, e);
+           Log.e(TAG, "An error occurred with this URL: " + url, e);
         }
         return null;
      }

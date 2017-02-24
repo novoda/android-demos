@@ -16,6 +16,7 @@ import java.io.InputStream;
 class GalleryAdapter extends BaseAdapter {
 
     private static final String TAG = "GalleryAdapter";
+    private static final String PLACEHOLDER_FILE = "placeholder.png";
     private final Context mContext;
 
     public GalleryAdapter(Context c) {
@@ -48,10 +49,10 @@ class GalleryAdapter extends BaseAdapter {
 
         Bitmap image = null;
         try {
-            InputStream bitmap = mContext.getAssets().open("placeholder.png");
+            InputStream bitmap = mContext.getAssets().open(PLACEHOLDER_FILE);
             image = BitmapFactory.decodeStream(bitmap);
         } catch (IOException exception) {
-            Log.e(TAG, "Something happen when you have tried to open the file placeholder.png", exception);
+            Log.e(TAG, "An error occurred when you have tried to open the file: "+ PLACEHOLDER_FILE, exception);
         }
 
         imageView.setImageBitmap(image);
