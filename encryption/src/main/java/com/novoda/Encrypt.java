@@ -1,10 +1,9 @@
 package com.novoda;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -13,11 +12,11 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEParameterSpec;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class Encrypt extends Activity {
 
@@ -48,48 +47,120 @@ public class Encrypt extends Activity {
         ((TextView)findViewById(R.id.txt_encrypted)).setText(hash);
         ((TextView)findViewById(R.id.txt_unencrypted)).setText(getUnhashed(hash));
     }
-    
     public String getAsHash(String var) {
         String passwordHashed;
         try {
             passwordHashed = crypt(Cipher.ENCRYPT_MODE, var);
-        } catch (Exception e) {
+        } catch (CryptException e) {
         	Log.e(TAG, "Problem encrypting string" ,e);
             passwordHashed = "you should not see this";
 		}
     	return passwordHashed;
     }
     
-    public String getUnhashed(String hashed){
+    String getUnhashed(String hashed){
         try {
         	hashed = crypt(Cipher.DECRYPT_MODE, hashed);
-        } catch (Exception e) {
-        	Log.e(TAG, "Problem decrypting string" ,e);
-        }     
+        } catch (CryptException e) {
+        	Log.e(TAG, "A problem decrypting string has occurred: " ,e);
+        }
         return hashed;
     }
     
     
-    public String crypt(int mode, String encryption_subject) throws Base64DecoderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,  InvalidAlgorithmParameterException, InvalidKeyException, InvalidKeySpecException, NoSuchPaddingException,  BadPaddingException, UnsupportedEncodingException, IllegalBlockSizeException {
+    public String crypt(int mode, String encryption_subject) throws CryptException {
 
         final PBEParameterSpec ps = new javax.crypto.spec.PBEParameterSpec(SALT, 20);
-		final SecretKeyFactory kf = SecretKeyFactory.getInstance(ALGORITHM);
-		final SecretKey k = kf.generateSecret(new javax.crypto.spec.PBEKeySpec(SECRET_KEY.toCharArray()));
-        final Cipher crypter = Cipher.getInstance(CIPHER_TYPE);
+		final SecretKeyFactory kf = getSecretKeyFactory();
+		final SecretKey k = getSecretKey(kf);
+        final Cipher crypter = getCipherInstance();
         
         String result;
         
 		switch(mode){
 	        case Cipher.DECRYPT_MODE:
-	        	crypter.init(Cipher.DECRYPT_MODE, k, ps);
-	            result = new String(crypter.doFinal(Base64.decode(encryption_subject)), CHARSET);
+                initialise(ps, k, crypter, Cipher.DECRYPT_MODE);
+                result = getString(encryption_subject, crypter);
 	        	break;
 	        case Cipher.ENCRYPT_MODE:
 	        default:
-	        	crypter.init(Cipher.ENCRYPT_MODE, k, ps);
-	            result = Base64.encode(crypter.doFinal(encryption_subject.getBytes(CHARSET)));
+                initialise(ps, k, crypter, Cipher.ENCRYPT_MODE);
+                result = encode(encryption_subject, crypter);
         }
         
         return result;
+    }
+
+    private String encode(String encryption_subject, Cipher crypter) throws CryptException {
+
+        try {
+            return Base64.encode(finishTransformation(crypter, encryption_subject.getBytes(CHARSET)));
+        } catch (UnsupportedEncodingException e) {
+            throw new CryptException(e);
+        }
+
+    }
+
+    private byte[] finishTransformation(Cipher crypter, byte[] bytes) throws CryptException {
+
+        try {
+            return crypter.doFinal(bytes);
+        } catch (IllegalBlockSizeException | BadPaddingException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private byte[] getDecode(String encryption_subject) throws CryptException {
+
+        try {
+            return Base64.decode(encryption_subject);
+        } catch (Base64DecoderException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private SecretKeyFactory getSecretKeyFactory() throws CryptException {
+
+        try {
+            return SecretKeyFactory.getInstance(ALGORITHM);
+        } catch (NoSuchAlgorithmException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private SecretKey getSecretKey(SecretKeyFactory kf) throws CryptException {
+
+        try {
+            return kf.generateSecret(new javax.crypto.spec.PBEKeySpec(SECRET_KEY.toCharArray()));
+        } catch (InvalidKeySpecException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private Cipher getCipherInstance() throws CryptException {
+
+        try {
+            return Cipher.getInstance(CIPHER_TYPE);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private void initialise(PBEParameterSpec ps, SecretKey k, Cipher crypter, int decryptMode) throws CryptException {
+        try {
+            crypter.init(decryptMode, k, ps);
+        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private String getString(String encryption_subject, Cipher crypter) throws CryptException {
+
+
+        try {
+            return new String(finishTransformation(crypter, getDecode(encryption_subject)), CHARSET);
+        } catch (UnsupportedEncodingException e) {
+            throw new CryptException(e);
+        }
     }
 }
