@@ -42,32 +42,28 @@ public class Encrypt extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        String hash = getAsHash(SECRET_PASSWORD_TO_ENCRYPT);
+        String hash = transform(SECRET_PASSWORD_TO_ENCRYPT, Cipher.ENCRYPT_MODE);
         
         ((TextView)findViewById(R.id.txt_encrypted)).setText(hash);
-        ((TextView)findViewById(R.id.txt_unencrypted)).setText(getUnhashed(hash));
+        ((TextView)findViewById(R.id.txt_unencrypted)).setText(transform(hash, Cipher.DECRYPT_MODE));
     }
-    public String getAsHash(String var) {
-        String passwordHashed;
+
+    String transform(String var, int transformationType) {
+        String passwordHashed = "";
         try {
-            passwordHashed = crypt(Cipher.ENCRYPT_MODE, var);
+            passwordHashed = crypt(transformationType, var);
         } catch (CryptException e) {
-        	Log.e(TAG, "Problem encrypting string" ,e);
-            passwordHashed = "you should not see this";
-		}
-    	return passwordHashed;
-    }
-    
-    String getUnhashed(String hashed){
-        try {
-        	hashed = crypt(Cipher.DECRYPT_MODE, hashed);
-        } catch (CryptException e) {
-        	Log.e(TAG, "A problem decrypting string has occurred: " ,e);
+            if (transformationType == Cipher.ENCRYPT_MODE) {
+                Log.e(TAG, "A problem during the encryption has occurred", e);
+                passwordHashed = "";
+            }
+            if (transformationType == Cipher.DECRYPT_MODE) {
+                Log.e(TAG, "A problem during the decryption has occurred:", e);
+            }
         }
-        return hashed;
+        return passwordHashed;
     }
-    
-    
+
     public String crypt(int mode, String encryption_subject) throws CryptException {
 
         final PBEParameterSpec ps = new javax.crypto.spec.PBEParameterSpec(SALT, 20);
@@ -89,34 +85,6 @@ public class Encrypt extends Activity {
         }
         
         return result;
-    }
-
-    private String encode(String encryption_subject, Cipher crypter) throws CryptException {
-
-        try {
-            return Base64.encode(finishTransformation(crypter, encryption_subject.getBytes(CHARSET)));
-        } catch (UnsupportedEncodingException e) {
-            throw new CryptException(e);
-        }
-
-    }
-
-    private byte[] finishTransformation(Cipher crypter, byte[] bytes) throws CryptException {
-
-        try {
-            return crypter.doFinal(bytes);
-        } catch (IllegalBlockSizeException | BadPaddingException e) {
-            throw new CryptException(e);
-        }
-    }
-
-    private byte[] getDecode(String encryption_subject) throws CryptException {
-
-        try {
-            return Base64.decode(encryption_subject);
-        } catch (Base64DecoderException e) {
-            throw new CryptException(e);
-        }
     }
 
     private SecretKeyFactory getSecretKeyFactory() throws CryptException {
@@ -160,6 +128,34 @@ public class Encrypt extends Activity {
         try {
             return new String(finishTransformation(crypter, getDecode(encryption_subject)), CHARSET);
         } catch (UnsupportedEncodingException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private String encode(String encryption_subject, Cipher crypter) throws CryptException {
+
+        try {
+            return Base64.encode(finishTransformation(crypter, encryption_subject.getBytes(CHARSET)));
+        } catch (UnsupportedEncodingException e) {
+            throw new CryptException(e);
+        }
+
+    }
+
+    private byte[] finishTransformation(Cipher crypter, byte[] bytes) throws CryptException {
+
+        try {
+            return crypter.doFinal(bytes);
+        } catch (IllegalBlockSizeException | BadPaddingException e) {
+            throw new CryptException(e);
+        }
+    }
+
+    private byte[] getDecode(String encryption_subject) throws CryptException {
+
+        try {
+            return Base64.decode(encryption_subject);
+        } catch (Base64DecoderException e) {
             throw new CryptException(e);
         }
     }
