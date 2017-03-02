@@ -1,8 +1,5 @@
 package com.novoda;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class DynamicListItems extends ListActivity {
 	private static final String			ITEM_KEY	= "key";
+	private static final String 		TAG = "DynamicListItems.class";
 	ArrayList<HashMap<String, String>>	list		= new ArrayList<HashMap<String, String>>();
 	private SimpleAdapter				adapter;
 	private EditText					newValue;
@@ -37,7 +38,7 @@ public class DynamicListItems extends ListActivity {
 					list.add(item);
 					adapter.notifyDataSetChanged();
 				} catch (NullPointerException e) {
-					Log.i("[Dynamic Items]", "Tried to add null value");
+					Log.e(TAG, "You have tried to add item values to the list ", e);
 				}
 			}
 		};

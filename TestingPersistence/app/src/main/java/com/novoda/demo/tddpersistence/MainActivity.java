@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MainActivity.class"
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private TaskRepository taskRepository;
     private EditText taskEditTitle;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             date = dateFormat.parse(strDate);
         } catch (ParseException ex) {
             date = null;
+            Log.e(TAG, "A problem occur during the parsing of the string strDate: "+ strDate, ex);
         }
 
         return new Task(taskEditTitle.getText().toString(), date);
