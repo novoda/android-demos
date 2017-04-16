@@ -1,4 +1,4 @@
-#Demo ContactSelector
+# Demo ContactSelector
 
 ContactSelector demonstrates the use of the pick action for contacts.
 

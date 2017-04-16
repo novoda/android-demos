@@ -1,4 +1,4 @@
-#Demo sms
+# Demo sms
 
 sms demonstrates how to send SMS using the `SmsManager`.
 

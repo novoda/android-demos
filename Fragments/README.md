@@ -1,4 +1,4 @@
-#Demo Fragments
+# Demo Fragments
 
 Fragments demonstrates how to use activities and fragments for basic master/detail layout.
 

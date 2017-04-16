@@ -1,4 +1,4 @@
-#Demo WearBuildConfig
+# Demo WearBuildConfig
 
 WearBuildConfig demonstrates how to integrate Android Wear with a real-world mobile project with the following requirements:
 
