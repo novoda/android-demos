@@ -1,4 +1,4 @@
-#Android Demos [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
+# Android Demos [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
 This is a collection of basic android examples created by Novoda.
 
@@ -26,7 +26,7 @@ This is a collection of basic android examples created by Novoda.
 * [TabHostSelfContainedTabBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostSelfContainedTabBrowsing)
 * [wizard](http://github.com/novoda/android-demos/tree/master/wizard)
 
-#Demos of Novoda Open Source (NOS) libraries and projects
+# Demos of Novoda Open Source (NOS) libraries and projects
 
 * [Simple Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-simple)
 * [Extended Demo for Download Manager](https://github.com/novoda/download-manager/tree/master/demo-extended)
@@ -37,9 +37,9 @@ This is a collection of basic android examples created by Novoda.
 * [Demo for Merlin (network connectivity)](https://github.com/novoda/merlin/tree/master/demo)
 * [Demo for simple XML parsing](https://github.com/novoda/simple-easy-xml-parser/tree/master/demoAndroid)
 
-#Further NOS work
+# Further NOS work
 
-##All NOS libraries
+## All NOS libraries
 
 * [Download Manager](https://github.com/novoda/download-manager)
 * [Merlin - Connectivity Checker](https://github.com/novoda/merlin)
@@ -49,7 +49,7 @@ This is a collection of basic android examples created by Novoda.
 * [Simple XML Parser](https://github.com/novoda/simple-easy-xml-parser)
 * [RxPresso](https://github.com/novoda/rxpresso)
 
-##All NOS gradle plugins
+## All NOS gradle plugins
 
 * [Bintray Release](https://github.com/novoda/bintray-release)
 * [Sqlite Analyzer](https://github.com/novoda/sqlite-analyzer)

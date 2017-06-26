@@ -14,7 +14,7 @@ Anyone of:
  - Sikuli
  
 
-####Current Acceptance Criteria:
+#### Current Acceptance Criteria:
  
  Main screen:
  

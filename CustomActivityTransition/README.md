@@ -1,4 +1,4 @@
-#Demo CustomActivityTransition
+# Demo CustomActivityTransition
 
 CustomActivityTransition demonstrates how to define animations in the application theme.
 

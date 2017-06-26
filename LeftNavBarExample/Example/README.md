@@ -1,4 +1,4 @@
-#Demo LeftNavBarExample/Example
+# Demo LeftNavBarExample/Example
 
 Example show how to use the left navigation bar for TV.
 
