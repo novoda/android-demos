@@ -1,31 +1,31 @@
-package xyz.lgvalle.tddpersistence;
+package com.novoda.demo.tddpersistence;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.novoda.demo.tddpersistence.db.TaskReaderDbHelper;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import xyz.lgvalle.tddpersistence.db.TaskReaderDbHelper;
-
+import static com.novoda.demo.tddpersistence.TaskNamedMatcher.aTaskNamed;
+import static com.novoda.demo.tddpersistence.TaskRepositoryTest.TaskBuilder.aTask;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
-import static xyz.lgvalle.tddpersistence.TaskNamedMatcher.aTaskNamed;
-import static xyz.lgvalle.tddpersistence.TaskRepositoryTest.TaskBuilder.aTask;
 
 
 @RunWith(AndroidJUnit4.class)
 public class TaskRepositoryTest {
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
     private TaskRepository taskRepository;
-
 
     @Before
     public void setUp() throws Exception {
