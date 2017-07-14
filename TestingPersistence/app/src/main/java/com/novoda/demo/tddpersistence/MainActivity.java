@@ -2,6 +2,7 @@ package com.novoda.demo.tddpersistence;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -14,10 +15,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private static String TAG = "MainActivity.class"
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+
     private TaskRepository taskRepository;
     private EditText taskEditTitle;
     private EditText taskEditDate;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             date = dateFormat.parse(strDate);
         } catch (ParseException ex) {
             date = null;
-            Log.e(TAG, "A problem occur during the parsing of the string strDate: "+ strDate, ex);
+            Log.e(TAG, "A problem occur during the parsing of the string strDate: " + strDate, ex);
         }
 
         return new Task(taskEditTitle.getText().toString(), date);

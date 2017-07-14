@@ -1,4 +1,4 @@
-package xyz.lgvalle.tddpersistence;
+package com.novoda.demo.tddpersistence;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;

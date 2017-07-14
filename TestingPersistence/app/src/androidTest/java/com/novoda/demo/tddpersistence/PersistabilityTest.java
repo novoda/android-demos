@@ -1,21 +1,21 @@
-package xyz.lgvalle.tddpersistence;
+package com.novoda.demo.tddpersistence;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.novoda.demo.tddpersistence.db.TaskReaderDbHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
-import xyz.lgvalle.tddpersistence.db.TaskReaderDbHelper;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static com.novoda.demo.tddpersistence.TaskRepositoryTest.TaskBuilder.aTask;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static xyz.lgvalle.tddpersistence.TaskRepositoryTest.TaskBuilder.aTask;
 
 @RunWith(AndroidJUnit4.class)
 public class PersistabilityTest {

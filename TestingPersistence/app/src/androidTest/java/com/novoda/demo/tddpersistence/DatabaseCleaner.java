@@ -1,18 +1,19 @@
-package xyz.lgvalle.tddpersistence;
+package com.novoda.demo.tddpersistence;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.novoda.demo.tddpersistence.db.TaskReaderContract;
+import com.novoda.demo.tddpersistence.db.TaskReaderDbHelper;
+
 import java.sql.SQLException;
 
-import xyz.lgvalle.tddpersistence.db.TaskReaderDbHelper;
 
-import static xyz.lgvalle.tddpersistence.db.TaskReaderContract.*;
 
 public class DatabaseCleaner {
 
     private static final String[] TABLES = {
             // Add tables to delete here
-            TaskEntry.TABLE_NAME
+            TaskReaderContract.TaskEntry.TABLE_NAME
     };
 
     private final TaskReaderDbHelper dbHelper;
