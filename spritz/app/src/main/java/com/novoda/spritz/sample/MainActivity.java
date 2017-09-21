@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int PAGER_NUM = 3;
+    private static final int PAGES_COUNT = 3;
     private static final TimeInterpolator SWIPE_FORWARD_INTERPOLATOR = new LinearOutSlowInInterpolator();
     private static final TimeInterpolator SWIPE_BACKWARDS_INTERPOLATOR = new FastOutSlowInInterpolator();
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int nextItem = viewPager.getCurrentItem() + 1;
-                if (PAGER_NUM > nextItem) {
+                if (PAGES_COUNT > nextItem) {
                     viewPager.setCurrentItem(nextItem);
                 }
             }
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return PAGER_NUM;
+            return PAGES_COUNT;
         }
 
     }
