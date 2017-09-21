@@ -7,6 +7,8 @@ _Animate your view pager with Lottie and zero efforts._
 Spritz is an Android library to seamlessly trigger a Lottie animation when the user drags a `ViewPager` or changes page. It supports animating 
 while swiping and auto-playing when the swipe is complete.
 
+![A taste of spritz](images/a-taste-of-spritz.gif)
+
 ## How to use
 
 ### Basics
