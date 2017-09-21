@@ -38,7 +38,7 @@ These segments must be consecutive to one another, as if the user continuously m
 
 After getting your `LottieAnimationView` and your `ViewPager`, just create a `Spritz` object with the following syntax:
 
-```
+```java
 Spritz
     .with(lottieAnimationView)
     .withDefaultSwipeAnimationDuration(300, TimeUnit.MILLISECONDS)
@@ -66,7 +66,7 @@ Spritz
 
 Start building your view pager animation by calling:
 
-```
+```java
 SpritzPage.with(lottieAnimationView)
 ```
 
