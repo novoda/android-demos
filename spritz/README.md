@@ -115,7 +115,7 @@ To build a page, use the `SpritzPage.Builder` class, configure it as explained i
 `withAutoPlayDuration(long duration, TimeUnit timeUnit)` sets the duration of the autoplay animation for the given page. This must match the exact 
 duration of the autoplay segment in your AfterEffects project.
 
-#### ``
+#### `withSwipeDuration`
 
 `withSwipeDuration(long duration, TimeUnit timeUnit)` sets the duration of the swipe animation for the given page. This must match the exact 
 duration of the swipe segment in your AfterEffects project.
