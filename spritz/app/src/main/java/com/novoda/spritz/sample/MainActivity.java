@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             // default constructor
         }
 
-        @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             return inflater.inflate(R.layout.page, container, false);
