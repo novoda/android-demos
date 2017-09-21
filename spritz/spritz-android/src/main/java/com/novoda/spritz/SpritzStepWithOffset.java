@@ -5,7 +5,7 @@ import android.animation.TimeInterpolator;
 import java.util.ArrayList;
 import java.util.List;
 
-class SpritzPageWithOffset {
+class SpritzStepWithOffset {
 
     private final long autoPlayDuration;
     private final long autoPlayEnd;
@@ -13,7 +13,7 @@ class SpritzPageWithOffset {
     private final TimeInterpolator swipeForwardInterpolator;
     private final TimeInterpolator swipeBackwardsInterpolator;
 
-    private SpritzPageWithOffset(long autoPlayDuration,
+    private SpritzStepWithOffset(long autoPlayDuration,
                                  long autoPlayEnd,
                                  long swipeEnd,
                                  TimeInterpolator swipeForwardInterpolator,
@@ -46,27 +46,27 @@ class SpritzPageWithOffset {
         return swipeBackwardsInterpolator;
     }
 
-    static List<SpritzPageWithOffset> fromSpritzPages(SpritzPage... spritzPages) {
-        List<SpritzPageWithOffset> spritzPageWithOffsetList = new ArrayList<>(spritzPages.length);
+    static List<SpritzStepWithOffset> fromSpritzSteps(SpritzStep... spritzSteps) {
+        List<SpritzStepWithOffset> spritzStepWithOffsetList = new ArrayList<>(spritzSteps.length);
         long totalAnimationTime = 0;
 
-        for (SpritzPage spritzPage : spritzPages) {
-            long autoPlayEnd = totalAnimationTime + spritzPage.autoPlayDuration();
-            long swipeEnd = totalAnimationTime + spritzPage.autoPlayDuration() + spritzPage.swipeDuration();
+        for (SpritzStep spritzStep : spritzSteps) {
+            long autoPlayEnd = totalAnimationTime + spritzStep.autoPlayDuration();
+            long swipeEnd = totalAnimationTime + spritzStep.autoPlayDuration() + spritzStep.swipeDuration();
 
-            spritzPageWithOffsetList.add(
-                    new SpritzPageWithOffset(
-                            spritzPage.autoPlayDuration(),
+            spritzStepWithOffsetList.add(
+                    new SpritzStepWithOffset(
+                            spritzStep.autoPlayDuration(),
                             autoPlayEnd,
                             swipeEnd,
-                            spritzPage.swipeForwardInterpolator(),
-                            spritzPage.swipeBackwardsInterpolator()
+                            spritzStep.swipeForwardInterpolator(),
+                            spritzStep.swipeBackwardsInterpolator()
                     )
             );
 
             totalAnimationTime = swipeEnd;
         }
 
-        return spritzPageWithOffsetList;
+        return spritzStepWithOffsetList;
     }
 }

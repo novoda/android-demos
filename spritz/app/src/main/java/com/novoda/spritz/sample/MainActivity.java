@@ -17,7 +17,7 @@ import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.novoda.spritz.Spritz;
-import com.novoda.spritz.SpritzPage;
+import com.novoda.spritz.SpritzStep;
 
 import java.util.concurrent.TimeUnit;
 
@@ -45,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
                 .withDefaultSwipeAnimationDuration(300, TimeUnit.MILLISECONDS)
                 .withDefaultSwipeForwardInterpolator(SWIPE_FORWARD_INTERPOLATOR)
                 .withDefaultSwipeBackwardsInterpolator(SWIPE_BACKWARDS_INTERPOLATOR)
-                .withPages(
-                        new SpritzPage.Builder()
+                .withSteps(
+                        new SpritzStep.Builder()
                                 .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                                 .withSwipeDuration(500, TimeUnit.MILLISECONDS)
                                 .build(),
-                        new SpritzPage.Builder()
+                        new SpritzStep.Builder()
                                 .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                                 .withSwipeDuration(500, TimeUnit.MILLISECONDS)
                                 .build(),
-                        new SpritzPage.Builder()
+                        new SpritzStep.Builder()
                                 .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                                 .build()
                 )

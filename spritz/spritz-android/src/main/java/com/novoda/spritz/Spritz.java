@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class Spritz {
 
     private final LottieAnimationView lottieAnimationView;
-    private final List<SpritzPageWithOffset> spritzPagesWithOffset;
+    private final List<SpritzStepWithOffset> spritzStepsWithOffset;
     private final long totalAnimationDuration;
     private final long defaultSwipeAnimationDuration;
     private final TimeInterpolator defaultSwipeForwardInterpolator;
@@ -33,14 +33,14 @@ public class Spritz {
     }
 
     private Spritz(LottieAnimationView lottieAnimationView,
-                   List<SpritzPageWithOffset> spritzPagesWithOffset,
+                   List<SpritzStepWithOffset> spritzStepsWithOffset,
                    long totalAnimationDuration,
                    long defaultSwipeAnimationDuration,
                    TimeInterpolator defaultSwipeForwardInterpolator,
                    TimeInterpolator defaultSwipeBackwardsInterpolator) {
 
         this.lottieAnimationView = lottieAnimationView;
-        this.spritzPagesWithOffset = spritzPagesWithOffset;
+        this.spritzStepsWithOffset = spritzStepsWithOffset;
         this.totalAnimationDuration = totalAnimationDuration;
         this.defaultSwipeAnimationDuration = defaultSwipeAnimationDuration;
         this.defaultSwipeForwardInterpolator = defaultSwipeForwardInterpolator;
@@ -100,7 +100,7 @@ public class Spritz {
     }
 
     private float getSwipeEndProgressForPosition(int position) {
-        return ((float) spritzPagesWithOffset.get(position).swipeEnd()) / totalAnimationDuration;
+        return ((float) spritzStepsWithOffset.get(position).swipeEnd()) / totalAnimationDuration;
     }
 
     public void startPendingAnimations() {
@@ -127,17 +127,17 @@ public class Spritz {
         float currentProgress = lottieAnimationView.getProgress();
         float previousSwipeEndProgress = getSwipeEndForPreviousPositionOrZero(position);
         float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
-        SpritzPageWithOffset currentPage = spritzPagesWithOffset.get(position);
+        SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
 
         ValueAnimator finishSwipeAnimation = ValueAnimator
                 .ofFloat(currentProgress, previousSwipeEndProgress)
                 .setDuration(defaultSwipeAnimationDuration);
-        finishSwipeAnimation.setInterpolator(getSwipeForwardInterpolatorFor(currentPage));
+        finishSwipeAnimation.setInterpolator(getSwipeForwardInterpolatorFor(currentStep));
         finishSwipeAnimation.addUpdateListener(defaultAnimatorUpdateListener());
 
         ValueAnimator autoPlayAnimation = ValueAnimator
                 .ofFloat(previousSwipeEndProgress, autoPlayEndProgress)
-                .setDuration(currentPage.autoPlayDuration());
+                .setDuration(currentStep.autoPlayDuration());
         autoPlayAnimation.addUpdateListener(defaultAnimatorUpdateListener());
 
         return Arrays.<Animator>asList(finishSwipeAnimation, autoPlayAnimation);
@@ -151,36 +151,36 @@ public class Spritz {
         return swipeEndProgress;
     }
 
-    private TimeInterpolator getSwipeForwardInterpolatorFor(SpritzPageWithOffset currentPage) {
-        TimeInterpolator pageSwipeForwardInterpolator = currentPage.swipeForwardInterpolator();
-        if (pageSwipeForwardInterpolator != null) {
-            return pageSwipeForwardInterpolator;
+    private TimeInterpolator getSwipeForwardInterpolatorFor(SpritzStepWithOffset currentStep) {
+        TimeInterpolator stepSwipeForwardInterpolator = currentStep.swipeForwardInterpolator();
+        if (stepSwipeForwardInterpolator != null) {
+            return stepSwipeForwardInterpolator;
         }
         return this.defaultSwipeForwardInterpolator;
     }
 
     private List<Animator> swipeBackwards(int position) {
-        SpritzPageWithOffset currentPage = spritzPagesWithOffset.get(position);
+        SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
         float currentProgress = lottieAnimationView.getProgress();
         float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
 
         ValueAnimator finishSwipeAnimation = ValueAnimator
                 .ofFloat(currentProgress, autoPlayEndProgress)
                 .setDuration(defaultSwipeAnimationDuration);
-        finishSwipeAnimation.setInterpolator(getSwipeBackwardsInterpolatorFor(currentPage));
+        finishSwipeAnimation.setInterpolator(getSwipeBackwardsInterpolatorFor(currentStep));
         finishSwipeAnimation.addUpdateListener(defaultAnimatorUpdateListener());
 
         return Collections.<Animator>singletonList(finishSwipeAnimation);
     }
 
     private float getAutoPlayEndProgressForPosition(int position) {
-        return ((float) spritzPagesWithOffset.get(position).autoPlayEnd()) / totalAnimationDuration;
+        return ((float) spritzStepsWithOffset.get(position).autoPlayEnd()) / totalAnimationDuration;
     }
 
-    private TimeInterpolator getSwipeBackwardsInterpolatorFor(SpritzPageWithOffset currentPage) {
-        TimeInterpolator pageSwipeBackwardsInterpolator = currentPage.swipeBackwardsInterpolator();
-        if (pageSwipeBackwardsInterpolator != null) {
-            return pageSwipeBackwardsInterpolator;
+    private TimeInterpolator getSwipeBackwardsInterpolatorFor(SpritzStepWithOffset currentStep) {
+        TimeInterpolator stepSwipeBackwardsInterpolator = currentStep.swipeBackwardsInterpolator();
+        if (stepSwipeBackwardsInterpolator != null) {
+            return stepSwipeBackwardsInterpolator;
         }
         return this.defaultSwipeBackwardsInterpolator;
     }
@@ -203,11 +203,11 @@ public class Spritz {
         private long defaultSwipeAnimationDuration = DEFAULT_SWIPE_ANIMATION_DURATION;
         private TimeInterpolator defaultSwipeForwardInterpolator = new LinearInterpolator();
         private TimeInterpolator defaultSwipeBackwardsInterpolator = new LinearInterpolator();
-        private List<SpritzPageWithOffset> spritzPagesWithOffset;
+        private List<SpritzStepWithOffset> spritzStepsWithOffset;
 
         private Builder(LottieAnimationView lottieAnimationView) {
             this.lottieAnimationView = lottieAnimationView;
-            spritzPagesWithOffset = new ArrayList<>();
+            spritzStepsWithOffset = new ArrayList<>();
         }
 
         public Builder withDefaultSwipeAnimationDuration(long defaultSwipeAnimationDuration, TimeUnit timeUnit) {
@@ -225,15 +225,15 @@ public class Spritz {
             return this;
         }
 
-        public Builder withPages(SpritzPage... spritzPages) {
-            this.spritzPagesWithOffset = SpritzPageWithOffset.fromSpritzPages(spritzPages);
+        public Builder withSteps(SpritzStep... spritzSteps) {
+            this.spritzStepsWithOffset = SpritzStepWithOffset.fromSpritzSteps(spritzSteps);
             return this;
         }
 
         public Spritz attachTo(ViewPager viewPager) {
             Spritz spritz = new Spritz(
                     lottieAnimationView,
-                    spritzPagesWithOffset,
+                    spritzStepsWithOffset,
                     calculateTotalAnimationDuration(),
                     defaultSwipeAnimationDuration,
                     defaultSwipeForwardInterpolator,
@@ -244,12 +244,12 @@ public class Spritz {
         }
 
         private long calculateTotalAnimationDuration() {
-            if (spritzPagesWithOffset.isEmpty()) {
+            if (spritzStepsWithOffset.isEmpty()) {
                 return 0;
             }
 
-            int lastIndex = spritzPagesWithOffset.size() - 1;
-            return spritzPagesWithOffset.get(lastIndex).swipeEnd();
+            int lastIndex = spritzStepsWithOffset.size() - 1;
+            return spritzStepsWithOffset.get(lastIndex).swipeEnd();
         }
 
     }

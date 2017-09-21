@@ -13,7 +13,7 @@ while swiping and auto-playing when the swipe is complete.
 
 ### Basics
 
-Each page in the `ViewPager` has two possible animations:
+Each step in the `ViewPager` has two possible animations:
 
 - a "swipe away" animation that will be triggered while the user drags from one page to the next or previous one
 - an "autoplay" animation segment that plays as soon as the user enters the destination page
@@ -43,17 +43,17 @@ Spritz
     .with(lottieAnimationView)
     .withDefaultSwipeAnimationDuration(300, TimeUnit.MILLISECONDS)
     .withDefaultSwipeForwardInterpolator(SWIPE_FORWARD_INTERPOLATOR)
-    .withPages(
-            new SpritzPage.Builder()
+    .withSteps(
+            new SpritzStep.Builder()
                     .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                     .withSwipeDuration(500, TimeUnit.MILLISECONDS)
                     .build(),
-            new SpritzPage.Builder()
+            new SpritzStep.Builder()
                     .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                     .withSwipeDuration(500, TimeUnit.MILLISECONDS)
                     .withSwipeBackwardsInterpolator(SWIPE_BACKWARDS_INTERPOLATOR)
                     .build(),
-            new SpritzPage.Builder()
+            new SpritzStep.Builder()
                     .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                     .build()
     )
@@ -92,34 +92,34 @@ animation if the user stops dragging forwards at any point (before starting the 
 animation if the user stops  dragging backwards at any point. If you don't set this, it will default to `LinearInterpolator`. You can always override 
 this default for single pages (see [`withSwipeBackwardsInterpolator`](#withswipebackwardsinterpolator)).
 
-#### `withPages`
+#### `withSteps`
 
-`withPages(SpritzPage... pages)` lets you specify the number of pages to animate through. The library is made to work with the same number of pages as 
-the ones set in the `ViewPager`.
+`withSteps(SpritzStep... steps)` lets you specify the steps to animate through. The library is made to work with the same number of pages as the ones 
+set in the `ViewPager`.
 
-See [Building the pages](#building-the-pages) to learn how to build a list of pages that match your exported animation.
+See [Building the steps](#building-the-steps) to learn how to build a list of steps that match your exported animation.
 
 #### `attachTo`
 
-After setting the pages, simply call `attachTo(ViewPager viewPager)` to register all the needed listeners and set everything up. Congratulations! Now
+After setting the steps, simply call `attachTo(ViewPager viewPager)` to register all the needed listeners and set everything up. Congratulations! Now
 you have a `spritz` object!
 
 #### `startPendingAnimations`
 
-You can call `startPendingAnimations` on your `spritz` object to trigger the autoplay animation for your first page, if you have one.
+You can call `startPendingAnimations` on your `spritz` object to trigger the autoplay animation for your first step.
 
-### Building the pages
+### Building the steps
 
-To build a page, use the `SpritzPage.Builder` class, configure it as explained in the following sections, then build it with `.build()`.
+To build a step, use the `SpritzStep.Builder` class, configure it as explained in the following sections, then build it with `.build()`.
 
 #### `withAutoPlayDuration`
 
-`withAutoPlayDuration(long duration, TimeUnit timeUnit)` sets the duration of the autoplay animation for the given page. This must match the exact 
+`withAutoPlayDuration(long duration, TimeUnit timeUnit)` sets the duration of the autoplay animation for the given step. This must match the exact 
 duration of the autoplay segment in your AfterEffects project.
 
 #### `withSwipeDuration`
 
-`withSwipeDuration(long duration, TimeUnit timeUnit)` sets the duration of the swipe animation for the given page. This must match the exact 
+`withSwipeDuration(long duration, TimeUnit timeUnit)` sets the duration of the swipe animation for the given step. This must match the exact 
 duration of the swipe segment in your AfterEffects project.
 
 #### `withSwipeForwardInterpolator`

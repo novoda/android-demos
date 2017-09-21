@@ -4,14 +4,14 @@ import android.animation.TimeInterpolator;
 
 import java.util.concurrent.TimeUnit;
 
-public class SpritzPage {
+public class SpritzStep {
 
     private final long autoPlayDuration;
     private final long swipeDuration;
     private final TimeInterpolator swipeForwardInterpolator;
     private final TimeInterpolator swipeBackwardsInterpolator;
 
-    private SpritzPage(long autoPlayDuration,
+    private SpritzStep(long autoPlayDuration,
                        long swipeDuration,
                        TimeInterpolator swipeForwardInterpolator,
                        TimeInterpolator swipeBackwardsInterpolator) {
@@ -65,8 +65,8 @@ public class SpritzPage {
             return this;
         }
 
-        public SpritzPage build() {
-            return new SpritzPage(
+        public SpritzStep build() {
+            return new SpritzStep(
                     autoPlayDuration,
                     swipeDuration,
                     swipeForwardInterpolator,
