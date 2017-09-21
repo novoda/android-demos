@@ -89,7 +89,7 @@ animation if the user stops dragging forwards at any point (before starting the 
 #### `withDefaultSwipeBackwardsInterpolator`
 
 `withDefaultSwipeBackwardsInterpolator(TimeInterpolator swipeBackwardsInterpolator)` sets the interpolator to use for all pages to complete the swipe 
-animation if the user stops  dragging backwards at any point. If you don't set this, it will default to `LinearInterpolator`. You can always override 
+animation if the user stops dragging backwards at any point. If you don't set this, it will default to `LinearInterpolator`. You can always override 
 this default for single pages (see [`withSwipeBackwardsInterpolator`](#withswipebackwardsinterpolator)).
 
 #### `withSteps`
