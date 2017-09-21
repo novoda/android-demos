@@ -22,6 +22,7 @@ This is a collection of basic android examples created by Novoda.
 * [PinchZoomDetector](http://github.com/novoda/android-demos/tree/master/PinchZoomDetector)
 * [simperAudioStreamer](http://github.com/novoda/android-demos/tree/master/simperAudioStreamer)
 * [sms](http://github.com/novoda/android-demos/tree/master/sms)
+* [spritz](http://github.com/novoda/android-demos/tree/master/spritz)
 * [TabHostExample](http://github.com/novoda/android-demos/tree/master/TabHostExample)
 * [TabHostSelfContainedTabBrowsing](http://github.com/novoda/android-demos/tree/master/TabHostSelfContainedTabBrowsing)
 * [wizard](http://github.com/novoda/android-demos/tree/master/wizard)
