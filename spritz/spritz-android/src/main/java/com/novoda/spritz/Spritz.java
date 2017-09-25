@@ -48,10 +48,11 @@ public class Spritz {
         this.animatorSet = new AnimatorSet();
     }
 
-    private void attach(ViewPager viewPager) {
+    public ViewPager.OnPageChangeListener getOnPageChangeListenerForViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
+        currentPosition = viewPager.getCurrentItem();
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        return new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -90,23 +91,16 @@ public class Spritz {
                 // do nothing
             }
 
-        });
-
-        currentPosition = viewPager.getCurrentItem();
+        };
     }
 
     private boolean swipingForward(float newPosition) {
         return newPosition >= currentPosition;
     }
 
-    private float getSwipeEndProgressForPosition(int position) {
-        return ((float) spritzStepsWithOffset.get(position).swipeEnd()) / totalAnimationDuration;
-    }
-
     public void startPendingAnimations() {
         autoPlayForPosition(viewPager.getCurrentItem());
     }
-
     private void autoPlayForPosition(int position) {
         animatorSet.cancel();
 
@@ -149,6 +143,10 @@ public class Spritz {
             swipeEndProgress = getSwipeEndProgressForPosition(position - 1);
         }
         return swipeEndProgress;
+    }
+
+    private float getSwipeEndProgressForPosition(int position) {
+        return ((float) spritzStepsWithOffset.get(position).swipeEnd()) / totalAnimationDuration;
     }
 
     private TimeInterpolator getSwipeForwardInterpolatorFor(SpritzStepWithOffset currentStep) {
@@ -230,8 +228,8 @@ public class Spritz {
             return this;
         }
 
-        public Spritz attachTo(ViewPager viewPager) {
-            Spritz spritz = new Spritz(
+        public Spritz build() {
+            return new Spritz(
                     lottieAnimationView,
                     spritzStepsWithOffset,
                     calculateTotalAnimationDuration(),
@@ -239,8 +237,6 @@ public class Spritz {
                     defaultSwipeForwardInterpolator,
                     defaultSwipeBackwardsInterpolator
             );
-            spritz.attach(viewPager);
-            return spritz;
         }
 
         private long calculateTotalAnimationDuration() {

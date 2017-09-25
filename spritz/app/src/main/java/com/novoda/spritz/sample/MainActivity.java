@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private static final TimeInterpolator SWIPE_BACKWARDS_INTERPOLATOR = new FastOutSlowInInterpolator();
 
     private Spritz spritz;
+    private ViewPager viewPager;
+    private ViewPager.OnPageChangeListener onPageChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         LottieAnimationView lottieAnimationView = findViewById(R.id.animation_view);
         lottieAnimationView.setImageAssetsFolder("images");
 
-        final ViewPager viewPager = findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
 
         spritz = Spritz
@@ -58,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
                                 .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
                                 .build()
                 )
-                .attachTo(viewPager);
+                .build();
+
+        onPageChangeListener = spritz.getOnPageChangeListenerForViewPager(viewPager);
+        viewPager.addOnPageChangeListener(onPageChangeListener);
 
         Button continueButton = findViewById(R.id.btn_continue);
         continueButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         spritz.startPendingAnimations();
+    }
+
+    @Override
+    protected void onStop() {
+        viewPager.removeOnPageChangeListener(onPageChangeListener);
+        super.onStop();
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
