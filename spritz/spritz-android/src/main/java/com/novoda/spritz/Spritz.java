@@ -202,7 +202,7 @@ public class Spritz {
 
     public static class Builder {
 
-        private static final long DEFAULT_SWIPE_ANIMATION_DURATION = TimeUnit.MILLISECONDS.toMillis(500);
+        private static final long DEFAULT_SWIPE_ANIMATION_DURATION = TimeUnit.MILLISECONDS.toMillis(250);
 
         private final LottieAnimationView lottieAnimationView;
 
