@@ -1,4 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.5.0'
+    }
+}
+
 apply plugin: 'com.android.library'
+apply plugin: 'bintray-release'
 
 android {
     compileSdkVersion 26
@@ -8,12 +19,21 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
     }
 }
 
 dependencies {
     compile 'com.airbnb.android:lottie:2.2.5'
+}
 
-    testCompile 'junit:junit:4.12'
+publish {
+    userOrg = 'novoda'
+    groupId = 'com.novoda'
+    artifactId = 'spritz'
+    version = project.version
+
+    uploadName = 'spritz'
+    description = 'Animate your view pager with Lottie and zero efforts.'
+    website = 'https://github.com/novoda/android-demos/tree/master/spritz'
 }
