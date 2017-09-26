@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Spritz spritz;
     private ViewPager viewPager;
-    private ViewPager.OnPageChangeListener onPageChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 )
                 .build();
 
-        onPageChangeListener = spritz.getOnPageChangeListenerForViewPager(viewPager);
-        viewPager.addOnPageChangeListener(onPageChangeListener);
-
         Button continueButton = findViewById(R.id.btn_continue);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,12 +86,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        spritz.attachTo(viewPager);
         spritz.startPendingAnimations();
     }
 
     @Override
     protected void onStop() {
-        viewPager.removeOnPageChangeListener(onPageChangeListener);
+        spritz.detachFrom(viewPager);
         super.onStop();
     }
 

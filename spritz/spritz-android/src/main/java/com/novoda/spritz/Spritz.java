@@ -27,6 +27,7 @@ public class Spritz {
     private ViewPager viewPager;
     private float currentPosition;
     private AnimatorSet animatorSet;
+    private ViewPager.OnPageChangeListener onPageChangeListener;
 
     public static Builder with(LottieAnimationView lottieAnimationView) {
         return new Builder(lottieAnimationView);
@@ -48,12 +49,12 @@ public class Spritz {
         this.animatorSet = new AnimatorSet();
     }
 
-    public ViewPager.OnPageChangeListener getOnPageChangeListenerForViewPager(ViewPager viewPager) {
+    public void attachTo(ViewPager viewPager) {
         this.viewPager = viewPager;
-        currentPosition = viewPager.getCurrentItem();
 
-        return new ViewPager.OnPageChangeListener() {
+        this.currentPosition = viewPager.getCurrentItem();
 
+        this.onPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 float currentProgress = lottieAnimationView.getProgress();
@@ -92,6 +93,8 @@ public class Spritz {
             }
 
         };
+
+        viewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
     private boolean swipingForward(float newPosition) {
@@ -101,6 +104,7 @@ public class Spritz {
     public void startPendingAnimations() {
         autoPlayForPosition(viewPager.getCurrentItem());
     }
+
     private void autoPlayForPosition(int position) {
         animatorSet.cancel();
 
@@ -190,6 +194,10 @@ public class Spritz {
                 lottieAnimationView.setProgress((Float) animation.getAnimatedValue());
             }
         };
+    }
+
+    public void detachFrom(ViewPager viewPager) {
+        viewPager.removeOnPageChangeListener(onPageChangeListener);
     }
 
     public static class Builder {
