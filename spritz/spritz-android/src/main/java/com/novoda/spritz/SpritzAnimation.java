@@ -10,11 +10,11 @@ class SpritzAnimation {
         this.lottieAnimationView = lottieAnimationView;
     }
 
-    float getProgress() {
+    float getCurrentProgress() {
         return lottieAnimationView.getProgress();
     }
 
-    void setProgress(float progress) {
+    void setProgressImmediately(float progress) {
         lottieAnimationView.setProgress(progress);
     }
 
