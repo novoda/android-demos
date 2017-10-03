@@ -12,81 +12,72 @@ import java.util.concurrent.TimeUnit;
 
 public class Spritz {
 
-    private final LottieAnimationView lottieAnimationView;
     private final List<SpritzStepWithOffset> spritzStepsWithOffset;
-    private final long totalAnimationDuration;
+    private final SpritzCalculator spritzCalculator;
+    private final SpritzAnimation spritzAnimation;
+    private final SpritzAnimator spritzAnimator;
 
-    private ViewPager viewPager;
-    private float currentPosition;
-    private SpritzAnimator spritzAnimator;
+    private SpritzPager spritzPager;
     private ViewPager.OnPageChangeListener onPageChangeListener;
 
     public static Builder with(LottieAnimationView lottieAnimationView) {
         return new Builder(lottieAnimationView);
     }
 
-    private Spritz(LottieAnimationView lottieAnimationView,
-                   List<SpritzStepWithOffset> spritzStepsWithOffset,
-                   long totalAnimationDuration,
-                   long defaultSwipeAnimationDuration,
-                   TimeInterpolator defaultSwipeForwardInterpolator,
-                   TimeInterpolator defaultSwipeBackwardsInterpolator) {
+    private Spritz(List<SpritzStepWithOffset> spritzStepsWithOffset,
+                   SpritzCalculator spritzCalculator,
+                   SpritzAnimation spritzAnimation,
+                   SpritzAnimator spritzAnimator) {
 
-        this.lottieAnimationView = lottieAnimationView;
         this.spritzStepsWithOffset = spritzStepsWithOffset;
-        this.totalAnimationDuration = totalAnimationDuration;
-        this.spritzAnimator = new SpritzAnimator(
-                lottieAnimationView,
-                defaultSwipeForwardInterpolator,
-                defaultSwipeAnimationDuration,
-                defaultSwipeBackwardsInterpolator
-        );
+        this.spritzCalculator = spritzCalculator;
+        this.spritzAnimation = spritzAnimation;
+        this.spritzAnimator = spritzAnimator;
     }
 
-    public void attachTo(final ViewPager viewPager) {
-        this.viewPager = viewPager;
-
-        this.currentPosition = viewPager.getCurrentItem();
+    public void attachTo(ViewPager viewPager) {
+        this.spritzPager = new SpritzPager(viewPager);
 
         this.onPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                float currentProgress = lottieAnimationView.getProgress();
+                float currentProgress = spritzAnimation.getProgress();
                 float finalProgress;
                 float realOffset;
 
-                if (position + positionOffset == currentPosition) {
+                if (position + positionOffset == spritzPager.getCurrentPosition()) {
                     return;
                 }
 
                 spritzAnimator.cancelCurrentAnimations();
 
                 if (swipingForward(position + positionOffset)) {
-                    finalProgress = getSwipeEndProgressForPosition(position);
+                    finalProgress = spritzCalculator.getSwipeEndProgressForPosition(position);
                     realOffset = positionOffset;
                 } else {
-                    finalProgress = getAutoPlayEndProgressForPosition(position);
+                    finalProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
                     realOffset = 1 - positionOffset;
                 }
 
                 float progressToAnimate = finalProgress - currentProgress;
                 float newProgress = currentProgress + (progressToAnimate * realOffset);
 
-                lottieAnimationView.setProgress(newProgress);
+                spritzAnimation.setProgress(newProgress);
 
-                currentPosition = position + positionOffset;
+                spritzPager.setCachedPosition(position + positionOffset);
             }
 
             @Override
             public void onPageSelected(final int position) {
                 finishSwipeWithAnimation(position);
-                currentPosition = position;
+                spritzPager.setCachedPosition(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                int position = viewPager.getCurrentItem();
-                if (state == ViewPager.SCROLL_STATE_IDLE && lottieAnimationView.getProgress() < getAutoPlayEndProgressForPosition(position)) {
+                int position = spritzPager.getCurrentPosition();
+                if (state == ViewPager.SCROLL_STATE_IDLE
+                        && spritzAnimation.getProgress() < spritzCalculator.getAutoPlayEndProgressForPosition(position)) {
                     autoPlay(position);
                 }
             }
@@ -97,8 +88,8 @@ public class Spritz {
     }
 
     private void autoPlay(int position) {
-        float currentProgress = lottieAnimationView.getProgress();
-        float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
+        float currentProgress = spritzAnimation.getProgress();
+        float autoPlayEndProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
         SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
 
         spritzAnimator.cancelCurrentAnimations();
@@ -106,42 +97,26 @@ public class Spritz {
     }
 
     private boolean swipingForward(float newPosition) {
-        return newPosition >= currentPosition;
+        return newPosition >= spritzPager.getCachedPosition();
     }
 
     public void startPendingAnimations() {
-        int position = viewPager.getCurrentItem();
+        int position = spritzPager.getCurrentPosition();
         autoPlay(position);
     }
 
     private void finishSwipeWithAnimation(int position) {
-        float from = lottieAnimationView.getProgress();
+        float from = spritzAnimation.getProgress();
 
         if (swipingForward(position)) {
-            float to = getSwipeEndForPreviousPositionOrZero(position);
+            float to = spritzCalculator.getSwipeEndForPreviousPositionOrZero(position);
             SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
             spritzAnimator.finishSwipeForward(from, to, currentStep);
         } else {
-            float to = getAutoPlayEndProgressForPosition(position);
+            float to = spritzCalculator.getAutoPlayEndProgressForPosition(position);
             SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
             spritzAnimator.finishSwipeBackwards(from, to, currentStep);
         }
-    }
-
-    private float getSwipeEndForPreviousPositionOrZero(int position) {
-        float swipeEndProgress = 0;
-        if (position > 0) {
-            swipeEndProgress = getSwipeEndProgressForPosition(position - 1);
-        }
-        return swipeEndProgress;
-    }
-
-    private float getSwipeEndProgressForPosition(int position) {
-        return ((float) spritzStepsWithOffset.get(position).swipeEnd()) / totalAnimationDuration;
-    }
-
-    private float getAutoPlayEndProgressForPosition(int position) {
-        return ((float) spritzStepsWithOffset.get(position).autoPlayEnd()) / totalAnimationDuration;
     }
 
     public void detachFrom(ViewPager viewPager) {
@@ -187,12 +162,15 @@ public class Spritz {
 
         public Spritz build() {
             return new Spritz(
-                    lottieAnimationView,
                     spritzStepsWithOffset,
-                    calculateTotalAnimationDuration(),
-                    defaultSwipeAnimationDuration,
-                    defaultSwipeForwardInterpolator,
-                    defaultSwipeBackwardsInterpolator
+                    new SpritzCalculator(spritzStepsWithOffset, calculateTotalAnimationDuration()),
+                    new SpritzAnimation(lottieAnimationView),
+                    new SpritzAnimator(
+                            lottieAnimationView,
+                            defaultSwipeForwardInterpolator,
+                            defaultSwipeAnimationDuration,
+                            defaultSwipeBackwardsInterpolator
+                    )
             );
         }
 
