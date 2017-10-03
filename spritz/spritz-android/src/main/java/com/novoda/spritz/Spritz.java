@@ -10,8 +10,6 @@ import android.view.animation.LinearInterpolator;
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +47,7 @@ public class Spritz {
         this.animatorSet = new AnimatorSet();
     }
 
-    public void attachTo(ViewPager viewPager) {
+    public void attachTo(final ViewPager viewPager) {
         this.viewPager = viewPager;
 
         this.currentPosition = viewPager.getCurrentItem();
@@ -83,13 +81,17 @@ public class Spritz {
 
             @Override
             public void onPageSelected(final int position) {
-                autoPlayForPosition(position);
+                finishSwipeWithAnimation(position);
                 currentPosition = position;
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                // do nothing
+                int position = viewPager.getCurrentItem();
+                if (state == ViewPager.SCROLL_STATE_IDLE && lottieAnimationView.getProgress() < getAutoPlayEndProgressForPosition(position)) {
+                    animatorSet.cancel();
+                    animatorSet = playAnimations(autoPlay(position));
+                }
             }
 
         };
@@ -97,34 +99,53 @@ public class Spritz {
         viewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
+    private ValueAnimator autoPlay(int position) {
+        float currentProgress = lottieAnimationView.getProgress();
+        float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
+        SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
+
+        ValueAnimator autoPlayAnimation = ValueAnimator
+                .ofFloat(currentProgress, autoPlayEndProgress)
+                .setDuration(currentStep.autoPlayDuration());
+        autoPlayAnimation.addUpdateListener(defaultAnimatorUpdateListener());
+        return autoPlayAnimation;
+    }
+
     private boolean swipingForward(float newPosition) {
         return newPosition >= currentPosition;
     }
 
     public void startPendingAnimations() {
-        autoPlayForPosition(viewPager.getCurrentItem());
+        animatorSet.cancel();
+        int position = viewPager.getCurrentItem();
+        animatorSet = playAnimations(autoPlay(position));
     }
 
-    private void autoPlayForPosition(int position) {
+    private void finishSwipeWithAnimation(int position) {
         animatorSet.cancel();
 
-        List<Animator> animationList;
+        Animator[] animationList;
 
         if (swipingForward(position)) {
-            animationList = swipeForwardThenAutoPlay(position);
+            animationList = swipeForward(position);
         } else {
             animationList = swipeBackwards(position);
         }
 
-        animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(animationList);
-        animatorSet.start();
+        animatorSet = playAnimations(animationList);
     }
 
-    private List<Animator> swipeForwardThenAutoPlay(int position) {
+    private AnimatorSet playAnimations(Animator... animators) {
+        animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(animators);
+        animatorSet.start();
+
+        return animatorSet;
+    }
+
+    private Animator[] swipeForward(int position) {
         float currentProgress = lottieAnimationView.getProgress();
         float previousSwipeEndProgress = getSwipeEndForPreviousPositionOrZero(position);
-        float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
         SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
 
         ValueAnimator finishSwipeAnimation = ValueAnimator
@@ -133,12 +154,7 @@ public class Spritz {
         finishSwipeAnimation.setInterpolator(getSwipeForwardInterpolatorFor(currentStep));
         finishSwipeAnimation.addUpdateListener(defaultAnimatorUpdateListener());
 
-        ValueAnimator autoPlayAnimation = ValueAnimator
-                .ofFloat(previousSwipeEndProgress, autoPlayEndProgress)
-                .setDuration(currentStep.autoPlayDuration());
-        autoPlayAnimation.addUpdateListener(defaultAnimatorUpdateListener());
-
-        return Arrays.<Animator>asList(finishSwipeAnimation, autoPlayAnimation);
+        return new Animator[]{finishSwipeAnimation};
     }
 
     private float getSwipeEndForPreviousPositionOrZero(int position) {
@@ -161,7 +177,7 @@ public class Spritz {
         return this.defaultSwipeForwardInterpolator;
     }
 
-    private List<Animator> swipeBackwards(int position) {
+    private Animator[] swipeBackwards(int position) {
         SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
         float currentProgress = lottieAnimationView.getProgress();
         float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
@@ -172,7 +188,7 @@ public class Spritz {
         finishSwipeAnimation.setInterpolator(getSwipeBackwardsInterpolatorFor(currentStep));
         finishSwipeAnimation.addUpdateListener(defaultAnimatorUpdateListener());
 
-        return Collections.<Animator>singletonList(finishSwipeAnimation);
+        return new Animator[]{finishSwipeAnimation};
     }
 
     private float getAutoPlayEndProgressForPosition(int position) {
