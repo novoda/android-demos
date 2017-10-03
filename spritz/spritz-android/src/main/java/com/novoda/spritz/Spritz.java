@@ -18,7 +18,7 @@ public class Spritz {
     private final SpritzAnimator spritzAnimator;
 
     private SpritzPager spritzPager;
-    private ViewPager.OnPageChangeListener onPageChangeListener;
+    private SpritzOnPageChangeListener spritzOnPageChangeListener;
 
     public static Builder with(LottieAnimationView lottieAnimationView) {
         return new Builder(lottieAnimationView);
@@ -38,89 +38,24 @@ public class Spritz {
     public void attachTo(ViewPager viewPager) {
         this.spritzPager = new SpritzPager(viewPager);
 
-        this.onPageChangeListener = new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                float currentProgress = spritzAnimation.getProgress();
-                float finalProgress;
-                float realOffset;
+        this.spritzOnPageChangeListener = new SpritzOnPageChangeListener(
+                spritzStepsWithOffset,
+                spritzCalculator,
+                spritzAnimation,
+                spritzAnimator,
+                spritzPager
+        );
 
-                if (position + positionOffset == spritzPager.getCurrentPosition()) {
-                    return;
-                }
-
-                spritzAnimator.cancelCurrentAnimations();
-
-                if (swipingForward(position + positionOffset)) {
-                    finalProgress = spritzCalculator.getSwipeEndProgressForPosition(position);
-                    realOffset = positionOffset;
-                } else {
-                    finalProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
-                    realOffset = 1 - positionOffset;
-                }
-
-                float progressToAnimate = finalProgress - currentProgress;
-                float newProgress = currentProgress + (progressToAnimate * realOffset);
-
-                spritzAnimation.setProgress(newProgress);
-
-                spritzPager.setCachedPosition(position + positionOffset);
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-                finishSwipeWithAnimation(position);
-                spritzPager.setCachedPosition(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                int position = spritzPager.getCurrentPosition();
-                if (state == ViewPager.SCROLL_STATE_IDLE
-                        && spritzAnimation.getProgress() < spritzCalculator.getAutoPlayEndProgressForPosition(position)) {
-                    autoPlay(position);
-                }
-            }
-
-        };
-
-        viewPager.addOnPageChangeListener(onPageChangeListener);
-    }
-
-    private void autoPlay(int position) {
-        float currentProgress = spritzAnimation.getProgress();
-        float autoPlayEndProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
-        SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-
-        spritzAnimator.cancelCurrentAnimations();
-        spritzAnimator.autoPlay(currentProgress, autoPlayEndProgress, currentStep);
-    }
-
-    private boolean swipingForward(float newPosition) {
-        return newPosition >= spritzPager.getCachedPosition();
+        viewPager.addOnPageChangeListener(spritzOnPageChangeListener);
     }
 
     public void startPendingAnimations() {
         int position = spritzPager.getCurrentPosition();
-        autoPlay(position);
-    }
-
-    private void finishSwipeWithAnimation(int position) {
-        float from = spritzAnimation.getProgress();
-
-        if (swipingForward(position)) {
-            float to = spritzCalculator.getSwipeEndForPreviousPositionOrZero(position);
-            SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-            spritzAnimator.finishSwipeForward(from, to, currentStep);
-        } else {
-            float to = spritzCalculator.getAutoPlayEndProgressForPosition(position);
-            SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-            spritzAnimator.finishSwipeBackwards(from, to, currentStep);
-        }
+        spritzOnPageChangeListener.onPageIdle(position);
     }
 
     public void detachFrom(ViewPager viewPager) {
-        viewPager.removeOnPageChangeListener(onPageChangeListener);
+        viewPager.removeOnPageChangeListener(spritzOnPageChangeListener);
     }
 
     @SuppressWarnings("WeakerAccess")
