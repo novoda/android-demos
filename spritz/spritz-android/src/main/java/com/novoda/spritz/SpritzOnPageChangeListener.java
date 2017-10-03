@@ -8,7 +8,7 @@ import java.util.Locale;
 
 class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
-    private final static String TAG = SpritzOnPageChangeListener.class.getName();
+    private final static String TAG = "Spritz";
 
     private final List<SpritzStepWithOffset> spritzStepsWithOffset;
     private final SpritzCalculator spritzCalculator;
