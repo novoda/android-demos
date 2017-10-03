@@ -4,11 +4,10 @@ import android.support.v4.view.ViewPager;
 
 class SpritzPager {
 
-    private final ViewPager viewPager;
-
+    private ViewPager viewPager;
     private float cachedPosition;
 
-    SpritzPager(ViewPager viewPager) {
+    void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
     }
 

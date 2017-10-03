@@ -13,8 +13,8 @@ public class Spritz {
     private final SpritzCalculator spritzCalculator;
     private final SpritzAnimation spritzAnimation;
     private final SpritzAnimator spritzAnimator;
+    private final SpritzPager spritzPager;
 
-    private SpritzPager spritzPager;
     private SpritzOnPageChangeListener spritzOnPageChangeListener;
 
     public static Builder with(LottieAnimationView lottieAnimationView) {
@@ -24,16 +24,18 @@ public class Spritz {
     private Spritz(List<SpritzStepWithOffset> spritzStepsWithOffset,
                    SpritzCalculator spritzCalculator,
                    SpritzAnimation spritzAnimation,
-                   SpritzAnimator spritzAnimator) {
+                   SpritzAnimator spritzAnimator,
+                   SpritzPager spritzPager) {
 
         this.spritzStepsWithOffset = spritzStepsWithOffset;
         this.spritzCalculator = spritzCalculator;
         this.spritzAnimation = spritzAnimation;
         this.spritzAnimator = spritzAnimator;
+        this.spritzPager = spritzPager;
     }
 
     public void attachTo(ViewPager viewPager) {
-        this.spritzPager = new SpritzPager(viewPager);
+        spritzPager.setViewPager(viewPager);
 
         this.spritzOnPageChangeListener = new SpritzOnPageChangeListener(
                 spritzStepsWithOffset,
@@ -77,7 +79,8 @@ public class Spritz {
                     new SpritzAnimation(lottieAnimationView),
                     new SpritzAnimator(
                             lottieAnimationView
-                    )
+                    ),
+                    new SpritzPager()
             );
         }
 

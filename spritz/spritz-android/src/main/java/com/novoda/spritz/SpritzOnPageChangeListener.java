@@ -39,24 +39,22 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         spritzAnimator.cancelCurrentAnimations();
 
-        float initialProgress;
         float finalProgress;
         float realOffset;
 
         if (swipingForward(newPosition)) {
-            initialProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
             finalProgress = spritzCalculator.getSwipeEndProgressForPosition(position);
             realOffset = positionOffset;
             log(String.format(Locale.ENGLISH, "Swiping > %d+%f", position, positionOffset));
         } else {
-            initialProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position + 1);
             finalProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
             realOffset = 1 - positionOffset;
             log(String.format(Locale.ENGLISH, "Swiping < %d+%f", position, positionOffset));
         }
 
-        float progressToAnimate = finalProgress - initialProgress;
-        float newProgress = initialProgress + (progressToAnimate * realOffset);
+        float currentProgress = spritzAnimation.getCurrentProgress();
+        float progressToAnimate = finalProgress - currentProgress;
+        float newProgress = currentProgress + (progressToAnimate * realOffset);
 
         spritzAnimation.setProgressImmediately(newProgress);
 
