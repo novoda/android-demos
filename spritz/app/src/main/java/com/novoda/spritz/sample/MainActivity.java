@@ -1,14 +1,11 @@
 package com.novoda.spritz.sample;
 
-import android.animation.TimeInterpolator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +21,6 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PAGES_COUNT = 3;
-    private static final TimeInterpolator SWIPE_FORWARD_INTERPOLATOR = new LinearOutSlowInInterpolator();
-    private static final TimeInterpolator SWIPE_BACKWARDS_INTERPOLATOR = new FastOutSlowInInterpolator();
 
     private Spritz spritz;
     private ViewPager viewPager;
@@ -43,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         spritz = Spritz
                 .with(lottieAnimationView)
-                .withDefaultSwipeAnimationDuration(300, TimeUnit.MILLISECONDS)
-                .withDefaultSwipeForwardInterpolator(SWIPE_FORWARD_INTERPOLATOR)
-                .withDefaultSwipeBackwardsInterpolator(SWIPE_BACKWARDS_INTERPOLATOR)
                 .withSteps(
                         new SpritzStep.Builder()
                                 .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)

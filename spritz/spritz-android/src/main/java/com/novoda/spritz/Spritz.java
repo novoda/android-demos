@@ -1,8 +1,6 @@
 package com.novoda.spritz;
 
-import android.animation.TimeInterpolator;
 import android.support.v4.view.ViewPager;
-import android.view.animation.LinearInterpolator;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -64,30 +62,11 @@ public class Spritz {
         private static final long DEFAULT_SWIPE_ANIMATION_DURATION = TimeUnit.MILLISECONDS.toMillis(250);
 
         private final LottieAnimationView lottieAnimationView;
-
-        private long defaultSwipeAnimationDuration = DEFAULT_SWIPE_ANIMATION_DURATION;
-        private TimeInterpolator defaultSwipeForwardInterpolator = new LinearInterpolator();
-        private TimeInterpolator defaultSwipeBackwardsInterpolator = new LinearInterpolator();
         private List<SpritzStepWithOffset> spritzStepsWithOffset;
 
         private Builder(LottieAnimationView lottieAnimationView) {
             this.lottieAnimationView = lottieAnimationView;
             spritzStepsWithOffset = new ArrayList<>();
-        }
-
-        public Builder withDefaultSwipeAnimationDuration(long defaultSwipeAnimationDuration, TimeUnit timeUnit) {
-            this.defaultSwipeAnimationDuration = timeUnit.toMillis(defaultSwipeAnimationDuration);
-            return this;
-        }
-
-        public Builder withDefaultSwipeForwardInterpolator(TimeInterpolator swipeForwardInterpolator) {
-            this.defaultSwipeForwardInterpolator = swipeForwardInterpolator;
-            return this;
-        }
-
-        public Builder withDefaultSwipeBackwardsInterpolator(TimeInterpolator swipeBackwardsInterpolator) {
-            this.defaultSwipeBackwardsInterpolator = swipeBackwardsInterpolator;
-            return this;
         }
 
         public Builder withSteps(SpritzStep... spritzSteps) {
@@ -101,10 +80,7 @@ public class Spritz {
                     new SpritzCalculator(spritzStepsWithOffset, calculateTotalAnimationDuration()),
                     new SpritzAnimation(lottieAnimationView),
                     new SpritzAnimator(
-                            lottieAnimationView,
-                            defaultSwipeForwardInterpolator,
-                            defaultSwipeAnimationDuration,
-                            defaultSwipeBackwardsInterpolator
+                            lottieAnimationView
                     )
             );
         }

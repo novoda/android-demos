@@ -12,14 +12,6 @@ class SpritzCalculator {
         this.totalAnimationDuration = totalAnimationDuration;
     }
 
-    float getSwipeEndForPreviousPositionOrZero(int position) {
-        float swipeEndProgress = 0;
-        if (position > 0) {
-            swipeEndProgress = getSwipeEndProgressForPosition(position - 1);
-        }
-        return swipeEndProgress;
-    }
-
     float getSwipeEndProgressForPosition(int position) {
         return ((float) spritzSteps.get(position).swipeEnd()) / totalAnimationDuration;
     }

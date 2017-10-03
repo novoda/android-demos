@@ -41,9 +41,6 @@ After getting your `LottieAnimationView` and your `ViewPager`, just create a `Sp
 ```java
 Spritz spritz = Spritz
                     .with(lottieAnimationView)
-                    .withDefaultSwipeAnimationDuration(300, TimeUnit.MILLISECONDS)
-                    .withDefaultSwipeForwardInterpolator(SWIPE_FORWARD_INTERPOLATOR)
-                    .withDefaultSwipeBackwardsInterpolator(SWIPE_BACKWARDS_INTERPOLATOR)
                     .withSteps(
                             new SpritzStep.Builder()
                                     .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
@@ -102,13 +99,6 @@ Please note that the autoplay animation is always played after the user swipes f
 
 The swipe animation is started and progressed as the user drags the view pager back and forth. To set the duration of a page swipe animation, use
 `withSwipeDuration`. This animation is not optional, since it's what this library has been created for :P.
-
-#### Swipe completion animation
-
-When a user starts dragging a page inside the pager and then releases the finger, `Spritz` needs to know how long the remaining part of the swipe 
-animation has to last. You can set a common value for all pages via `withDefaultSwipeAnimationDuration`, if no value is set, it will default to 250ms.
-
-You should keep your swipe animation as short as possible, since the view of the new page usually snaps in place in a few milliseconds.
 
 ## License
 

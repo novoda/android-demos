@@ -67,22 +67,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
 
     @Override
     public void onPageSelected(final int position) {
-        log(String.format(Locale.ENGLISH, "Page selected, finishing swipe to position %d", position));
-        finishSwipeWithAnimation(position);
-    }
-
-    private void finishSwipeWithAnimation(int position) {
-        float from = spritzAnimation.getCurrentProgress();
-
-        if (swipingForward(position)) {
-            float to = spritzCalculator.getSwipeEndForPreviousPositionOrZero(position);
-            SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-            spritzAnimator.finishSwipeForward(from, to, currentStep);
-        } else {
-            float to = spritzCalculator.getAutoPlayEndProgressForPosition(position);
-            SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-            spritzAnimator.finishSwipeBackwards(from, to, currentStep);
-        }
+        // do nothing
     }
 
     private boolean swipingForward(float newPosition) {
