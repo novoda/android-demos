@@ -56,7 +56,6 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
     @Override
     public void onPageSelected(final int position) {
         finishSwipeWithAnimation(position);
-        spritzPager.setCachedPosition(position);
     }
 
     private void finishSwipeWithAnimation(int position) {
@@ -89,6 +88,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
     @Override
     public void onPageIdle(int position) {
         autoPlay(position);
+        spritzPager.setCachedPosition(position);
     }
 
     private void autoPlay(int position) {
