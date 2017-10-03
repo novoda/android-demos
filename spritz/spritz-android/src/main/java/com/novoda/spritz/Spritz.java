@@ -1,9 +1,6 @@
 package com.novoda.spritz;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
 import android.support.v4.view.ViewPager;
 import android.view.animation.LinearInterpolator;
 
@@ -18,13 +15,10 @@ public class Spritz {
     private final LottieAnimationView lottieAnimationView;
     private final List<SpritzStepWithOffset> spritzStepsWithOffset;
     private final long totalAnimationDuration;
-    private final long defaultSwipeAnimationDuration;
-    private final TimeInterpolator defaultSwipeForwardInterpolator;
-    private final TimeInterpolator defaultSwipeBackwardsInterpolator;
 
     private ViewPager viewPager;
     private float currentPosition;
-    private AnimatorSet animatorSet;
+    private SpritzAnimator spritzAnimator;
     private ViewPager.OnPageChangeListener onPageChangeListener;
 
     public static Builder with(LottieAnimationView lottieAnimationView) {
@@ -41,10 +35,12 @@ public class Spritz {
         this.lottieAnimationView = lottieAnimationView;
         this.spritzStepsWithOffset = spritzStepsWithOffset;
         this.totalAnimationDuration = totalAnimationDuration;
-        this.defaultSwipeAnimationDuration = defaultSwipeAnimationDuration;
-        this.defaultSwipeForwardInterpolator = defaultSwipeForwardInterpolator;
-        this.defaultSwipeBackwardsInterpolator = defaultSwipeBackwardsInterpolator;
-        this.animatorSet = new AnimatorSet();
+        this.spritzAnimator = new SpritzAnimator(
+                lottieAnimationView,
+                defaultSwipeForwardInterpolator,
+                defaultSwipeAnimationDuration,
+                defaultSwipeBackwardsInterpolator
+        );
     }
 
     public void attachTo(final ViewPager viewPager) {
@@ -62,6 +58,8 @@ public class Spritz {
                 if (position + positionOffset == currentPosition) {
                     return;
                 }
+
+                spritzAnimator.cancelCurrentAnimations();
 
                 if (swipingForward(position + positionOffset)) {
                     finalProgress = getSwipeEndProgressForPosition(position);
@@ -89,8 +87,7 @@ public class Spritz {
             public void onPageScrollStateChanged(int state) {
                 int position = viewPager.getCurrentItem();
                 if (state == ViewPager.SCROLL_STATE_IDLE && lottieAnimationView.getProgress() < getAutoPlayEndProgressForPosition(position)) {
-                    animatorSet.cancel();
-                    animatorSet = playAnimations(autoPlay(position));
+                    autoPlay(position);
                 }
             }
 
@@ -99,16 +96,13 @@ public class Spritz {
         viewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
-    private ValueAnimator autoPlay(int position) {
+    private void autoPlay(int position) {
         float currentProgress = lottieAnimationView.getProgress();
         float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
         SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
 
-        ValueAnimator autoPlayAnimation = ValueAnimator
-                .ofFloat(currentProgress, autoPlayEndProgress)
-                .setDuration(currentStep.autoPlayDuration());
-        autoPlayAnimation.addUpdateListener(defaultAnimatorUpdateListener());
-        return autoPlayAnimation;
+        spritzAnimator.cancelCurrentAnimations();
+        spritzAnimator.autoPlay(currentProgress, autoPlayEndProgress, currentStep);
     }
 
     private boolean swipingForward(float newPosition) {
@@ -116,45 +110,22 @@ public class Spritz {
     }
 
     public void startPendingAnimations() {
-        animatorSet.cancel();
         int position = viewPager.getCurrentItem();
-        animatorSet = playAnimations(autoPlay(position));
+        autoPlay(position);
     }
 
     private void finishSwipeWithAnimation(int position) {
-        animatorSet.cancel();
-
-        Animator[] animationList;
+        float from = lottieAnimationView.getProgress();
 
         if (swipingForward(position)) {
-            animationList = swipeForward(position);
+            float to = getSwipeEndForPreviousPositionOrZero(position);
+            SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
+            spritzAnimator.finishSwipeForward(from, to, currentStep);
         } else {
-            animationList = swipeBackwards(position);
+            float to = getAutoPlayEndProgressForPosition(position);
+            SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
+            spritzAnimator.finishSwipeBackwards(from, to, currentStep);
         }
-
-        animatorSet = playAnimations(animationList);
-    }
-
-    private AnimatorSet playAnimations(Animator... animators) {
-        animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(animators);
-        animatorSet.start();
-
-        return animatorSet;
-    }
-
-    private Animator[] swipeForward(int position) {
-        float currentProgress = lottieAnimationView.getProgress();
-        float previousSwipeEndProgress = getSwipeEndForPreviousPositionOrZero(position);
-        SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-
-        ValueAnimator finishSwipeAnimation = ValueAnimator
-                .ofFloat(currentProgress, previousSwipeEndProgress)
-                .setDuration(defaultSwipeAnimationDuration);
-        finishSwipeAnimation.setInterpolator(getSwipeForwardInterpolatorFor(currentStep));
-        finishSwipeAnimation.addUpdateListener(defaultAnimatorUpdateListener());
-
-        return new Animator[]{finishSwipeAnimation};
     }
 
     private float getSwipeEndForPreviousPositionOrZero(int position) {
@@ -169,53 +140,15 @@ public class Spritz {
         return ((float) spritzStepsWithOffset.get(position).swipeEnd()) / totalAnimationDuration;
     }
 
-    private TimeInterpolator getSwipeForwardInterpolatorFor(SpritzStepWithOffset currentStep) {
-        TimeInterpolator stepSwipeForwardInterpolator = currentStep.swipeForwardInterpolator();
-        if (stepSwipeForwardInterpolator != null) {
-            return stepSwipeForwardInterpolator;
-        }
-        return this.defaultSwipeForwardInterpolator;
-    }
-
-    private Animator[] swipeBackwards(int position) {
-        SpritzStepWithOffset currentStep = spritzStepsWithOffset.get(position);
-        float currentProgress = lottieAnimationView.getProgress();
-        float autoPlayEndProgress = getAutoPlayEndProgressForPosition(position);
-
-        ValueAnimator finishSwipeAnimation = ValueAnimator
-                .ofFloat(currentProgress, autoPlayEndProgress)
-                .setDuration(defaultSwipeAnimationDuration);
-        finishSwipeAnimation.setInterpolator(getSwipeBackwardsInterpolatorFor(currentStep));
-        finishSwipeAnimation.addUpdateListener(defaultAnimatorUpdateListener());
-
-        return new Animator[]{finishSwipeAnimation};
-    }
-
     private float getAutoPlayEndProgressForPosition(int position) {
         return ((float) spritzStepsWithOffset.get(position).autoPlayEnd()) / totalAnimationDuration;
-    }
-
-    private TimeInterpolator getSwipeBackwardsInterpolatorFor(SpritzStepWithOffset currentStep) {
-        TimeInterpolator stepSwipeBackwardsInterpolator = currentStep.swipeBackwardsInterpolator();
-        if (stepSwipeBackwardsInterpolator != null) {
-            return stepSwipeBackwardsInterpolator;
-        }
-        return this.defaultSwipeBackwardsInterpolator;
-    }
-
-    private ValueAnimator.AnimatorUpdateListener defaultAnimatorUpdateListener() {
-        return new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                lottieAnimationView.setProgress((Float) animation.getAnimatedValue());
-            }
-        };
     }
 
     public void detachFrom(ViewPager viewPager) {
         viewPager.removeOnPageChangeListener(onPageChangeListener);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static class Builder {
 
         private static final long DEFAULT_SWIPE_ANIMATION_DURATION = TimeUnit.MILLISECONDS.toMillis(250);
