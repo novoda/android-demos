@@ -6,7 +6,7 @@ import android.util.Log;
 import java.util.List;
 import java.util.Locale;
 
-class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, SpritzOnPageIdleListener {
+class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
     private final static String TAG = SpritzOnPageChangeListener.class.getName();
 
@@ -31,11 +31,9 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (position + positionOffset == spritzPager.getCurrentPosition()) {
-            return;
-        }
+        float newPosition = position + positionOffset;
 
-        if (position + positionOffset == spritzPager.getCachedPosition()) {
+        if (newPosition == spritzPager.getCurrentPosition() || newPosition == spritzPager.getCachedPosition()) {
             return;
         }
 
@@ -45,7 +43,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
         float finalProgress;
         float realOffset;
 
-        if (swipingForward(position + positionOffset)) {
+        if (swipingForward(newPosition)) {
             initialProgress = spritzCalculator.getAutoPlayEndProgressForPosition(position);
             finalProgress = spritzCalculator.getSwipeEndProgressForPosition(position);
             realOffset = positionOffset;
@@ -62,7 +60,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
 
         spritzAnimation.setProgressImmediately(newProgress);
 
-        spritzPager.setCachedPosition(position + positionOffset);
+        spritzPager.setCachedPosition(newPosition);
     }
 
     @Override
@@ -71,7 +69,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
     }
 
     private boolean swipingForward(float newPosition) {
-        return newPosition >= spritzPager.getCachedPosition();
+        return newPosition > spritzPager.getCachedPosition();
     }
 
     @Override
@@ -84,8 +82,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener, Spri
         }
     }
 
-    @Override
-    public void onPageIdle(int position) {
+    private void onPageIdle(int position) {
         log(String.format(Locale.ENGLISH, "Page idle, autoplaying for position %d", position));
         autoPlay(position);
         spritzPager.setCachedPosition(position);

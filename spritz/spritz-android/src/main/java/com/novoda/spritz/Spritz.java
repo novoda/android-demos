@@ -6,7 +6,6 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class Spritz {
 
@@ -48,8 +47,7 @@ public class Spritz {
     }
 
     public void startPendingAnimations() {
-        int position = spritzPager.getCurrentPosition();
-        spritzOnPageChangeListener.onPageIdle(position);
+        spritzOnPageChangeListener.onPageScrollStateChanged(ViewPager.SCROLL_STATE_IDLE);
     }
 
     public void detachFrom(ViewPager viewPager) {
@@ -58,8 +56,6 @@ public class Spritz {
 
     @SuppressWarnings("WeakerAccess")
     public static class Builder {
-
-        private static final long DEFAULT_SWIPE_ANIMATION_DURATION = TimeUnit.MILLISECONDS.toMillis(250);
 
         private final LottieAnimationView lottieAnimationView;
         private List<SpritzStepWithOffset> spritzStepsWithOffset;
