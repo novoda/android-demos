@@ -6,13 +6,13 @@ import android.animation.ValueAnimator;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-class SpritzAnimator {
+class AnimationRunner {
 
     private final LottieAnimationView lottieAnimationView;
 
     private AnimatorSet animatorSet;
 
-    SpritzAnimator(LottieAnimationView lottieAnimationView) {
+    AnimationRunner(LottieAnimationView lottieAnimationView) {
         this.lottieAnimationView = lottieAnimationView;
         this.animatorSet = new AnimatorSet();
     }

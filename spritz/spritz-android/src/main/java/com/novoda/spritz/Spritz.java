@@ -10,9 +10,9 @@ import java.util.List;
 public class Spritz {
 
     private final List<SpritzStepWithOffset> spritzStepsWithOffset;
-    private final SpritzCalculator spritzCalculator;
-    private final SpritzAnimation spritzAnimation;
-    private final SpritzAnimator spritzAnimator;
+    private final ProgressCalculator progressCalculator;
+    private final Animation animation;
+    private final AnimationRunner animationRunner;
     private final SpritzPager spritzPager;
 
     private SpritzOnPageChangeListener spritzOnPageChangeListener;
@@ -22,15 +22,15 @@ public class Spritz {
     }
 
     private Spritz(List<SpritzStepWithOffset> spritzStepsWithOffset,
-                   SpritzCalculator spritzCalculator,
-                   SpritzAnimation spritzAnimation,
-                   SpritzAnimator spritzAnimator,
+                   ProgressCalculator progressCalculator,
+                   Animation animation,
+                   AnimationRunner animationRunner,
                    SpritzPager spritzPager) {
 
         this.spritzStepsWithOffset = spritzStepsWithOffset;
-        this.spritzCalculator = spritzCalculator;
-        this.spritzAnimation = spritzAnimation;
-        this.spritzAnimator = spritzAnimator;
+        this.progressCalculator = progressCalculator;
+        this.animation = animation;
+        this.animationRunner = animationRunner;
         this.spritzPager = spritzPager;
     }
 
@@ -39,9 +39,9 @@ public class Spritz {
 
         this.spritzOnPageChangeListener = new SpritzOnPageChangeListener(
                 spritzStepsWithOffset,
-                spritzCalculator,
-                spritzAnimation,
-                spritzAnimator,
+                progressCalculator,
+                animation,
+                animationRunner,
                 spritzPager
         );
 
@@ -75,9 +75,9 @@ public class Spritz {
         public Spritz build() {
             return new Spritz(
                     spritzStepsWithOffset,
-                    new SpritzCalculator(spritzStepsWithOffset, calculateTotalAnimationDuration()),
-                    new SpritzAnimation(lottieAnimationView),
-                    new SpritzAnimator(lottieAnimationView),
+                    new ProgressCalculator(spritzStepsWithOffset, calculateTotalAnimationDuration()),
+                    new Animation(lottieAnimationView),
+                    new AnimationRunner(lottieAnimationView),
                     new SpritzPager()
             );
         }

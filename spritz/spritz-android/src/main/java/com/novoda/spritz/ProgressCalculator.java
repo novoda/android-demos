@@ -2,12 +2,12 @@ package com.novoda.spritz;
 
 import java.util.List;
 
-class SpritzCalculator {
+class ProgressCalculator {
 
     private final List<SpritzStepWithOffset> spritzSteps;
     private final long totalAnimationDuration;
 
-    SpritzCalculator(List<SpritzStepWithOffset> spritzSteps, long totalAnimationDuration) {
+    ProgressCalculator(List<SpritzStepWithOffset> spritzSteps, long totalAnimationDuration) {
         this.spritzSteps = spritzSteps;
         this.totalAnimationDuration = totalAnimationDuration;
     }

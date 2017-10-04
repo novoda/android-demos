@@ -2,11 +2,11 @@ package com.novoda.spritz;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-class SpritzAnimation {
+class Animation {
 
     private final LottieAnimationView lottieAnimationView;
 
-    SpritzAnimation(LottieAnimationView lottieAnimationView) {
+    Animation(LottieAnimationView lottieAnimationView) {
         this.lottieAnimationView = lottieAnimationView;
     }
 
