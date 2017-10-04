@@ -87,7 +87,7 @@ class SpritzOnPageChangeListener implements ViewPager.OnPageChangeListener {
     }
 
     private void log(String message) {
-        if (Log.isLoggable(TAG, Log.DEBUG) || BuildConfig.DEBUG) {
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, message);
         }
     }
