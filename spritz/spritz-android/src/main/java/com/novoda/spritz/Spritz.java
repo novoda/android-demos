@@ -77,9 +77,7 @@ public class Spritz {
                     spritzStepsWithOffset,
                     new SpritzCalculator(spritzStepsWithOffset, calculateTotalAnimationDuration()),
                     new SpritzAnimation(lottieAnimationView),
-                    new SpritzAnimator(
-                            lottieAnimationView
-                    ),
+                    new SpritzAnimator(lottieAnimationView),
                     new SpritzPager()
             );
         }
