@@ -22,6 +22,12 @@
 
         </activity>
 
+        <activity
+          android:name="com.novoda.spritz.sample.DebugActivity"
+          android:label="@string/debug"
+          android:exported="true"
+          android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

@@ -11,27 +11,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.novoda.spritz.Spritz;
 import com.novoda.spritz.SpritzStep;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class DebugActivity extends AppCompatActivity {
 
     private static final int PAGES_COUNT = 3;
 
     private Spritz spritz;
     private ViewPager viewPager;
+    private TextView debugText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.debug);
 
         LottieAnimationView lottieAnimationView = findViewById(R.id.animation_view);
-        lottieAnimationView.setImageAssetsFolder("images");
 
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
@@ -40,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 .with(lottieAnimationView)
                 .withSteps(
                         new SpritzStep.Builder()
-                                .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
-                                .withSwipeDuration(500, TimeUnit.MILLISECONDS)
+                                .withAutoPlayDuration(1, TimeUnit.SECONDS)
+                                .withSwipeDuration(1, TimeUnit.SECONDS)
                                 .build(),
                         new SpritzStep.Builder()
-                                .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
-                                .withSwipeDuration(500, TimeUnit.MILLISECONDS)
+                                .withAutoPlayDuration(1, TimeUnit.SECONDS)
+                                .withSwipeDuration(1, TimeUnit.SECONDS)
                                 .build(),
                         new SpritzStep.Builder()
-                                .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
+                                .withAutoPlayDuration(1, TimeUnit.SECONDS)
                                 .build()
                 )
                 .build();
@@ -73,11 +75,37 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        debugText = findViewById(R.id.debug_text);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                debugText.setText(String.format(Locale.ENGLISH, "%f", position + positionOffset + 1));
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // do nothing
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // do nothing
+            }
+        });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View page, float position) {
+
+            }
+        });
         spritz.attachTo(viewPager);
         spritz.startPendingAnimations();
     }
