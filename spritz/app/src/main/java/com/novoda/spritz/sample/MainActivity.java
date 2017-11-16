@@ -1,5 +1,7 @@
 package com.novoda.spritz.sample;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -71,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
                 if (prevItem >= 0) {
                     viewPager.setCurrentItem(prevItem);
                 }
+            }
+        });
+
+        Button linkButton = findViewById(R.id.btn_blog);
+        linkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.novoda.com/blog/onboard-your-users-with-lottie-of-spritz/"));
+                startActivity(intent);
             }
         });
     }
