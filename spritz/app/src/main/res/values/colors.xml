@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#FF7500</color>
     <color name="windowBg">#f5f5f5</color>
+    <color name="loveText">#4A3939</color>
 </resources>
