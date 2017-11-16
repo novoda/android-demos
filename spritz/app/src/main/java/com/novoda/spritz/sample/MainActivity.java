@@ -40,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
                 .with(lottieAnimationView)
                 .withSteps(
                         new SpritzStep.Builder()
-                                .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
+                                .withAutoPlayDuration(1, TimeUnit.SECONDS)
                                 .withSwipeDuration(500, TimeUnit.MILLISECONDS)
                                 .build(),
                         new SpritzStep.Builder()
-                                .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
+                                .withAutoPlayDuration(1, TimeUnit.SECONDS)
                                 .withSwipeDuration(500, TimeUnit.MILLISECONDS)
                                 .build(),
                         new SpritzStep.Builder()
-                                .withAutoPlayDuration(500, TimeUnit.MILLISECONDS)
+                                .withAutoPlayDuration(1, TimeUnit.SECONDS)
                                 .build()
                 )
                 .build();
