@@ -1,11 +1,19 @@
-# ![Spritz!](images/spritz-icon-rect.png) spritz
+<img src="images/spritz-header.png" />
 
-_Animate your view pager with Lottie and zero efforts._
+<img src="images/banner.png" />
 
 --------
 
 Spritz is an Android library to seamlessly trigger a Lottie animation when the user drags a `ViewPager` or changes page programmatically.
 It supports animating while swiping and auto-playing when the swipe is complete.
+
+Get the demo here:
+
+<a href="https://play.google.com/store/apps/details?id=com.novoda.spritz.sample" style="border-bottom: 0px solid;">
+    <img height="80px" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+</a>
+
+Here's how our demo looks like:
 
 ![A taste of spritz](images/a-taste-of-spritz.gif)
 
@@ -23,7 +31,7 @@ previous page's autoplay animation, so it doesn't play again since that page is 
 
 ### Lottie Animation
 
-To learn how to create a Lottie-compatible animation from After Effects, please read 
+To learn how to create a Lottie-compatible animation from After Effects, please read
 [our blog post "Whole Lottie Love"](https://www.novoda.com/blog/whole-lottie-love/), which contains basic instructions on how to export an animation
 into a Lottie-supported format.
 
@@ -57,7 +65,7 @@ Spritz spritz = Spritz
                     .build();
 ```
 
-Once you have your `Spritz` instance, you need to simply attach it to the `ViewPager`, and start any pending animation. If you're working in an 
+Once you have your `Spritz` instance, you need to simply attach it to the `ViewPager`, and start any pending animation. If you're working in an
 `Activity`, you would normally do it in `onStart`:
 
 ```java
@@ -89,10 +97,10 @@ protected void onStop() {
 #### Autoplay animation
 
 The autoplay animation is an optional animation that is launched automatically as soon as the `ViewPager` successfully transition to a new page.
-You simply need to set (using `withAutoPlayDuration` on the page builder) how long the autoplay animation lasts in your After Effects project, 
+You simply need to set (using `withAutoPlayDuration` on the page builder) how long the autoplay animation lasts in your After Effects project,
 `Spritz` will take care of the rest.
 
-Please note that the autoplay animation is always played after the user swipes forward, it is not played when the user swipes back, since the 
+Please note that the autoplay animation is always played after the user swipes forward, it is not played when the user swipes back, since the
 "swipe back" action sets the Lottie progress to the end of the previous autoplay animation.
 
 #### Swipe animation

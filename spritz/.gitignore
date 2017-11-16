@@ -19,6 +19,10 @@ build/
 # Local configuration file (sdk path, etc)
 local.properties
 
+# Release signing files
+*.keystore
+signing.properties
+
 # Log Files
 *.log
 
