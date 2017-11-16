@@ -3,8 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="#fff2e7"
-  android:orientation="vertical">
+  android:background="#fff2e7">
 
   <com.airbnb.lottie.LottieAnimationView
     android:id="@+id/animation_view"
