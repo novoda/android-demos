@@ -1,4 +1,4 @@
-<img src="images/spritz-header.png" height="50px" />
+<img src="images/spritz-header.png" height="100px" />
 
 _Animate your view pager with Lottie and zero efforts._
 
