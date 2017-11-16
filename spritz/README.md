@@ -1,8 +1,8 @@
-# ![Spritz!](images/spritz-icon-rect.png) spritz
+<img src="images/spritz-header.png" height="50px" />
 
 _Animate your view pager with Lottie and zero efforts._
 
-![](images/feature.png)
+<img src="images/banner.png" />
 
 --------
 
@@ -33,7 +33,7 @@ previous page's autoplay animation, so it doesn't play again since that page is 
 
 ### Lottie Animation
 
-To learn how to create a Lottie-compatible animation from After Effects, please read 
+To learn how to create a Lottie-compatible animation from After Effects, please read
 [our blog post "Whole Lottie Love"](https://www.novoda.com/blog/whole-lottie-love/), which contains basic instructions on how to export an animation
 into a Lottie-supported format.
 
@@ -67,7 +67,7 @@ Spritz spritz = Spritz
                     .build();
 ```
 
-Once you have your `Spritz` instance, you need to simply attach it to the `ViewPager`, and start any pending animation. If you're working in an 
+Once you have your `Spritz` instance, you need to simply attach it to the `ViewPager`, and start any pending animation. If you're working in an
 `Activity`, you would normally do it in `onStart`:
 
 ```java
@@ -99,10 +99,10 @@ protected void onStop() {
 #### Autoplay animation
 
 The autoplay animation is an optional animation that is launched automatically as soon as the `ViewPager` successfully transition to a new page.
-You simply need to set (using `withAutoPlayDuration` on the page builder) how long the autoplay animation lasts in your After Effects project, 
+You simply need to set (using `withAutoPlayDuration` on the page builder) how long the autoplay animation lasts in your After Effects project,
 `Spritz` will take care of the rest.
 
-Please note that the autoplay animation is always played after the user swipes forward, it is not played when the user swipes back, since the 
+Please note that the autoplay animation is always played after the user swipes forward, it is not played when the user swipes back, since the
 "swipe back" action sets the Lottie progress to the end of the previous autoplay animation.
 
 #### Swipe animation
