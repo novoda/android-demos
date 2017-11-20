@@ -7,6 +7,8 @@
 Spritz is an Android library to seamlessly trigger a Lottie animation when the user drags a `ViewPager` or changes page programmatically.
 It supports animating while swiping and auto-playing when the swipe is complete.
 
+You can read more about Spritz in our [introductory blog post](https://www.novoda.com/blog/onboard-your-users-with-lottie-of-spritz/).
+
 Get the demo here:
 
 <a href="https://play.google.com/store/apps/details?id=com.novoda.spritz.sample" style="border-bottom: 0px solid;">
