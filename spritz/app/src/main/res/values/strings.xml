@@ -1,8 +1,0 @@
-<resources>
-  <string name="app_name">Taste of Spritz</string>
-  <string name="previous">Previous</string>
-  <string name="next">Next</string>
-  <string name="debug">Debug</string>
-  <string name="love_text">Made by Novoda with ❤</string>
-  <string name="go_to_article">Go to article</string>
-</resources>
