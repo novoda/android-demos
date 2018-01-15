@@ -1,0 +1,49 @@
+### Gradle ###
+# Exclude Folder List #
+.gradle/
+build/
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+
+# IDEA/Android Studio ignores
+*.iml
+*.ipr
+*.iws
+**/.idea/*
+
+# IDEA/Android Studio Ignore exceptions
+!/.idea/copyright/
+!/.idea/fileTemplates/
+!/.idea/inspectionProfiles/
+!/.idea/scopes/
+!/.idea/.name
+!/.idea/codeStyleSettings.xml
+!/.idea/compiler.xml
+!/.idea/encodings.xml
+!/.idea/vcs.xml
+
+# Captures (heap dumps, layout inspector, etc)
+captures/
+
+# Windows and macOS metadata
+Thumbs.db
+*.DS_Store
+desktop.ini
