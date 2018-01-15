@@ -7,7 +7,9 @@ import com.google.firebase.messaging.RemoteMessage
 class MessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        Log.d("MessagingService", "Message received: "+remoteMessage.toString())
+        Log.d("MessagingService", "PushMessage received: "+remoteMessage.toString())
+
+
         super.onMessageReceived(remoteMessage)
     }
 }
