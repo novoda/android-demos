@@ -32,11 +32,12 @@ class PushMessage(
             return intent.extras?.containsKey("google.message_id") ?: false
         }
 
-        fun from(remoteMessage: RemoteMessage): PushMessage {
-            val title = remoteMessage.notification?.title ?: "default title"
-            val body = remoteMessage.notification?.body ?: "default body"
+        fun from(remoteMessage: RemoteMessage?): PushMessage {
+            val title = remoteMessage?.notification?.title ?: "default title"
+            val body = remoteMessage?.notification?.body ?: "default body"
+            val data = remoteMessage?.data ?: HashMap()
 
-            return PushMessage(title, body, remoteMessage.data)
+            return PushMessage(title, body, data)
         }
 
         fun from(extras: Bundle?): PushMessage {
