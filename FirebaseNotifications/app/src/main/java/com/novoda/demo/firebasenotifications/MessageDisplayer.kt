@@ -1,15 +1,16 @@
 package com.novoda.demo.firebasenotifications
 
-import android.content.Context
+import android.app.Activity
 import android.os.Handler
 import android.widget.Toast
 import com.novoda.demo.firebasenotifications.messaging.Messenger
 
 
-class ServiceMessageDisplayer(val context: Context) : Messenger.MessageDisplayer {
+class MessageDisplayer(private val activity: Activity) : Messenger.MessageDisplayer {
+
     override fun displayToast(message: String) {
-        Handler(context.mainLooper).post({
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        Handler(activity.mainLooper).post({
+            Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
         })
     }
 

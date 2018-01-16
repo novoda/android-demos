@@ -11,6 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val messageDisplayer = MessageDisplayer(this)
+        (application as FirebaseNotificationsApplication).messenger.messageDisplayer = messageDisplayer
 
         if (googlePlayServicesNotAvailable()) {
             makeGooglePlayServicesAvailable()

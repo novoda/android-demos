@@ -1,6 +1,6 @@
 package com.novoda.demo.firebasenotifications.messaging
 
-class ForegroundRemoteMessageHandler(val messenger: Messenger) {
+class ForegroundRemoteMessageHandler(private val messenger: Messenger) {
 
     fun handleMessage(pushMessage: PushMessage) {
         val foregroundMessage = ForegroundMessage(pushMessage, ForegroundNotificationHandling.TOAST)
