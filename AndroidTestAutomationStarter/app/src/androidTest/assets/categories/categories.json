@@ -1,0 +1,16 @@
+{
+  "categories": [
+    {
+      "title": "SHIRTS",
+      "image": "shirtimage"
+    },
+    {
+      "title": "Thingies to wear",
+      "image": "hoodieimage"
+    },
+    {
+      "title": "HATS",
+      "image": "hatimage"
+    }
+  ]
+}
