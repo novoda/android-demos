@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageLoadRequested(final int page) {
-                moviesViewModel.getMovies();
+                moviesViewModel.loadMore();
             }
         });
         resultList.setAdapter(adapter);
 
-        moviesViewModel.getMovies().observe(this, new Observer<MoviesSate>() {
+        moviesViewModel.moviesLiveData().observe(this, new Observer<MoviesSate>() {
             @Override
             public void onChanged(MoviesSate moviesSate) {
                 adapter.setMoviesSate(moviesSate);
