@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setTitle("Top Rated Movies");
 
-        MoviesApi movieService = ((MoviesApplication) getApplication()).moviesApi();
+        MovieService movieService = ((MoviesApplication) getApplication()).moviesService();
         moviesViewModel = ViewModelProviders.of(this, new MoviesViewModelFactory(movieService)).get(MoviesViewModel.class);
 
         resultList.setLayoutManager(new LinearLayoutManager(this));

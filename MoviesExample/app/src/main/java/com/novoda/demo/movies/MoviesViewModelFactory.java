@@ -4,21 +4,19 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.novoda.demo.movies.api.MoviesApi;
+public class MoviesViewModelFactory implements ViewModelProvider.Factory {
 
-public class MoviesViewModelFactory implements ViewModelProvider.Factory{
+    private MovieService movieService;
 
-    private MoviesApi moviesApi;
-
-    MoviesViewModelFactory(MoviesApi moviesApi) {
-        this.moviesApi = moviesApi;
+    MoviesViewModelFactory(MovieService movieService) {
+        this.movieService = movieService;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MoviesViewModel.class)) {
-            return (T) new MoviesViewModel(moviesApi);
+            return (T) new MoviesViewModel(movieService);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
