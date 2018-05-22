@@ -21,25 +21,11 @@ public class MovieService {
     private final MoviesApi api;
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
 
-    private Callback callback;
-
     public MovieService(MoviesApi api) {
         this.api = api;
     }
 
-    public void subscribe(Callback callback) {
-        this.callback = callback;
-        callback.onNewData(moviesSate);
-        if (moviesSate.isEmpty()) {
-            loadMore();
-        }
-    }
-
-    public void unsubscribe(Callback callback) {
-        this.callback = null;
-    }
-
-    public void loadMore() {
+    public void loadMore(final Callback callback) {
         api.topRated(moviesSate.pageNumber()).enqueue(new retrofit2.Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {

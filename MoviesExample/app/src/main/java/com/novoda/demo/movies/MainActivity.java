@@ -1,12 +1,14 @@
 package com.novoda.demo.movies;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
@@ -16,12 +18,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MovieService movieService;
     private MoviesAdapter adapter;
 
     @BindView(R.id.movies_list)
     RecyclerView resultList;
-    private MovieService.Callback callback;
+    private MoviesViewModel moviesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setTitle("Top Rated Movies");
 
-        movieService = ((MoviesApplication) getApplication()).movieService();
+        MovieService movieService = ((MoviesApplication) getApplication()).movieService();
+        moviesViewModel = ViewModelProviders.of(this, new MoviesViewModelFactory(movieService)).get(MoviesViewModel.class);
 
         resultList.setLayoutManager(new LinearLayoutManager(this));
 
@@ -42,45 +44,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageLoadRequested(final int page) {
-                movieService.loadMore();
+                moviesViewModel.getMovies();
             }
         });
         resultList.setAdapter(adapter);
-        callback = new MovieService.Callback() {
+
+        moviesViewModel.getMovies().observe(this, new Observer<MoviesSate>() {
             @Override
-            public void onNewData(MoviesSate moviesSate) {
+            public void onChanged(MoviesSate moviesSate) {
                 adapter.setMoviesSate(moviesSate);
             }
-
-            @Override
-            public void onFailure(Throwable e) {
-                Log.e("Movies", "while loading movies", e);
-            }
-        };
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        movieService.subscribe(callback);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        movieService.unsubscribe(callback);
+        });
     }
 
     private void startLoadingTrailer(Movie movie) {
-        movieService.loadTrailerFor(movie, new MovieService.TrailerCallback() {
+        moviesViewModel.getTrailer(movie).observe(this, new Observer<Video>() {
             @Override
-            public void onTrailerLoaded(Video video) {
+            public void onChanged(@Nullable Video video) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(video.trailerUrl())));
-            }
-
-            @Override
-            public void onFailure(Throwable e) {
-                Log.e("Movies", "while loading videos", e);
             }
         });
     }
