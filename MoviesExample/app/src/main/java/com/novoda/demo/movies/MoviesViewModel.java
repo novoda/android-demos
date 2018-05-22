@@ -55,7 +55,7 @@ public class MoviesViewModel extends ViewModel {
     }
 
 
-    public LiveData<Video> getTrailer(Movie movie) {
+    public LiveData<Video> loadTrailerFor(Movie movie) {
         final MutableLiveData<Video> liveData = new MutableLiveData<>();
 
         moviesApi.videos(movie.id).enqueue(new Callback<VideosResponse>() {

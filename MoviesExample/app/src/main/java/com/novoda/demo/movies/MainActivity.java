@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startLoadingTrailer(Movie movie) {
-        moviesViewModel.getTrailer(movie).observe(this, new Observer<Video>() {
+        moviesViewModel.loadTrailerFor(movie).observe(this, new Observer<Video>() {
             @Override
             public void onChanged(@Nullable Video video) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(video.trailerUrl())));
