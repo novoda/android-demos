@@ -52,7 +52,6 @@ public class MovieService {
                     return;
                 }
                 videosLiveData.postValue(response.body().results);
-
             }
 
             @Override
