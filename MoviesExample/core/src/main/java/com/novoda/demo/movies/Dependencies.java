@@ -18,12 +18,11 @@ public class Dependencies {
         this.cacheDir = cacheDir;
     }
 
-    public MovieService provideMovieService() {
+    public MoviesApi providesMovieApi() {
         Cache cache = providesCache();
         OkHttpClient httpClient = providesOkHttp(cache);
         Retrofit retrofit = providesRetrofit(httpClient);
-        MoviesApi moviesApi = providesApi(retrofit);
-        return new MovieService(moviesApi);
+        return providesApi(retrofit);
     }
 
     private MoviesApi providesApi(Retrofit retrofit) {

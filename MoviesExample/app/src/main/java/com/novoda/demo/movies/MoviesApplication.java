@@ -13,7 +13,7 @@ public class MoviesApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Dependencies dependencies = new Dependencies(getCacheDir());
-        movieService = dependencies.provideMovieService();
+        movieService = new MovieService(dependencies.providesMovieApi());
     }
 
     public MovieService movieService() {
