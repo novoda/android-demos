@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.novoda.demo.movies.api.MoviesApi;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setTitle("Top Rated Movies");
 
-        MovieService movieService = ((MoviesApplication) getApplication()).movieService();
+        MoviesApi movieService = ((MoviesApplication) getApplication()).moviesApi();
         moviesViewModel = ViewModelProviders.of(this, new MoviesViewModelFactory(movieService)).get(MoviesViewModel.class);
 
         resultList.setLayoutManager(new LinearLayoutManager(this));
