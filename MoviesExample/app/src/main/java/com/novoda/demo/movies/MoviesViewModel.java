@@ -14,7 +14,6 @@ import java.util.List;
 public class MoviesViewModel extends ViewModel {
 
     private final MovieService movieService;
-    private LiveData<MoviesSate> moviesLiveData;
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
 
     MoviesViewModel(MovieService movieService) {
@@ -22,19 +21,16 @@ public class MoviesViewModel extends ViewModel {
     }
 
     public LiveData<MoviesSate> moviesLiveData() {
-        if (moviesLiveData == null) {
-            moviesLiveData = Transformations.map(movieService.loadMore(moviesSate.pageNumber()),
-                    new Function<List<Movie>, MoviesSate>() {
-                        @Override
-                        public MoviesSate apply(List<Movie> input) {
-                            List<Movie> movies = moviesSate.movies();
-                            movies.addAll(input);
-                            moviesSate = new MoviesSate(movies, moviesSate.pageNumber() + 1);
-                            return moviesSate;
-                        }
-                    });
-        }
-        return moviesLiveData;
+        return Transformations.map(movieService.loadMore(moviesSate.pageNumber()),
+                new Function<List<Movie>, MoviesSate>() {
+                    @Override
+                    public MoviesSate apply(List<Movie> input) {
+                        List<Movie> movies = moviesSate.movies();
+                        movies.addAll(input);
+                        moviesSate = new MoviesSate(movies, moviesSate.pageNumber() + 1);
+                        return moviesSate;
+                    }
+                });
     }
 
     public void loadMore() {
