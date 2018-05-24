@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="com.novoda.demo.movies.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/movies_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <data>
 
-</FrameLayout>
+        <variable
+            name="viewmodel"
+            type="com.novoda.demo.movies.MoviesViewModel" />
+    </data>
+
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.novoda.demo.movies.MainActivity">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{viewmodel.title}"
+            tools:text="El titulo" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movies_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp" />
+
+    </FrameLayout>
+</layout>

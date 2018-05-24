@@ -3,6 +3,7 @@ package com.novoda.demo.movies;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.novoda.demo.movies.databinding.ActivityMainBinding;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         ButterKnife.bind(this);
         setTitle("Top Rated Movies");
 
@@ -52,9 +54,12 @@ public class MainActivity extends AppCompatActivity {
         moviesViewModel.moviesLiveData().observe(this, new Observer<MoviesSate>() {
             @Override
             public void onChanged(MoviesSate moviesSate) {
+                moviesViewModel.title.set("Num movies: " + moviesSate.movies().size());
                 adapter.setMoviesSate(moviesSate);
             }
         });
+
+        viewDataBinding.setViewmodel(moviesViewModel);
     }
 
     private void startLoadingTrailer(Movie movie) {

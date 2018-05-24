@@ -4,6 +4,7 @@ import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableField;
 
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
@@ -13,6 +14,8 @@ import java.util.List;
 
 public class MoviesViewModel extends ViewModel {
 
+
+    public final ObservableField<String> title = new ObservableField<>();
     private final MovieService movieService;
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
 

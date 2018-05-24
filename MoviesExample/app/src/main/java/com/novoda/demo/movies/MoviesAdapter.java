@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.novoda.demo.movies.MoviesSate;
+import com.novoda.demo.movies.databinding.MoviesListItemBinding;
 import com.novoda.demo.movies.model.Movie;
 
 import java.util.ArrayList;
@@ -45,11 +45,15 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_list_card, parent, false);
+
         if (viewType == 1) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_list_card, parent, false);
             return new LoadPageItem(view, listener);
         }
-        return new MovieItem(view, listener);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        MoviesListItemBinding itemBinding = MoviesListItemBinding.inflate(layoutInflater, parent, false);
+
+        return new MovieItem(listener, itemBinding);
     }
 
     @Override
@@ -81,12 +85,13 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class MovieItem extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_item_title) TextView text;
-        @BindView(R.id.movie_item_poster) ImageView poster;
-        @BindView(R.id.movie_item_rating) TextView rating;
+        MoviesListItemBinding binding;
+        @BindView(R.id.movie_item_poster)
+        ImageView poster;
 
-        MovieItem(View itemView, final Listener listener) {
-            super(itemView);
+        MovieItem(final Listener listener, MoviesListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,15 +105,16 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(final Movie movie) {
-            text.setText(movie.title);
-            rating.setText(Double.toString(movie.rating));
+            binding.setMovie(movie);
+            binding.executePendingBindings();
             Glide.with(itemView.getContext()).load(movie.posterUrl()).into(poster);
         }
     }
 
     static class LoadPageItem extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_item_title) TextView text;
+        @BindView(R.id.movie_item_title)
+        TextView text;
         Listener listener;
 
         LoadPageItem(View itemView, Listener listener) {
