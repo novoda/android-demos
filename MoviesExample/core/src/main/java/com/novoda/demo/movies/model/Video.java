@@ -18,7 +18,7 @@ public class Video {
     }
 
     public String trailerUrl() {
-        if (!"YouTube".equals(site)) {
+        if (!"YouTube".equals(site) || !"Trailer".equals(type)) {
             return null;
         }
         return "https://www.youtube.com/watch?v=" + key;
