@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/tools">
+<data>
+  <variable
+      name="movie"
+      type="com.novoda.demo.movies.model.Movie" />
+
+</data>
+<android.support.v7.widget.CardView
   xmlns:cardview="http://schemas.android.com/apk/res-auto"
   android:id="@+id/card_view"
   android:layout_gravity="center"
@@ -15,6 +22,8 @@
     layout="@layout/movies_list_item"
     android:layout_margin="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    app:movie="@{movie}"/>
 
 </android.support.v7.widget.CardView>
+</layout>
