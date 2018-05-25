@@ -5,10 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.novoda.demo.movies.databinding.MoviesListItemBinding;
 import com.novoda.demo.movies.model.Movie;
 
@@ -17,14 +15,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int MOVIE_ITEM = 0;
     private static final int NEXT_PAGE_ITEM = 1;
 
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 0);
 
-    interface Listener {
+    public interface Listener {
         void onMovieSelected(Movie movie);
 
         void onPageLoadRequested(int page);
@@ -46,7 +44,7 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == 1) {
+        if (viewType == NEXT_PAGE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_list_card, parent, false);
             return new LoadPageItem(view, listener);
         }
@@ -90,15 +88,8 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         MovieItem(final Listener listener, MoviesListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    int adapterPosition = getAdapterPosition();
-                    if (adapterPosition != -1) {
-                        listener.onMovieSelected(moviesSate.get(adapterPosition));
-                    }
-                }
-            });
+            binding.setListener(listener);
+
         }
 
         public void bind(final Movie movie) {
