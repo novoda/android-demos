@@ -16,6 +16,7 @@
         android:id="@+id/movie_item_poster"
         android:layout_width="92dp"
         android:layout_height="140dp"
+        app:imageUrl='@{movie.posterUrl}'
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

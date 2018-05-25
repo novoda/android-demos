@@ -14,7 +14,6 @@ import java.util.List;
 
 public class MoviesViewModel extends ViewModel {
 
-
     public final ObservableField<String> title = new ObservableField<>();
     private final MovieService movieService;
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
@@ -51,4 +50,5 @@ public class MoviesViewModel extends ViewModel {
             }
         });
     }
+
 }

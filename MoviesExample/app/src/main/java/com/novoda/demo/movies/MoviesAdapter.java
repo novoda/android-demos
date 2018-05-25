@@ -86,13 +86,10 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class MovieItem extends RecyclerView.ViewHolder {
 
         MoviesListItemBinding binding;
-        @BindView(R.id.movie_item_poster)
-        ImageView poster;
 
         MovieItem(final Listener listener, MoviesListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -107,7 +104,6 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void bind(final Movie movie) {
             binding.setMovie(movie);
             binding.executePendingBindings();
-            Glide.with(itemView.getContext()).load(movie.posterUrl()).into(poster);
         }
     }
 
