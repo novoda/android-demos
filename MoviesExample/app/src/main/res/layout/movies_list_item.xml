@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+<data>
+    <variable
+        name="movie"
+        type="com.novoda.demo.movies.model.Movie" />
 
-    <data>
+</data>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        <variable
-            name="movie"
-            type="com.novoda.demo.movies.model.Movie" />
+    <ImageView
+        android:id="@+id/movie_item_poster"
+        android:layout_width="92dp"
+        android:layout_height="140dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    </data>
+    <TextView
+        android:id="@+id/movie_item_title"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="20sp"
+        android:text='@{movie.title}'
+        tools:text="Some Title here"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/movie_item_poster"
+        app:layout_constraintLeft_toRightOf="@+id/movie_item_poster"
+        app:layout_constraintBottom_toTopOf="@+id/movie_item_rating"
+        android:layout_width="0dp"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="8dp" />
 
-    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        tools:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movie_item_rating"
+        android:text='@{Double.toString(movie.rating)}'
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_item_poster"
+        app:layout_constraintLeft_toRightOf="@+id/movie_item_poster"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="0dp" />
 
-        <ImageView
-            android:id="@+id/movie_item_poster"
-            android:layout_width="92dp"
-            android:layout_height="140dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/movie_item_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:paddingLeft="16dp"
-            android:text="@{movie.title}"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/movie_item_rating"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toRightOf="@+id/movie_item_poster"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/movie_item_poster"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Some Title here" />
-
-        <TextView
-            android:id="@+id/movie_item_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginRight="8dp"
-            android:text="@{movie.rating}"
-            app:layout_constraintBottom_toBottomOf="@+id/movie_item_poster"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintLeft_toRightOf="@+id/movie_item_poster"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:text="TextView" />
-
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
 </layout>

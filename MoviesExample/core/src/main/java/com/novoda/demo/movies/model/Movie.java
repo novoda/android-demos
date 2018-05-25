@@ -20,10 +20,6 @@ public class Movie {
                 '}';
     }
 
-    public String getRating() {
-        return Double.toString(rating);
-    }
-
     public String posterUrl() {
         return "http://image.tmdb.org/t/p/w92" + poster_path;
     }
