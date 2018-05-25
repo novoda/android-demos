@@ -20,8 +20,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MoviesAdapter adapter;
-
     @BindView(R.id.movies_list)
     RecyclerView resultList;
     private MoviesViewModel moviesViewModel;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         resultList.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
+        MoviesAdapter adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
             @Override
             public void onMovieSelected(final Movie movie) {
                 startLoadingTrailer(movie);
@@ -51,15 +49,8 @@ public class MainActivity extends AppCompatActivity {
         });
         resultList.setAdapter(adapter);
 
-        moviesViewModel.moviesLiveData().observe(this, new Observer<MoviesSate>() {
-            @Override
-            public void onChanged(MoviesSate moviesSate) {
-                moviesViewModel.title.set("Num movies: " + moviesSate.movies().size());
-                adapter.setMoviesSate(moviesSate);
-            }
-        });
-
         viewDataBinding.setViewmodel(moviesViewModel);
+        viewDataBinding.setLifecycleOwner(this);
     }
 
     private void startLoadingTrailer(Movie movie) {
