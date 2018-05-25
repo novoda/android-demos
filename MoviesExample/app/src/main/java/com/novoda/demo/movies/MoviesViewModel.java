@@ -4,7 +4,6 @@ import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableField;
 
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
@@ -49,5 +48,4 @@ public class MoviesViewModel extends ViewModel {
             }
         });
     }
-
 }
