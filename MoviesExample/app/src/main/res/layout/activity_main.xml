@@ -16,7 +16,8 @@
         android:id="@+id/movies_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:movies="@{viewmodel.moviesLiveData}"/>
+        app:items="@{viewmodel.moviesLiveData}"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
 </FrameLayout>
 </layout>

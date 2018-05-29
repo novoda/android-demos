@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         moviesViewModel = ViewModelProviders.of(this, new MoviesViewModelFactory(movieService)).get(MoviesViewModel.class);
 
         resultList = findViewById(R.id.movies_list);
-        resultList.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
             @Override
