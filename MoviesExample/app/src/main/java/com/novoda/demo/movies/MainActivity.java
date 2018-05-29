@@ -15,14 +15,10 @@ import com.novoda.demo.movies.databinding.ActivityMainBinding;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class MainActivity extends AppCompatActivity {
 
     private MoviesAdapter adapter;
-    
-    @BindView(R.id.movies_list)
+
     RecyclerView resultList;
     private MoviesViewModel moviesViewModel;
 
@@ -30,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        ButterKnife.bind(this);
         setTitle("Top Rated Movies");
 
         MovieService movieService = ((MoviesApplication) getApplication()).movieService();
         moviesViewModel = ViewModelProviders.of(this, new MoviesViewModelFactory(movieService)).get(MoviesViewModel.class);
 
+        resultList = findViewById(R.id.movies_list);
         resultList.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
