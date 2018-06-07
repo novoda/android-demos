@@ -2,9 +2,6 @@ package com.novoda.demo.movies;
 
 import android.app.Application;
 
-import com.novoda.demo.movies.Dependencies;
-import com.novoda.demo.movies.MovieService;
-
 public class MoviesApplication extends Application {
 
     private MovieService movieService;

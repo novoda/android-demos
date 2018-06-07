@@ -4,7 +4,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Single;
 
 public interface MoviesApi {
 
@@ -14,5 +13,5 @@ public interface MoviesApi {
     Call<MoviesResponse> topRated(@Query("page") int page);
 
     @GET("movie/{id}/videos?api_key="+API_KEY)
-    Single<VideosResponse> videos(@Path("id") String movieId);
+    Call<VideosResponse> videos(@Path("id") String movieId);
 }

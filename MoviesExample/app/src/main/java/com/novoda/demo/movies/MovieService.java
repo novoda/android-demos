@@ -1,107 +1,64 @@
 package com.novoda.demo.movies;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
+
 import com.novoda.demo.movies.api.MoviesApi;
 import com.novoda.demo.movies.api.MoviesResponse;
 import com.novoda.demo.movies.api.VideosResponse;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
-import rx.Observer;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class MovieService {
 
     private final MoviesApi api;
-    private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
-
-    private Callback callback;
+    private final MutableLiveData<List<Movie>> moviesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Video>> videosLiveData = new MutableLiveData<>();
 
     public MovieService(MoviesApi api) {
         this.api = api;
     }
 
-    public void subscribe(Callback callback) {
-        this.callback = callback;
-        callback.onNewData(moviesSate);
-        if (moviesSate.isEmpty()) {
-            loadMore();
-        }
-    }
-
-    public void unsubscribe(Callback callback) {
-        this.callback = null;
-    }
-
-    public void loadMore() {
-        api.topRated(moviesSate.pageNumber()).enqueue(new retrofit2.Callback<MoviesResponse>() {
+    public LiveData<List<Movie>> loadMore(int page) {
+        api.topRated(page).enqueue(new Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
                 if (response == null || response.body() == null || response.body().results == null) {
                     return;
                 }
-                List<Movie> movies = moviesSate.movies();
-                movies.addAll(response.body().results);
-                moviesSate = new MoviesSate(movies, moviesSate.pageNumber() + 1);
-                callback.onNewData(moviesSate);
+                moviesLiveData.postValue(response.body().results);
             }
 
             @Override
-            public void onFailure(Call<MoviesResponse> call, Throwable throwable) {
-                callback.onFailure(throwable);
+            public void onFailure(Call<MoviesResponse> call, Throwable e) {
+                Log.e("Movies", "while loading movies", e);
             }
         });
+        return moviesLiveData;
     }
 
-    public void loadTrailerFor(Movie movie, final TrailerCallback trailerCallback) {
-        api.videos(movie.id)
-                .flatMapObservable(new Func1<VideosResponse, Observable<Video>>() {
-                    @Override
-                    public Observable<Video> call(final VideosResponse videosResponse) {
-                        return Observable.from(videosResponse.results);
-                    }
-                })
-                .takeFirst(new Func1<Video, Boolean>() {
-                    @Override
-                    public Boolean call(final Video video) {
-                        return video.trailerUrl() != null;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Video>() {
-                    @Override
-                    public void onCompleted() {
-                        // noop
-                    }
+    public LiveData<List<Video>> loadTrailerFor(Movie movie) {
+        api.videos(movie.id).enqueue(new Callback<VideosResponse>() {
+            @Override
+            public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
+                if (response == null || response.body() == null || response.body().results == null) {
+                    return;
+                }
+                videosLiveData.postValue(response.body().results);
+            }
 
-                    @Override
-                    public void onError(final Throwable e) {
-                        trailerCallback.onFailure(e);
-                    }
-
-                    @Override
-                    public void onNext(final Video video) {
-                        trailerCallback.onTrailerLoaded(video);
-                    }
-                });
-         }
-
-    interface Callback {
-        void onNewData(MoviesSate moviesSate);
-
-        void onFailure(Throwable e);
+            @Override
+            public void onFailure(Call<VideosResponse> call, Throwable e) {
+                Log.e("Movies", "while loading videos", e);
+            }
+        });
+        return videosLiveData;
     }
-
-    interface TrailerCallback {
-        void onTrailerLoaded(Video video);
-
-        void onFailure(Throwable e);
-    }
-
 }
