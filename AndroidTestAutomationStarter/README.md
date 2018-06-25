@@ -1,12 +1,11 @@
 ## Overview
 
-A sample retail store app that showcases current testing methodologies for Android apps. It comes with a simple Heroku server that can be run locally.
+A sample retail store app that showcases current testing methodologies for Android. It comes with a simple Heroku server that can be run locally.
 
 The aim is to provide a hands-on introduction to those new to test engineering and a challenge for those who want to further improve the current implementation.
 
 
 ## Getting started
-TODO: device vs emulator
 
 Before launching the app you'll need to start the server. Make sure you have Ruby installed by running `ruby -v` from the terminal. If it's not installed run `brew install ruby`
 
@@ -14,7 +13,7 @@ Navigate to the `simplesinatraapi` directory in this project and run `ruby serve
 
 You can check if the server is running by going to http://localhost:4567/ where you should see **Sinatra doesn’t know this ditty.**
 
-Now all you need to do is start the app from Android Studio!
+Now all you need to do is run the app from Android Studio!
 
 ## Tests
 
