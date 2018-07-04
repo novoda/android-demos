@@ -19,7 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField STRING, API_URL, '"http://10.0.2.2:4567"'
-        testInstrumentationRunner "com.novoda.androidstoreexample.TestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -54,6 +54,4 @@ dependencies {
         exclude module: 'design'
         exclude module: 'recyclerview-v7'
     }
-    androidTestImplementation 'io.cucumber:cucumber-java8:2.3.1'
-    androidTestImplementation 'io.cucumber:cucumber-junit:2.3.1'
 }
