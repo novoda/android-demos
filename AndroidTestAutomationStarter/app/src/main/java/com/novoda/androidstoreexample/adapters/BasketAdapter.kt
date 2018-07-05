@@ -11,9 +11,11 @@ import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.models.Order
 import com.novoda.androidstoreexample.utilities.ImageHelper
 
-class BasketAdapter(private val context: Context,
-                    private val orders: List<Order>,
-                    private val itemClicked: (Int) -> Unit) : RecyclerView.Adapter<BasketAdapter.Holder>() {
+class BasketAdapter(
+    private val context: Context,
+    private val orders: List<Order>,
+    private val itemClicked: (Int) -> Unit
+) : RecyclerView.Adapter<BasketAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.basket_item, parent, false)
@@ -40,6 +42,4 @@ class BasketAdapter(private val context: Context,
             numberOfProducts?.text = order.numberOfItems.toString()
         }
     }
-
-
 }

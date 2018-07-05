@@ -6,7 +6,6 @@ import com.novoda.androidstoreexample.dagger.App
 import com.novoda.androidstoreexample.dagger.component.AppComponent
 import com.novoda.androidstoreexample.mvp.view.BaseView
 
-
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     abstract fun getActivityLayout(): Int
@@ -20,6 +19,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     override fun showMessage(message: String) {
-
     }
 }

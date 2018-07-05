@@ -20,8 +20,6 @@ class MainActivityPageObject {
     fun navigateToProductList() {
         val categoryMatcher = ViewMatchers.withCategoryTitle("HATS")
 
-        onView(withId(R.id.categoryListView)).perform( actionOnHolderItem(categoryMatcher, click()))
+        onView(withId(R.id.categoryListView)).perform(actionOnHolderItem(categoryMatcher, click()))
     }
-
 }
-

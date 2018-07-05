@@ -1,7 +1,6 @@
 package com.novoda.androidstoreexample.activities
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View

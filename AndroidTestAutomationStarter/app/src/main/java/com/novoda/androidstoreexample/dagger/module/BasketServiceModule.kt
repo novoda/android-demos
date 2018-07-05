@@ -10,8 +10,7 @@ class BasketServiceModule {
 
     @Provides
     @Singleton
-    fun providesBasket(): BasketService{
+    fun providesBasket(): BasketService {
         return BasketService()
     }
-
 }

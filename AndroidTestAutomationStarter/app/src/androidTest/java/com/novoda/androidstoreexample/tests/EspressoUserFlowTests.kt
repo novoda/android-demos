@@ -22,7 +22,6 @@ class EspressoUserFlowTests {
     @get:Rule
     var activityRule: ActivityTestRule<MainActivity> = activityTestRule
 
-
     @Test
     fun navigateToProductDetailsTest() {
 
@@ -31,6 +30,5 @@ class EspressoUserFlowTests {
         productListPageObject.navigateToProductDetails()
 
         productDetailsPageObject.assertProductDetailsDisplayed()
-
     }
 }

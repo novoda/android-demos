@@ -4,7 +4,6 @@ import android.app.Application
 import com.novoda.androidstoreexample.dagger.component.AppComponent
 import com.novoda.androidstoreexample.dagger.component.DaggerAppComponent
 
-
 class App : Application() {
 
     companion object {
@@ -13,7 +12,6 @@ class App : Application() {
         @JvmStatic
         lateinit var component: AppComponent
     }
-
 
     override fun onCreate() {
         super.onCreate()

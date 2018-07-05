@@ -28,7 +28,7 @@ class CategoryListPresenterImpl : CategoryListPresenter {
 
     override fun loadCategoryList() {
         categoryListView.showProgress()
-        categoryListInteractor.loadCategoryList(object: CategoryListListener {
+        categoryListInteractor.loadCategoryList(object : CategoryListListener {
             override fun onFailure(message: String) {
                 categoryListView.hideProgress()
                 categoryListView.showMessage(message)

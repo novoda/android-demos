@@ -20,5 +20,4 @@ class ClientModule {
 
         return okHttpClientBuilder.build()
     }
-
 }

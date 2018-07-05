@@ -11,10 +11,11 @@ import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.models.Product
 import com.novoda.androidstoreexample.utilities.ImageHelper
 
-class ProductListAdapter(private val context: Context,
-                         private val products: List<Product>,
-                         private val unitClicked: (Int) -> Unit) : RecyclerView.Adapter<ProductListAdapter.Holder>(){
-
+class ProductListAdapter(
+    private val context: Context,
+    private val products: List<Product>,
+    private val unitClicked: (Int) -> Unit
+) : RecyclerView.Adapter<ProductListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.product_list_item, parent, false)
@@ -28,7 +29,6 @@ class ProductListAdapter(private val context: Context,
     override fun onBindViewHolder(holder: Holder?, position: Int) {
         holder?.bindProduct(products[position], context)
     }
-
 
     inner class Holder(itemView: View?, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 

@@ -9,7 +9,7 @@ import com.novoda.androidstoreexample.services.BasketService
 import com.novoda.androidstoreexample.services.ProductDetailsResponse
 import javax.inject.Inject
 
-class ProductDetailPresenterImpl: ProductDetailPresenter {
+class ProductDetailPresenterImpl : ProductDetailPresenter {
     private val productDetailView: ProductDetailView
     private val productDetailsInteractor: ProductDetailsInteractor
     private val basketService: BasketService
@@ -23,14 +23,13 @@ class ProductDetailPresenterImpl: ProductDetailPresenter {
         this.basketService = basketService
     }
 
-
     override fun cancel() {
         productDetailsInteractor.cancel()
     }
 
     override fun loadProductDetails(productId: Int) {
         productDetailView.showProgress()
-        productDetailsInteractor.loadProductDetails(object : ProductDetailsListener{
+        productDetailsInteractor.loadProductDetails(object : ProductDetailsListener {
             override fun onFailure(message: String) {
                 productDetailView.hideProgress()
                 productDetailView.showMessage(message)

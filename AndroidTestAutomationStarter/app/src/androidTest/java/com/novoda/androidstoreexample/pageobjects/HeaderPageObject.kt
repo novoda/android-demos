@@ -7,13 +7,10 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import com.novoda.androidstoreexample.R
 
-
 class HeaderPageObject {
     private val HEADER: ViewInteraction = onView(withId(R.id.action_bar_container))
 
     fun verifyHeader() {
         HEADER.check(matches(isDisplayed()))
     }
-
 }
-

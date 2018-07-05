@@ -8,7 +8,6 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 
-
 class JsonSchemaTest {
     @Before
     fun setUp() {
@@ -29,5 +28,4 @@ class JsonSchemaTest {
 
         assertThat(json, matchesJsonSchemaInClasspath("schemas/category-schema.json"))
     }
-
 }

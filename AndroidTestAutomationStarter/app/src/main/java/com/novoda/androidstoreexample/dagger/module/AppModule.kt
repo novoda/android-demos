@@ -8,7 +8,7 @@ import com.novoda.androidstoreexample.dagger.App
 import javax.inject.Singleton
 
 @Module
-class AppModule  {
+class AppModule {
 
     @Provides
     @Singleton
@@ -17,5 +17,4 @@ class AppModule  {
     @Provides
     @Singleton
     fun providingResources(context: Context): Resources = context.resources
-
 }

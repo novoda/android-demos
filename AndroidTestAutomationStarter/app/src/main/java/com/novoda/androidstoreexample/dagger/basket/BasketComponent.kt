@@ -7,4 +7,3 @@ import dagger.Subcomponent
 interface BasketComponent {
     fun inject(basketActivity: BasketActivity)
 }
-

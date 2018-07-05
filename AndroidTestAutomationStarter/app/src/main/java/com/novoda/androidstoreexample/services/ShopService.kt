@@ -14,5 +14,4 @@ interface ShopService {
 
     @GET("items/{itemId}")
     fun getItemForId(@Path("itemId") itemId: Int): Call<ProductDetailsResponse>
-
 }

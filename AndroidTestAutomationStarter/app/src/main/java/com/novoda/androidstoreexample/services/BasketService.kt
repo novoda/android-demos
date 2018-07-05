@@ -14,7 +14,7 @@ class BasketService {
         }
     }
 
-    fun getBasket():List<Order>{
+    fun getBasket(): List<Order> {
         val orders = mutableListOf<Order>()
         basket.forEach {
             val order = Order(it.key, it.value)
@@ -22,5 +22,4 @@ class BasketService {
         }
         return orders
     }
-
 }

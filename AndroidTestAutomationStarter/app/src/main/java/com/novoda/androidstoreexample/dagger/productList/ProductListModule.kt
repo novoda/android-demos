@@ -2,15 +2,10 @@ package com.novoda.androidstoreexample.dagger.categoryList
 
 import dagger.Module
 import dagger.Provides
-import com.novoda.androidstoreexample.mvp.interactor.CategoryListInteractor
 import com.novoda.androidstoreexample.mvp.interactor.ProductListInteractor
-import com.novoda.androidstoreexample.mvp.interactor.impl.CategoryListInteractorImpl
 import com.novoda.androidstoreexample.mvp.interactor.impl.ProductListInteractorImpl
-import com.novoda.androidstoreexample.mvp.presenter.CategoryListPresenter
 import com.novoda.androidstoreexample.mvp.presenter.ProductListPresenter
-import com.novoda.androidstoreexample.mvp.presenter.impl.CategoryListPresenterImpl
 import com.novoda.androidstoreexample.mvp.presenter.impl.ProductListPresenterImpl
-import com.novoda.androidstoreexample.mvp.view.CategoryListView
 import com.novoda.androidstoreexample.mvp.view.ProductListView
 
 @Module

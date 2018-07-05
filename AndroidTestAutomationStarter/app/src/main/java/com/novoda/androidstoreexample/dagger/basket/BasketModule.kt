@@ -9,7 +9,6 @@ import dagger.Provides
 @Module
 class BasketModule(private val basketView: BasketView) {
 
-
     @Provides
     fun providesView(): BasketView = basketView
 

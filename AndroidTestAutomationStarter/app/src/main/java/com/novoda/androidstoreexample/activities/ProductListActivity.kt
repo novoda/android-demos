@@ -33,7 +33,7 @@ class ProductListActivity : BaseActivity(), ProductListView {
 
     override fun showProductList(products: List<Product>) {
         productListView.layoutManager = GridLayoutManager(this, 2)
-        productListAdapter = ProductListAdapter(this, products) {product ->
+        productListAdapter = ProductListAdapter(this, products) { product ->
             presenter.onProductClicked(product)
         }
         productListView.adapter = productListAdapter

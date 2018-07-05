@@ -5,5 +5,4 @@ interface CategoryListPresenter : BasePresenter {
     fun loadCategoryList()
 
     fun onCategoryItemClicked(type: Int)
-
 }

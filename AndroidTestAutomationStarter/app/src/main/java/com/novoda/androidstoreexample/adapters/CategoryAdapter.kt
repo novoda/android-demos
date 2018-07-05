@@ -11,9 +11,11 @@ import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.models.Category
 import com.novoda.androidstoreexample.utilities.ImageHelper
 
-class CategoryAdapter(private val context: Context,
-                      private val categories: List<Category>,
-                      private val itemClicked: (Int) -> Unit) : RecyclerView.Adapter<CategoryAdapter.Holder>() {
+class CategoryAdapter(
+    private val context: Context,
+    private val categories: List<Category>,
+    private val itemClicked: (Int) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.category_item, parent, false)
@@ -27,7 +29,6 @@ class CategoryAdapter(private val context: Context,
     override fun onBindViewHolder(holder: Holder?, position: Int) {
         holder?.bindCategory(categories[position], context)
     }
-
 
     inner class Holder(itemView: View?, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val categoryImage = itemView?.findViewById<ImageView>(R.id.categoryImage)

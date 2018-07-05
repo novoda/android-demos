@@ -31,7 +31,6 @@ class MockServerTestExample {
     @get:Rule
     var activityRule: ActivityTestRule<MainActivity> = activityTestRule
 
-
     @Before
     @Throws(Exception::class)
     fun setUp() {

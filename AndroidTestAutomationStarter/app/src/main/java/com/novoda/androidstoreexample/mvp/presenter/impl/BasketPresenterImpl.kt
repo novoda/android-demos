@@ -5,7 +5,7 @@ import com.novoda.androidstoreexample.mvp.view.BasketView
 import com.novoda.androidstoreexample.services.BasketService
 import javax.inject.Inject
 
-class BasketPresenterImpl: BasketPresenter {
+class BasketPresenterImpl : BasketPresenter {
     val basketView: BasketView
     val basketService: BasketService
 
@@ -14,7 +14,6 @@ class BasketPresenterImpl: BasketPresenter {
         this.basketView = basketView
         this.basketService = basketService
     }
-
 
     override fun loadBasket() {
         basketView.showProgress()

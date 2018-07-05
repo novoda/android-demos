@@ -1,6 +1,5 @@
 package com.novoda.androidstoreexample.mvp.interactor.impl
 
-import android.content.Context
 import com.novoda.androidstoreexample.services.CategoryResponse
 import com.novoda.androidstoreexample.mvp.interactor.CategoryListInteractor
 import com.novoda.androidstoreexample.mvp.listener.CategoryListListener
@@ -11,7 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class CategoryListInteractorImpl: CategoryListInteractor {
+class CategoryListInteractorImpl : CategoryListInteractor {
     val retrofit: Retrofit
     val apiService: ShopService
 
@@ -23,10 +22,9 @@ class CategoryListInteractorImpl: CategoryListInteractor {
         this.apiService = apiService
     }
 
-
     override fun loadCategoryList(categoryListListener: CategoryListListener) {
         call = apiService.getCategories()
-        call.enqueue(object : Callback<CategoryResponse>{
+        call.enqueue(object : Callback<CategoryResponse> {
             override fun onResponse(call: Call<CategoryResponse>?, response: Response<CategoryResponse>?) {
                 if (response != null && response.isSuccessful) {
                     categoryListListener.onSuccess(response.body()!!)
@@ -39,7 +37,6 @@ class CategoryListInteractorImpl: CategoryListInteractor {
                 categoryListListener.onFailure("Error while fetching data")
             }
         })
-
     }
 
     override fun cancel() {

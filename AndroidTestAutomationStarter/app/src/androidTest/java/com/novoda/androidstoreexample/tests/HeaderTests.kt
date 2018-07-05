@@ -16,5 +16,4 @@ class HeaderTests {
         val headerPageObject = HeaderPageObject()
         headerPageObject.verifyHeader()
     }
-
 }

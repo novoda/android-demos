@@ -1,13 +1,13 @@
 package com.novoda.androidstoreexample.mvp.presenter.impl
 
-import com.novoda.androidstoreexample.services.ProductResponse
 import com.novoda.androidstoreexample.mvp.interactor.ProductListInteractor
 import com.novoda.androidstoreexample.mvp.listener.ProductListListener
 import com.novoda.androidstoreexample.mvp.presenter.ProductListPresenter
 import com.novoda.androidstoreexample.mvp.view.ProductListView
+import com.novoda.androidstoreexample.services.ProductResponse
 import javax.inject.Inject
 
-class ProductListPresenterImpl: ProductListPresenter {
+class ProductListPresenterImpl : ProductListPresenter {
     private val productListInteractor: ProductListInteractor
     private val productListView: ProductListView
 
@@ -17,14 +17,13 @@ class ProductListPresenterImpl: ProductListPresenter {
         this.productListView = productListView
     }
 
-
     override fun cancel() {
         productListInteractor.cancel()
     }
 
     override fun loadProductList(category: Int) {
-       productListView.showProgress()
-        productListInteractor.loadProductList(object: ProductListListener{
+        productListView.showProgress()
+        productListInteractor.loadProductList(object : ProductListListener {
             override fun onFailure(message: String) {
                 productListView.hideProgress()
                 productListView.showMessage(message)
@@ -35,7 +34,6 @@ class ProductListPresenterImpl: ProductListPresenter {
                 productListView.showProductList(productList)
                 productListView.hideProgress()
             }
-
         }, category)
     }
 

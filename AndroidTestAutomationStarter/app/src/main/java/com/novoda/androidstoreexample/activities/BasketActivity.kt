@@ -26,17 +26,14 @@ class BasketActivity : BaseActivity(), BasketView {
     }
 
     override fun showProgress() {
-
     }
 
     override fun hideProgress() {
-
     }
 
     override fun showBasketItems(orders: List<Order>) {
         basketList.layoutManager = LinearLayoutManager(this)
         basketAdapter = BasketAdapter(this, orders) {
-
         }
         basketList.adapter = basketAdapter
     }

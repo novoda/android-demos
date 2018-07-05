@@ -10,7 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ProductDetailsInterActorImpl: ProductDetailsInteractor {
+class ProductDetailsInterActorImpl : ProductDetailsInteractor {
     private val retrofit: Retrofit
     private val shopService: ShopService
 
@@ -40,7 +40,6 @@ class ProductDetailsInterActorImpl: ProductDetailsInteractor {
                     productDetailsListener.onFailure("Error")
                 }
             }
-
         })
     }
 }

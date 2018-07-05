@@ -5,5 +5,4 @@ import com.novoda.androidstoreexample.services.ProductResponse
 interface ProductListListener : BaseListener {
 
     fun onSuccess(productResponse: ProductResponse)
-
 }

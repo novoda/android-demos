@@ -22,7 +22,6 @@ class EspressoTestExample {
     @get:Rule
     var activityRule: ActivityTestRule<MainActivity> = activityTestRule
 
-
     @Test
     fun firstNavigationTest() {
 
@@ -31,6 +30,5 @@ class EspressoTestExample {
         productListPageObject.navigateToProductDetails()
 
         productDetailsPageObject.assertProductDetailsDisplayed()
-
     }
 }
