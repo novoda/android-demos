@@ -10,7 +10,6 @@ class Basket
 
   def add_to_basket(item)
     item_id = item.id
-    p item_id
     if @items_in_basket.key?(item_id)
       @items_in_basket[item_id] += 1
     else
