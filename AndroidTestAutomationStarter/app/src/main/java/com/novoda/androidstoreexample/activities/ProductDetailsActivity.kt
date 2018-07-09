@@ -21,8 +21,6 @@ class ProductDetailsActivity : BaseActivity(), ProductDetailView {
     @Inject
     lateinit var presenter: ProductDetailPresenter
 
-    lateinit var product: Product
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val itemId = intent.getIntExtra(PRODUCT_ID_EXTRA, -0)
@@ -35,7 +33,6 @@ class ProductDetailsActivity : BaseActivity(), ProductDetailView {
         productDetailTitle.text = product.title
         productDetailDescription.text = product.productDescription
         productDetailPrice.text = product.price
-        this.product = product
     }
 
     override fun getActivityLayout(): Int {

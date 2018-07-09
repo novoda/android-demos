@@ -54,9 +54,8 @@ class MainActivity : BaseActivity(), CategoryListView {
     }
 
     override fun onItemClicked(type: Int) {
-        val productIntent = Intent(this, ProductListActivity::class.java)
-        productIntent.putExtra(CATEGORY_ID_EXTRA, type)
-        startActivity(productIntent)
+        intent = Intent(this, ProductListActivity::class.java).apply { putExtra(CATEGORY_ID_EXTRA, type) }
+        startActivity(intent)
     }
 
     override fun onBasketClicked(view: View) {

@@ -14,8 +14,6 @@ import javax.inject.Inject
 
 class BasketActivity : BaseActivity(), BasketView {
 
-    lateinit var basketAdapter: BasketAdapter
-
     @Inject
     lateinit var presenter: BasketPresenter
 
@@ -32,9 +30,9 @@ class BasketActivity : BaseActivity(), BasketView {
     }
 
     override fun showBasketItems(orders: List<Order>) {
-        basketList.layoutManager = LinearLayoutManager(this)
-        basketAdapter = BasketAdapter(this, orders) {
+        val basketAdapter = BasketAdapter(this, orders) {
         }
+        basketList.layoutManager = LinearLayoutManager(this)
         basketList.adapter = basketAdapter
     }
 

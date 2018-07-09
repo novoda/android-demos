@@ -26,13 +26,13 @@ class CategoryAdapter(
         return categories.count()
     }
 
-    override fun onBindViewHolder(holder: Holder?, position: Int) {
-        holder?.bindCategory(categories[position], context)
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bindCategory(categories[position], context)
     }
 
-    inner class Holder(itemView: View?, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        private val categoryImage = itemView?.findViewById<ImageView>(R.id.categoryImage)
-        val categoryName = itemView?.findViewById<TextView>(R.id.categoryName)
+    inner class Holder(itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        private val categoryImage = itemView.findViewById<ImageView>(R.id.categoryImage)
+        val categoryName = itemView.findViewById<TextView>(R.id.categoryName)
 
         fun bindCategory(category: Category, context: Context) {
             val resourceId = ImageHelper().getResourceIdForImage(context, category.image)

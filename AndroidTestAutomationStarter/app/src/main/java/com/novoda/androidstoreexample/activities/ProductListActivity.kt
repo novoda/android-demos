@@ -20,8 +20,6 @@ import javax.inject.Inject
 
 class ProductListActivity : BaseActivity(), ProductListView {
 
-    private lateinit var productListAdapter: ProductListAdapter
-
     @Inject
     lateinit var presenter: ProductListPresenter
 
@@ -33,7 +31,7 @@ class ProductListActivity : BaseActivity(), ProductListView {
 
     override fun showProductList(products: List<Product>) {
         productListView.layoutManager = GridLayoutManager(this, 2)
-        productListAdapter = ProductListAdapter(this, products) { product ->
+        val productListAdapter = ProductListAdapter(this, products) { product ->
             presenter.onProductClicked(product)
         }
         productListView.adapter = productListAdapter

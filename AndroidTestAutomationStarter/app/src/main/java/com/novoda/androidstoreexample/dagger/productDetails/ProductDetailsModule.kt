@@ -9,12 +9,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ProductDetailsModule {
-    val productDetailView: ProductDetailView
-
-    constructor(productDetailView: ProductDetailView) {
-        this.productDetailView = productDetailView
-    }
+class ProductDetailsModule(val productDetailView: ProductDetailView) {
 
     @Provides
     fun providesView(): ProductDetailView = productDetailView

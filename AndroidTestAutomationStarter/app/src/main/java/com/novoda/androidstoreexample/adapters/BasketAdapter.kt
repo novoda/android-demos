@@ -26,14 +26,14 @@ class BasketAdapter(
         return orders.size
     }
 
-    override fun onBindViewHolder(holder: Holder?, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         holder?.bindProducts(orders[position], context)
     }
 
-    inner class Holder(itemView: View?, private val itemClicked: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        private val productImage = itemView?.findViewById<ImageView>(R.id.basketProductImage)
-        private val productTitle = itemView?.findViewById<TextView>(R.id.basketProductTitle)
-        private val numberOfProducts = itemView?.findViewById<TextView>(R.id.NumberOfItemsTextField)
+    inner class Holder(itemView: View, private val itemClicked: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        private val productImage = itemView.findViewById<ImageView>(R.id.basketProductImage)
+        private val productTitle = itemView.findViewById<TextView>(R.id.basketProductTitle)
+        private val numberOfProducts = itemView.findViewById<TextView>(R.id.NumberOfItemsTextField)
 
         fun bindProducts(order: Order, context: Context) {
             val resourceId: Int = ImageHelper().getResourceIdForImage(context, order.product.image)

@@ -9,19 +9,9 @@ import com.novoda.androidstoreexample.services.BasketService
 import com.novoda.androidstoreexample.services.ProductDetailsResponse
 import javax.inject.Inject
 
-class ProductDetailPresenterImpl : ProductDetailPresenter {
-    private val productDetailView: ProductDetailView
-    private val productDetailsInteractor: ProductDetailsInteractor
-    private val basketService: BasketService
+class ProductDetailPresenterImpl @Inject constructor(private val productDetailView: ProductDetailView, private val productDetailsInteractor: ProductDetailsInteractor, private val basketService: BasketService) : ProductDetailPresenter {
 
     private lateinit var product: Product
-
-    @Inject
-    constructor(productDetailView: ProductDetailView, productDetailsInteractor: ProductDetailsInteractor, basketService: BasketService) {
-        this.productDetailView = productDetailView
-        this.productDetailsInteractor = productDetailsInteractor
-        this.basketService = basketService
-    }
 
     override fun cancel() {
         productDetailsInteractor.cancel()

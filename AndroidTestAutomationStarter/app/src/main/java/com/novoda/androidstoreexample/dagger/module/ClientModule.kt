@@ -13,11 +13,9 @@ class ClientModule {
     @Singleton
     fun provideClient(networkTimeout: Long): OkHttpClient {
 
-        val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-
-        okHttpClientBuilder.readTimeout(networkTimeout, TimeUnit.SECONDS)
-        okHttpClientBuilder.connectTimeout(networkTimeout, TimeUnit.SECONDS)
-
-        return okHttpClientBuilder.build()
+        return OkHttpClient.Builder()
+                .readTimeout(networkTimeout, TimeUnit.SECONDS)
+                .connectTimeout(networkTimeout, TimeUnit.SECONDS)
+                .build()
     }
 }

@@ -26,15 +26,15 @@ class ProductListAdapter(
         return products.size
     }
 
-    override fun onBindViewHolder(holder: Holder?, position: Int) {
-        holder?.bindProduct(products[position], context)
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bindProduct(products[position], context)
     }
 
-    inner class Holder(itemView: View?, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View, private val itemClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-        private val productImage = itemView?.findViewById<ImageView>(R.id.productImage)
-        val productName = itemView?.findViewById<TextView>(R.id.productTitle)
-        private val productPrice = itemView?.findViewById<TextView>(R.id.productPrice)
+        private val productImage = itemView.findViewById<ImageView>(R.id.productImage)
+        val productName = itemView.findViewById<TextView>(R.id.productTitle)
+        private val productPrice = itemView.findViewById<TextView>(R.id.productPrice)
 
         fun bindProduct(product: Product, context: Context) {
             val resourceId: Int = ImageHelper().getResourceIdForImage(context, product.image)
