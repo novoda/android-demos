@@ -7,7 +7,6 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
 import com.novoda.androidstoreexample.EspressoHostModule
 import com.novoda.androidstoreexample.activities.MainActivity
 import com.novoda.androidstoreexample.dagger.App.Companion.component
@@ -18,10 +17,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.InputStream
 
-@RunWith(AndroidJUnit4::class)
 class MockServerTestExample {
 
     private val activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, false, false)
