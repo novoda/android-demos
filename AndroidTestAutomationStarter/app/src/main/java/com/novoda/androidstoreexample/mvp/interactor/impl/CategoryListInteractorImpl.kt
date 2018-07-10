@@ -15,20 +15,21 @@ class CategoryListInteractorImpl @Inject constructor(val retrofit: Retrofit, pri
     private var call: Call<CategoryResponse>? = null
 
     override fun loadCategoryList(categoryListListener: CategoryListListener) {
-        call = apiService.getCategories()
-        call?.enqueue(object : Callback<CategoryResponse> {
-            override fun onResponse(call: Call<CategoryResponse>?, response: Response<CategoryResponse>?) {
-                if (response?.isSuccessful!!) {
-                    categoryListListener.onSuccess(response.body()!!)
-                } else {
+        call = apiService.getCategories().apply {
+            enqueue(object : Callback<CategoryResponse> {
+                override fun onResponse(call: Call<CategoryResponse>, response: Response<CategoryResponse>) {
+                    if (response.isSuccessful) {
+                        categoryListListener.onSuccess(response.body()!!)
+                    } else {
+                        categoryListListener.onFailure("Error while fetching data")
+                    }
+                }
+
+                override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
                     categoryListListener.onFailure("Error while fetching data")
                 }
-            }
-
-            override fun onFailure(call: Call<CategoryResponse>?, t: Throwable?) {
-                categoryListListener.onFailure("Error while fetching data")
-            }
-        })
+            })
+        }
     }
 
     override fun cancel() {
