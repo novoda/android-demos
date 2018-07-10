@@ -1,7 +1,7 @@
 package com.novoda.androidstoreexample.dagger.productDetails
 
 import com.novoda.androidstoreexample.mvp.interactor.ProductDetailsInteractor
-import com.novoda.androidstoreexample.mvp.interactor.impl.ProductDetailsInterActorImpl
+import com.novoda.androidstoreexample.mvp.interactor.impl.ProductDetailsInteractorImpl
 import com.novoda.androidstoreexample.mvp.presenter.ProductDetailPresenter
 import com.novoda.androidstoreexample.mvp.presenter.impl.ProductDetailPresenterImpl
 import com.novoda.androidstoreexample.mvp.view.ProductDetailView
@@ -20,7 +20,7 @@ class ProductDetailsModule(val productDetailView: ProductDetailView) {
     }
 
     @Provides
-    fun providesInteractor(productDetailsInteractor: ProductDetailsInterActorImpl): ProductDetailsInteractor {
+    fun providesInteractor(productDetailsInteractor: ProductDetailsInteractorImpl): ProductDetailsInteractor {
         return productDetailsInteractor
     }
 }
