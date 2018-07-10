@@ -9,7 +9,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import com.novoda.androidstoreexample.EspressoHostModule
 import com.novoda.androidstoreexample.activities.MainActivity
-import com.novoda.androidstoreexample.dagger.App.Companion.component
+import com.novoda.androidstoreexample.dagger.App
 import com.novoda.androidstoreexample.dagger.component.DaggerAppComponent
 import com.squareup.okhttp.mockwebserver.MockResponse
 import com.squareup.okhttp.mockwebserver.MockWebServer
@@ -32,7 +32,7 @@ class MockServerTestExample {
     @Throws(Exception::class)
     fun setUp() {
         val appComponent = DaggerAppComponent.builder().hostModule(EspressoHostModule(port)).build()
-        component = appComponent
+        App.Companion.component = appComponent
         mockWebServer.play(port)
     }
 
