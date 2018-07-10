@@ -19,15 +19,15 @@ class ItemRepository
     @items[category]
   end
 
-  def get_random_description(number_of_sentences=2)
+  def get_random_description(number_of_sentences)
     Faker::Hipster.sentences(number_of_sentences).join(' ')
   end
 
-  def get_item_for_id(id)
-    @items.each do |k, v|
-      p "id = #{k}"
-      items = v.find_all {|item|
-        item.id == id.to_i}
+  def get_item_for_id(item_id)
+    @items.each do |category, items_in_category|
+      p "category id = #{category}"
+      items = items_in_category.find_all {|item|
+        item.id == item_id.to_i}
       return items[0]
     end
   end
