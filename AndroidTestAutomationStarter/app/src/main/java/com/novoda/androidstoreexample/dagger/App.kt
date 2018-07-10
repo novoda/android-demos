@@ -8,14 +8,11 @@ class App : Application() {
 
     companion object {
         @JvmStatic
-        lateinit var instance: App
-        @JvmStatic
         lateinit var component: AppComponent
     }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
         component = DaggerAppComponent.create()
     }
 }
