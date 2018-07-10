@@ -54,7 +54,7 @@ class MainActivity : BaseActivity(), CategoryListView {
     }
 
     override fun onItemClicked(type: Int) {
-        intent = Intent(this, ProductListActivity::class.java).apply { putExtra(CATEGORY_ID_EXTRA, type) }
+        val intent = Intent(this, ProductListActivity::class.java).apply { putExtra(CATEGORY_ID_EXTRA, type) }
         startActivity(intent)
     }
 
