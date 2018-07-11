@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/basketProductImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/basket_item_images"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/hat3" />
+
+    <TextView
+        android:id="@+id/basketProductTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/basketProductImage"
+        app:layout_constraintTop_toTopOf="@+id/basketProductImage"
+        tools:text="Looooooooooong title" />
+
+    <Button
+        android:id="@+id/increaseButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/plus"
+        app:layout_constraintBottom_toBottomOf="@+id/basketProductImage"
+        app:layout_constraintStart_toEndOf="@+id/basketProductImage" />
+
+    <TextView
+        android:id="@+id/NumberOfItemsTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/increaseButton"
+        app:layout_constraintStart_toEndOf="@+id/increaseButton"
+        app:layout_constraintTop_toTopOf="@+id/increaseButton"
+        tools:text="1" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/minus"
+        app:layout_constraintBottom_toBottomOf="@+id/increaseButton"
+        app:layout_constraintStart_toEndOf="@+id/NumberOfItemsTextField"
+        app:layout_constraintTop_toTopOf="@+id/increaseButton" />
+
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_dialog" />
+</android.support.constraint.ConstraintLayout>
