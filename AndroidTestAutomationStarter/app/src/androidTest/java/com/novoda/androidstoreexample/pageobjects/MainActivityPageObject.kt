@@ -9,15 +9,17 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.ViewMatchers
 
+fun mainPage(func: MainActivityPageObject.() -> Unit) = MainActivityPageObject().apply(func)
+
 class MainActivityPageObject {
 
     private val TITLE = onView(withId(R.id.titleTextView))
 
-    fun verifyTitle() {
+    fun verifyTitle() = apply {
         TITLE.check(matches(isDisplayed()))
     }
 
-    fun navigateToProductList() {
+    fun navigateToProductList() = apply {
         val categoryMatcher = ViewMatchers.withCategoryTitle("HATS")
 
         onView(withId(R.id.categoryListView))
