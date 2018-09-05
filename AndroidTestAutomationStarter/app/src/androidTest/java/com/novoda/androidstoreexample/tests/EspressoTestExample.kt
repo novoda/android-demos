@@ -5,12 +5,12 @@ import com.novoda.androidstoreexample.activities.MainActivity
 import com.novoda.androidstoreexample.pageobjects.MainActivityPageObject
 import com.novoda.androidstoreexample.pageobjects.ProductDetailsPageObject
 import com.novoda.androidstoreexample.pageobjects.ProductListPageObject
+import com.novoda.androidstoreexample.pageobjects.mainPage
 import org.junit.Rule
 import org.junit.Test
 
 class EspressoTestExample {
 
-    private val mainActivityPageObject = MainActivityPageObject()
     private val productListPageObject = ProductListPageObject()
     private val productDetailsPageObject = ProductDetailsPageObject()
 
@@ -22,7 +22,10 @@ class EspressoTestExample {
     @Test
     fun firstNavigationTest() {
 
-        mainActivityPageObject.navigateToProductList()
+        mainPage {
+            navigateToProductList()
+        }
+
 
         productListPageObject.navigateToProductDetails()
 
