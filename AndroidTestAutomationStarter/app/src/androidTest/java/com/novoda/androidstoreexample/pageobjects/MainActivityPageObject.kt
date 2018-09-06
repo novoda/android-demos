@@ -14,15 +14,15 @@ fun mainPage(func: MainActivityPageObject.() -> Unit) = MainActivityPageObject()
 class MainActivityPageObject {
 
     private val TITLE = onView(withId(R.id.titleTextView))
+    private val CATEGORY_LIST = onView(withId(R.id.categoryListView))
 
     fun verifyTitle() = apply {
         TITLE.check(matches(isDisplayed()))
     }
 
-    fun navigateToProductList() = apply {
-        val categoryMatcher = ViewMatchers.withCategoryTitle("HATS")
+    fun navigateToProductList(category: String) = apply {
+        val categoryMatcher = ViewMatchers.withCategoryTitle(category)
 
-        onView(withId(R.id.categoryListView))
-                .perform(actionOnHolderItem(categoryMatcher, click()))
+        CATEGORY_LIST.perform(actionOnHolderItem(categoryMatcher, click()))
     }
 }
