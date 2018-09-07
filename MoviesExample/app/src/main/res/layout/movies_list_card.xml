@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:cardview="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/card_view"
-  android:layout_gravity="center"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_margin="4dp"
-  android:clickable="true"
-  android:foreground="?android:attr/selectableItemBackground"
-  cardview:cardElevation="2dp"
-  cardview:cardCornerRadius="4dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <include
-    layout="@layout/movies_list_item"
-    android:layout_margin="16dp"
+  <data>
+
+    <variable
+      name="movie"
+      type="com.novoda.demo.movies.model.Movie" />
+
+  </data>
+
+  <android.support.v7.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    cardview:cardCornerRadius="4dp"
+    cardview:cardElevation="2dp">
 
-</android.support.v7.widget.CardView>
+    <include
+      layout="@layout/movies_list_item"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="16dp"
+      app:movie="@{movie}" />
+
+  </android.support.v7.widget.CardView>
+</layout>

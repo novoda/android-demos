@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<data>
+  <variable
+      name="movie"
+      type="com.novoda.demo.movies.model.Movie" />
+
+  <variable
+      name="listener"
+      type="com.novoda.demo.movies.MoviesAdapter.Listener" />
+
+</data>
+
+<android.support.constraint.ConstraintLayout
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="wrap_content"
+  android:onClick='@{() -> listener.onMovieSelected(movie)}'>
 
   <ImageView
     android:id="@+id/movie_item_poster"
     android:layout_width="92dp"
     android:layout_height="140dp"
+    app:imageUrl='@{movie.posterUrl}'
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintBottom_toBottomOf="parent" />
@@ -20,6 +35,7 @@
     android:maxLines="2"
     android:ellipsize="end"
     android:textSize="20sp"
+    android:text='@{movie.title}'
     tools:text="Some Title here"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="@+id/movie_item_poster"
@@ -35,6 +51,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/movie_item_rating"
+    android:text='@{Double.toString(movie.rating)}'
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintBottom_toBottomOf="@+id/movie_item_poster"
     app:layout_constraintLeft_toRightOf="@+id/movie_item_poster"
@@ -43,3 +60,4 @@
     android:layout_marginBottom="0dp" />
 
 </android.support.constraint.ConstraintLayout>
+</layout>

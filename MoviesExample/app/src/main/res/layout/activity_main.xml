@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="com.novoda.demo.movies.MainActivity">
-
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/movies_list"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="viewmodel"
+        type="com.novoda.demo.movies.MoviesViewModel" />
+</data>
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    tools:context="com.novoda.demo.movies.MainActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/movies_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:items="@{viewmodel.moviesLiveData}"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
 </FrameLayout>
+</layout>

@@ -3,6 +3,7 @@ package com.novoda.demo.movies;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,31 +11,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.novoda.demo.movies.databinding.ActivityMainBinding;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
     private MoviesAdapter adapter;
 
-    @BindView(R.id.movies_list)
     RecyclerView resultList;
     private MoviesViewModel moviesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        ActivityMainBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setTitle("Top Rated Movies");
 
         MovieService movieService = ((MoviesApplication) getApplication()).movieService();
         moviesViewModel = ViewModelProviders.of(this, new MoviesViewModelFactory(movieService)).get(MoviesViewModel.class);
 
-        resultList.setLayoutManager(new LinearLayoutManager(this));
+        resultList = findViewById(R.id.movies_list);
 
         adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
             @Override
@@ -49,12 +46,8 @@ public class MainActivity extends AppCompatActivity {
         });
         resultList.setAdapter(adapter);
 
-        moviesViewModel.moviesLiveData().observe(this, new Observer<MoviesSate>() {
-            @Override
-            public void onChanged(MoviesSate moviesSate) {
-                adapter.setMoviesSate(moviesSate);
-            }
-        });
+        viewDataBinding.setViewmodel(moviesViewModel);
+        viewDataBinding.setLifecycleOwner(this);
     }
 
     private void startLoadingTrailer(Movie movie) {

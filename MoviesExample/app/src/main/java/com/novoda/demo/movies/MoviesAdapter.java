@@ -3,28 +3,22 @@ package com.novoda.demo.movies;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.novoda.demo.movies.MoviesSate;
+import com.novoda.demo.movies.databinding.MoviesListCardBinding;
+import com.novoda.demo.movies.databinding.MoviesListItemBinding;
 import com.novoda.demo.movies.model.Movie;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int MOVIE_ITEM = 0;
     private static final int NEXT_PAGE_ITEM = 1;
 
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 0);
 
-    interface Listener {
+    public interface Listener {
         void onMovieSelected(Movie movie);
 
         void onPageLoadRequested(int page);
@@ -45,11 +39,15 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_list_card, parent, false);
-        if (viewType == 1) {
-            return new LoadPageItem(view, listener);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        if (viewType == NEXT_PAGE_ITEM) {
+            MoviesListCardBinding itemBinding = MoviesListCardBinding.inflate(layoutInflater, parent, false);
+            return new LoadPageItem(itemBinding, listener);
         }
-        return new MovieItem(view, listener);
+
+        MoviesListItemBinding itemBinding = MoviesListItemBinding.inflate(layoutInflater, parent, false);
+
+        return new MovieItem(itemBinding, listener);
     }
 
     @Override
@@ -81,44 +79,37 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class MovieItem extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_item_title) TextView text;
-        @BindView(R.id.movie_item_poster) ImageView poster;
-        @BindView(R.id.movie_item_rating) TextView rating;
+        MoviesListItemBinding binding;
 
-        MovieItem(View itemView, final Listener listener) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    int adapterPosition = getAdapterPosition();
-                    if (adapterPosition != -1) {
-                        listener.onMovieSelected(moviesSate.get(adapterPosition));
-                    }
-                }
-            });
+        MovieItem(MoviesListItemBinding binding, final Listener listener) {
+            super(binding.getRoot());
+            this.binding = binding;
+            binding.setListener(listener);
+
         }
 
         public void bind(final Movie movie) {
-            text.setText(movie.title);
-            rating.setText(Double.toString(movie.rating));
-            Glide.with(itemView.getContext()).load(movie.posterUrl()).into(poster);
+            binding.setMovie(movie);
+            binding.executePendingBindings();
         }
     }
 
     static class LoadPageItem extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_item_title) TextView text;
+        MoviesListCardBinding binding;
         Listener listener;
 
-        LoadPageItem(View itemView, Listener listener) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        LoadPageItem(MoviesListCardBinding binding, Listener listener) {
+            super(binding.getRoot());
+            this.binding = binding;
             this.listener = listener;
         }
 
         public void bind(final int page) {
-            text.setText("Loading page " + page);
+            Movie movie = new Movie();
+            movie.title = "Loading page " + page;
+
+            binding.setMovie(movie);
             listener.onPageLoadRequested(page);
         }
     }
