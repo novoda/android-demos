@@ -19,7 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.InputStream
 
-class MockServerTestExample {
+class EspressoTestExampleWithMockServer {
 
     private val activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, false, false)
     private val mockWebServer = MockWebServer()

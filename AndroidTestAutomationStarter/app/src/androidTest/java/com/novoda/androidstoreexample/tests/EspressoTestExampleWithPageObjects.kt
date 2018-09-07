@@ -6,7 +6,7 @@ import com.novoda.androidstoreexample.pageobjects.*
 import org.junit.Rule
 import org.junit.Test
 
-class EspressoTestExample {
+class EspressoTestExampleWithPageObjects {
 
     private val activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
 
@@ -14,7 +14,7 @@ class EspressoTestExample {
     var activityRule: ActivityTestRule<MainActivity> = activityTestRule
 
     @Test
-    fun firstNavigationTest() {
+    fun firstNavigationTestWithPageObjects() {
 
         mainPage {
             navigateToProductList("HATS")

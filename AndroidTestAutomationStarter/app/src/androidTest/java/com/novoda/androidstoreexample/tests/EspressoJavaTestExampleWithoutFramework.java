@@ -19,13 +19,13 @@ import static android.support.test.espresso.contrib.RecyclerViewActions.scrollTo
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-public class EspressoJavaTestExample {
+public class EspressoJavaTestExampleWithoutFramework {
 
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void firstNavigationTest() {
+    public void firstNavigationTestWithoutFramework() {
         Matcher<RecyclerView.ViewHolder> categoryMatcher = ViewMatchers.withCategoryTitle("HATS");
 
         onView(android.support.test.espresso.matcher.ViewMatchers.withId(R.id.categoryListView)).perform(scrollToHolder(categoryMatcher), actionOnHolderItem(categoryMatcher, click()));
