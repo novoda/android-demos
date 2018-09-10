@@ -30,7 +30,8 @@ public class MoviesViewModel extends ViewModel {
         PagedList.Config pagedListConfig =
                 new PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
-                        .setPrefetchDistance(30)
+                        .setPageSize(20)
+                        .setPrefetchDistance(10)
                         .build();
 
         return new LivePagedListBuilder<>(moviesDataFactory, pagedListConfig)
