@@ -17,28 +17,18 @@ import retrofit2.Response;
 
 public class MovieService {
 
-    private final MoviesApi api;
-    private final MutableLiveData<List<Movie>> moviesLiveData = new MutableLiveData<>();
-    private final MutableLiveData<List<Video>> videosLiveData = new MutableLiveData<>();
+    interface Callback {
 
-    public MovieService(MoviesApi api) {
-        this.api = api;
+        void onResponse(MoviesResponse response);
+
+        void onError(Throwable e);
     }
 
-    public LiveData<List<Movie>> loadMore(int page) {
-        loadMore(page, new Callback() {
-            @Override
-            public void onResponse(MoviesResponse response) {
-                moviesLiveData.postValue(response.results);
-            }
+    private final MoviesApi api;
+    private final MutableLiveData<List<Video>> videosLiveData = new MutableLiveData<>();
 
-            @Override
-            public void onError(Throwable e) {
-                Log.e("Movies", "while loading movies", e);
-            }
-        });
-
-        return moviesLiveData;
+    MovieService(MoviesApi api) {
+        this.api = api;
     }
 
     public void loadMore(int page, final Callback callback) {
@@ -74,12 +64,5 @@ public class MovieService {
             }
         });
         return videosLiveData;
-    }
-
-    interface Callback {
-
-        void onResponse(MoviesResponse response);
-
-        void onError(Throwable e);
     }
 }
