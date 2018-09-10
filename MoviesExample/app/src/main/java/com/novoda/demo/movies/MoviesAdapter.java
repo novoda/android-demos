@@ -55,22 +55,22 @@ public class MoviesAdapter extends PagedListAdapter<Movie, RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (hasExtraRow() && position == getItemCount() - 1) {
+        if (shouldShowLoading() && position == getItemCount() - 1) {
             return NEXT_PAGE_ITEM;
         } else {
             return MOVIE_ITEM;
         }
     }
 
-    private boolean hasExtraRow() {
+    private boolean shouldShowLoading() {
         return networkStatus != null && networkStatus != NetworkStatus.LOADED;
     }
 
     public void setNetworkStatus(NetworkStatus newNetworkStatus) {
         NetworkStatus previousState = this.networkStatus;
-        boolean didShowLoading = hasExtraRow();
+        boolean didShowLoading = shouldShowLoading();
         this.networkStatus = newNetworkStatus;
-        boolean willShowLoading = hasExtraRow();
+        boolean willShowLoading = shouldShowLoading();
         if (didShowLoading != willShowLoading) {
             if (didShowLoading) {
                 notifyItemRemoved(getItemCount());
