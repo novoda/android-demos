@@ -4,39 +4,34 @@ import android.arch.paging.PageKeyedDataSource;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.novoda.demo.movies.api.MoviesApi;
 import com.novoda.demo.movies.api.MoviesResponse;
 import com.novoda.demo.movies.model.Movie;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
 
     private static final int FIRST_PAGE = 1;
     private static final int SECOND_PAGE = 2;
 
-    private final MoviesApi moviesApi;
+    private final MovieService movieService;
 
-    public MoviesDataSource(MoviesApi moviesApi) {
-        this.moviesApi = moviesApi;
+    MoviesDataSource(MovieService movieService) {
+        this.movieService = movieService;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Movie> callback) {
-        moviesApi.topRated(FIRST_PAGE).enqueue(new Callback<MoviesResponse>() {
+        movieService.loadMore(FIRST_PAGE, new MovieService.Callback() {
+
             @Override
-            public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
-                List<Movie> results = response.body().results;
-                callback.onResult(results, null, SECOND_PAGE);
+            public void onResponse(MoviesResponse response) {
+                callback.onResult(response.results, null, SECOND_PAGE);
             }
 
             @Override
-            public void onFailure(Call<MoviesResponse> call, Throwable t) {
-                Log.e("Movies", "while loading initial movies", t);
+            public void onError(Throwable e) {
+                Log.e("Movies", "while loading initial movies", e);
             }
         });
     }
@@ -49,18 +44,19 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Movie> callback) {
         final Integer currentPage = params.key;
-        moviesApi.topRated(currentPage).enqueue(new Callback<MoviesResponse>() {
+        movieService.loadMore(FIRST_PAGE, new MovieService.Callback() {
+
             @Override
-            public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
-                boolean isLastPage = currentPage == response.body().total_results;
+            public void onResponse(MoviesResponse response) {
+                boolean isLastPage = currentPage == response.total_results;
                 Integer nextPage = isLastPage ? null : currentPage + 1;
-                List<Movie> results = response.body().results;
+                List<Movie> results = response.results;
                 callback.onResult(results, nextPage);
             }
 
             @Override
-            public void onFailure(Call<MoviesResponse> call, Throwable t) {
-                Log.e("Movies", "while loading movies", t);
+            public void onError(Throwable e) {
+                Log.e("Movies", "while loading initial movies", e);
             }
         });
     }
