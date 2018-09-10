@@ -2,13 +2,13 @@ package com.novoda.demo.movies;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.novoda.demo.movies.databinding.ActivityMainBinding;
@@ -17,7 +17,7 @@ import com.novoda.demo.movies.model.Video;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MoviesAdapter adapter;
+    private PaginatedMoviesAdapter adapter;
 
     RecyclerView resultList;
     private MoviesViewModel moviesViewModel;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         resultList = findViewById(R.id.movies_list);
 
-        adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
+        MoviesAdapter.Listener listener = new MoviesAdapter.Listener() {
             @Override
             public void onMovieSelected(final Movie movie) {
                 startLoadingTrailer(movie);
@@ -43,11 +43,19 @@ public class MainActivity extends AppCompatActivity {
             public void onPageLoadRequested(final int page) {
                 moviesViewModel.loadMore();
             }
-        });
+        };
+        adapter = new PaginatedMoviesAdapter(listener);
         resultList.setAdapter(adapter);
 
         viewDataBinding.setViewmodel(moviesViewModel);
         viewDataBinding.setLifecycleOwner(this);
+
+        moviesViewModel.getPaginatedMovies().observe(this, new Observer<PagedList<Movie>>() {
+            @Override
+            public void onChanged(@Nullable PagedList<Movie> movies) {
+                adapter.submitList(movies);
+            }
+        });
     }
 
     private void startLoadingTrailer(Movie movie) {

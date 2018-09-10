@@ -14,7 +14,7 @@ public class PaginatedMoviesAdapter extends PagedListAdapter<Movie, PaginatedMov
 
     private MoviesAdapter.Listener listener;
 
-    protected PaginatedMoviesAdapter(MoviesAdapter.Listener listener) {
+    PaginatedMoviesAdapter(MoviesAdapter.Listener listener) {
         super(new MoviesDiffCallback());
         this.listener = listener;
     }
