@@ -4,20 +4,42 @@ import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
 
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class MoviesViewModel extends ViewModel {
 
     private final MovieService movieService;
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
+    private LiveData<PagedList<Movie>> paginatedMovies;
 
     MoviesViewModel(MovieService movieService) {
         this.movieService = movieService;
+        this.paginatedMovies = createPaginatedMovies(movieService);
+    }
+
+    private LiveData<PagedList<Movie>> createPaginatedMovies(MovieService movieService) {
+        MoviesDataFactory moviesDataFactory = new MoviesDataFactory(movieService);
+        PagedList.Config pagedListConfig =
+                new PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setPrefetchDistance(30)
+                        .build();
+
+        return new LivePagedListBuilder<>(moviesDataFactory, pagedListConfig)
+                .setFetchExecutor(Executors.newFixedThreadPool(5))
+                .build();
+    }
+
+    public LiveData<PagedList<Movie>> getPaginatedMovies() {
+        return paginatedMovies;
     }
 
     public LiveData<MoviesSate> moviesLiveData() {
