@@ -10,14 +10,12 @@ import android.arch.paging.PagedList;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
 public class MoviesViewModel extends ViewModel {
 
     private final MovieService movieService;
-    private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
     private LiveData<PagedList<Movie>> paginatedMovies;
 
     MoviesViewModel(MovieService movieService) {
@@ -41,23 +39,6 @@ public class MoviesViewModel extends ViewModel {
 
     public LiveData<PagedList<Movie>> getPaginatedMovies() {
         return paginatedMovies;
-    }
-
-    public LiveData<MoviesSate> moviesLiveData() {
-        return Transformations.map(movieService.loadMore(moviesSate.pageNumber()),
-                new Function<List<Movie>, MoviesSate>() {
-                    @Override
-                    public MoviesSate apply(List<Movie> input) {
-                        List<Movie> movies = moviesSate.movies();
-                        movies.addAll(input);
-                        moviesSate = new MoviesSate(movies, moviesSate.pageNumber() + 1);
-                        return moviesSate;
-                    }
-                });
-    }
-
-    public void loadMore() {
-        movieService.loadMore(moviesSate.pageNumber());
     }
 
     public LiveData<Video> loadTrailerFor(Movie movie) {

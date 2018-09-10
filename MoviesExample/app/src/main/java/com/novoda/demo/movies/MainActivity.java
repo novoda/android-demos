@@ -17,7 +17,7 @@ import com.novoda.demo.movies.model.Video;
 
 public class MainActivity extends AppCompatActivity {
 
-    private PaginatedMoviesAdapter adapter;
+    private MoviesAdapter adapter;
 
     RecyclerView resultList;
     private MoviesViewModel moviesViewModel;
@@ -38,13 +38,8 @@ public class MainActivity extends AppCompatActivity {
             public void onMovieSelected(final Movie movie) {
                 startLoadingTrailer(movie);
             }
-
-            @Override
-            public void onPageLoadRequested(final int page) {
-                moviesViewModel.loadMore();
-            }
         };
-        adapter = new PaginatedMoviesAdapter(listener);
+        adapter = new MoviesAdapter(listener);
         resultList.setAdapter(adapter);
 
         viewDataBinding.setViewmodel(moviesViewModel);
