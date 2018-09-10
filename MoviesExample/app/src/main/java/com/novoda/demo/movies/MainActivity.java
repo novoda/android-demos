@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        moviesViewModel.getNetworkState().observe(this, new Observer<NetworkStatus>() {
+        moviesViewModel.getNetworkStatus().observe(this, new Observer<NetworkStatus>() {
             @Override
             public void onChanged(@Nullable NetworkStatus networkStatus) {
                 adapter.setNetworkStatus(networkStatus);

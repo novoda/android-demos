@@ -18,7 +18,7 @@ public class MoviesViewModel extends ViewModel {
 
     private final MovieService movieService;
     private LiveData<PagedList<Movie>> paginatedMovies;
-    private LiveData<NetworkStatus> networkState;
+    private LiveData<NetworkStatus> networkStatus;
 
     MoviesViewModel(MovieService movieService) {
         this.movieService = movieService;
@@ -32,14 +32,14 @@ public class MoviesViewModel extends ViewModel {
 
         this.paginatedMovies = new LivePagedListBuilder<>(moviesDataFactory, pagedListConfig)
                 .build();
-        this.networkState = switchMap(moviesDataFactory.getDataSource(), toNetworkState());
+        this.networkStatus = switchMap(moviesDataFactory.getDataSource(), toNetworkStatus());
     }
 
-    private Function<MoviesDataSource, LiveData<NetworkStatus>> toNetworkState() {
+    private Function<MoviesDataSource, LiveData<NetworkStatus>> toNetworkStatus() {
         return new Function<MoviesDataSource, LiveData<NetworkStatus>>() {
             @Override
             public LiveData<NetworkStatus> apply(MoviesDataSource input) {
-                return input.getNetworkState();
+                return input.getNetworkStatus();
             }
         };
     }
@@ -48,8 +48,8 @@ public class MoviesViewModel extends ViewModel {
         return paginatedMovies;
     }
 
-    LiveData<NetworkStatus> getNetworkState() {
-        return networkState;
+    LiveData<NetworkStatus> getNetworkStatus() {
+        return networkStatus;
     }
 
     public LiveData<Video> loadTrailerFor(Movie movie) {

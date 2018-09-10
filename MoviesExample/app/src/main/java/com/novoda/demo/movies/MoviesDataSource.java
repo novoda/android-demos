@@ -17,31 +17,31 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
     private static final int SECOND_PAGE = 2;
 
     private final MovieService movieService;
-    private MutableLiveData<NetworkStatus> networkState;
+    private MutableLiveData<NetworkStatus> networkStatus;
 
     MoviesDataSource(MovieService movieService) {
         this.movieService = movieService;
-        this.networkState = new MutableLiveData<>();
+        this.networkStatus = new MutableLiveData<>();
     }
 
-    LiveData<NetworkStatus> getNetworkState() {
-        return networkState;
+    LiveData<NetworkStatus> getNetworkStatus() {
+        return networkStatus;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Movie> callback) {
-        networkState.postValue(NetworkStatus.LOADING);
+        networkStatus.postValue(NetworkStatus.LOADING);
         movieService.loadMore(FIRST_PAGE, new MovieService.Callback() {
 
             @Override
             public void onResponse(MoviesResponse response) {
-                networkState.postValue(NetworkStatus.LOADED);
+                networkStatus.postValue(NetworkStatus.LOADED);
                 callback.onResult(response.results, null, SECOND_PAGE);
             }
 
             @Override
             public void onError(Throwable e) {
-                networkState.postValue(NetworkStatus.ERROR);
+                networkStatus.postValue(NetworkStatus.ERROR);
                 Log.e("Movies", "while loading initial movies", e);
             }
         });
@@ -54,13 +54,13 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
 
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Movie> callback) {
-        networkState.postValue(NetworkStatus.LOADING);
+        networkStatus.postValue(NetworkStatus.LOADING);
         final Integer currentPage = params.key;
         movieService.loadMore(currentPage, new MovieService.Callback() {
 
             @Override
             public void onResponse(MoviesResponse response) {
-                networkState.postValue(NetworkStatus.LOADED);
+                networkStatus.postValue(NetworkStatus.LOADED);
                 boolean isLastPage = currentPage == response.total_results;
                 Integer nextPage = isLastPage ? null : currentPage + 1;
                 List<Movie> results = response.results;
@@ -69,7 +69,7 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
 
             @Override
             public void onError(Throwable e) {
-                networkState.postValue(NetworkStatus.ERROR);
+                networkStatus.postValue(NetworkStatus.ERROR);
                 Log.e("Movies", "while loading initial movies", e);
             }
         });
