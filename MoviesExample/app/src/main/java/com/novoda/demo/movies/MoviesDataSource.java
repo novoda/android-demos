@@ -44,7 +44,7 @@ public class MoviesDataSource extends PageKeyedDataSource<Integer, Movie> {
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Movie> callback) {
         final Integer currentPage = params.key;
-        movieService.loadMore(FIRST_PAGE, new MovieService.Callback() {
+        movieService.loadMore(currentPage, new MovieService.Callback() {
 
             @Override
             public void onResponse(MoviesResponse response) {
