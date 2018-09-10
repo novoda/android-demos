@@ -11,7 +11,6 @@ import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
 
 import java.util.List;
-import java.util.concurrent.Executors;
 
 public class MoviesViewModel extends ViewModel {
 
@@ -33,7 +32,6 @@ public class MoviesViewModel extends ViewModel {
                         .build();
 
         return new LivePagedListBuilder<>(moviesDataFactory, pagedListConfig)
-                .setFetchExecutor(Executors.newFixedThreadPool(5))
                 .build();
     }
 
