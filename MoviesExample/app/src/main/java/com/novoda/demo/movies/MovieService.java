@@ -13,7 +13,6 @@ import com.novoda.demo.movies.model.Video;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MovieService {
@@ -27,25 +26,40 @@ public class MovieService {
     }
 
     public LiveData<List<Movie>> loadMore(int page) {
-        api.topRated(page).enqueue(new Callback<MoviesResponse>() {
+        loadMore(page, new Callback() {
+            @Override
+            public void onResponse(MoviesResponse response) {
+                moviesLiveData.postValue(response.results);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Movies", "while loading movies", e);
+            }
+        });
+
+        return moviesLiveData;
+    }
+
+    public void loadMore(int page, final Callback callback) {
+        api.topRated(page).enqueue(new retrofit2.Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
                 if (response == null || response.body() == null || response.body().results == null) {
                     return;
                 }
-                moviesLiveData.postValue(response.body().results);
+                callback.onResponse(response.body());
             }
 
             @Override
             public void onFailure(Call<MoviesResponse> call, Throwable e) {
-                Log.e("Movies", "while loading movies", e);
+                callback.onError(e);
             }
         });
-        return moviesLiveData;
     }
 
     public LiveData<List<Video>> loadTrailerFor(Movie movie) {
-        api.videos(movie.id).enqueue(new Callback<VideosResponse>() {
+        api.videos(movie.id).enqueue(new retrofit2.Callback<VideosResponse>() {
             @Override
             public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
                 if (response == null || response.body() == null || response.body().results == null) {
@@ -60,5 +74,12 @@ public class MovieService {
             }
         });
         return videosLiveData;
+    }
+
+    interface Callback {
+
+        void onResponse(MoviesResponse response);
+
+        void onError(Throwable e);
     }
 }
