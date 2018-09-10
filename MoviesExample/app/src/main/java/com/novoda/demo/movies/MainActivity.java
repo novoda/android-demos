@@ -33,13 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
         resultList = findViewById(R.id.movies_list);
 
-        MoviesAdapter.Listener listener = new MoviesAdapter.Listener() {
+        adapter = new MoviesAdapter(new MoviesAdapter.Listener() {
             @Override
             public void onMovieSelected(final Movie movie) {
                 startLoadingTrailer(movie);
             }
-        };
-        adapter = new MoviesAdapter(listener);
+        });
         resultList.setAdapter(adapter);
 
         viewDataBinding.setViewmodel(moviesViewModel);
