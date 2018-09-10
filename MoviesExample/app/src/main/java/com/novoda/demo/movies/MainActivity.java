@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.novoda.demo.movies.databinding.ActivityMainBinding;
 import com.novoda.demo.movies.model.Movie;
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         moviesViewModel.getNetworkState().observe(this, new Observer<NetworkStatus>() {
             @Override
             public void onChanged(@Nullable NetworkStatus networkStatus) {
-                Log.d("Movies", "NetworkStatus: " + networkStatus);
+                adapter.setNetworkStatus(networkStatus);
             }
         });
     }
