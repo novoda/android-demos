@@ -7,11 +7,17 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.ViewMatchers
 
+fun productList(func: ProductListPageObject.() -> Unit) {
+    ProductListPageObject().apply(func)
+}
+
 class ProductListPageObject {
 
-    fun navigateToProductDetails() {
-        val productMatcher = ViewMatchers.withProductTitle("hat white")
+    private val PRODUCT_LIST = onView(withId(R.id.productListView))
 
-        onView(withId(R.id.productListView)).perform(RecyclerViewActions.actionOnHolderItem(productMatcher, ViewActions.click()))
+    fun navigateToProductDetails(product: String) = apply {
+        val productMatcher = ViewMatchers.withProductTitle(product)
+
+        PRODUCT_LIST.perform(RecyclerViewActions.actionOnHolderItem(productMatcher, ViewActions.click()))
     }
 }
