@@ -15,7 +15,7 @@ class MockServerTestRule<T : Activity>(
         initialTouchMode: Boolean,
         launchActivity: Boolean) : ActivityTestRule<T>(activityClass, initialTouchMode, launchActivity) {
 
-    internal val mockWebServer = MockWebServer()
+    private val mockWebServer = MockWebServer()
     private val port = 9091
 
     override fun beforeActivityLaunched() {
@@ -32,6 +32,10 @@ class MockServerTestRule<T : Activity>(
 
     internal fun enqueueJson(resourceName: String) {
         mockWebServer.enqueue(createResponseFor(resourceName))
+    }
+
+    internal fun shutdownServer() {
+        mockWebServer.shutdown()
     }
 
     private fun convertStreamToString(input: InputStream): String {

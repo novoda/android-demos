@@ -31,7 +31,7 @@ class EspressoTestExampleWithMockServer {
 
     @After
     fun tearDown() {
-        activityRule.mockWebServer.shutdown()
+        activityRule.shutdownServer()
     }
 
 }
