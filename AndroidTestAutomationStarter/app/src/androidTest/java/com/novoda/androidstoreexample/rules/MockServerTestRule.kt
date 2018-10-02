@@ -30,7 +30,7 @@ class MockServerTestRule<T : Activity>(
         super.afterActivityFinished()
     }
 
-    internal fun encueJson(resourceName: String) {
+    internal fun enqueueJson(resourceName: String) {
         mockWebServer.enqueue(createResponseFor(resourceName))
     }
 
