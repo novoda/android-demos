@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.jetlightstudio.jettunes.SongActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.70"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="70dp"
+            android:layout_weight=".75"
+            android:src="@drawable/jetlight" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/list"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/ic_queue_music_white_24dp"
+                android:foreground="@drawable/circleripple"
+                android:onClick="goToList" />
+
+            <TextView
+                android:id="@+id/songIndex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".825"
+                android:text="24/252"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/mute"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/ic_volume_up_white_24dp"
+                android:foreground="@drawable/circleripple"
+                android:onClick="muteSong" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:background="@drawable/custompanel"
+        android:foreground="@drawable/rectangleripple"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".3"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".7"
+                android:max="100"
+                android:progress="25" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/currentTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight=".1"
+                    android:gravity="start"
+                    android:text="00:00"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8" />
+
+                <TextView
+                    android:id="@+id/duration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight=".1"
+                    android:gravity="end"
+                    android:text="03:54"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/songTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50sp"
+            android:layout_marginRight="50sp"
+            android:layout_weight=".2"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Click a song to play it"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:weightSum="0.9">
+
+            <Button
+                android:id="@+id/repeat"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight=".075"
+                android:background="@drawable/ic_repeat_white_24dp"
+                android:foreground="@drawable/circleripple"
+                android:onClick="repeatSong"
+                android:paddingBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".65"
+                android:gravity="center"
+                android:paddingBottom="10dp">
+
+                <Button
+                    android:id="@+id/back"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/ic_skip_previous_white_24dp"
+                    android:foreground="@drawable/circleripple"
+                    android:onClick="prevSong" />
+
+                <Button
+                    android:id="@+id/play"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ic_pause_circle_outline_white_24dp"
+                    android:foreground="@drawable/circleripple"
+                    android:onClick="playMusic" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/ic_skip_next_white_24dp"
+                    android:foreground="@drawable/circleripple"
+                    android:onClick="nextSong" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/shuffle"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight=".075"
+
+                android:background="@drawable/ic_shuffle_white_24dp"
+                android:foreground="@drawable/circleripple"
+                android:onClick="shuffleSong" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.jetlightstudio.jettunes.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:background="@drawable/custompanel"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".99"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="Songs List"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="15dp"
+            android:layout_weight=".01"
+            android:background="@color/colorPrimary"
+            android:onClick="goToSong"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_playlist_play_white_24dp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".775" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".125"
+        android:background="@drawable/custompanel"
+        android:foreground="@drawable/rectangleripple"
+        android:gravity="center"
+        android:onClick="goToSong"
+        android:orientation="vertical"
+        android:weightSum=".5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".3"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:weightSum="0.9">
+
+            <Button
+                android:id="@+id/repeat"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight=".075"
+                android:background="@drawable/ic_repeat_white_24dp"
+                android:foreground="@drawable/circleripple"
+                android:onClick="repeatSong"
+                android:paddingBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".65"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/back"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/ic_skip_previous_white_24dp"
+                    android:foreground="@drawable/circleripple"
+                    android:onClick="prevSong" />
+
+                <Button
+                    android:id="@+id/play"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_play_circle_outline_white_24dp"
+                    android:foreground="@drawable/circleripple"
+                    android:onClick="playMusic" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/ic_skip_next_white_24dp"
+                    android:foreground="@drawable/circleripple"
+                    android:onClick="nextSong" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/shuffle"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight=".075"
+                android:background="@drawable/ic_shuffle_white_24dp"
+                android:foreground="@drawable/circleripple"
+                android:onClick="shuffleSong" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
