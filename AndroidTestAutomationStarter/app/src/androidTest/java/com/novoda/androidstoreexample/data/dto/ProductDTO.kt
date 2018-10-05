@@ -1,16 +1,16 @@
 package com.novoda.androidstoreexample.data.dto
 
 import com.google.gson.Gson
-import com.novoda.androidstoreexample.data.models.Article
+import com.novoda.androidstoreexample.data.models.Product
 import com.novoda.testautomationstarter.test.BuildConfig
 import khttp.get
 import org.json.JSONArray
 
-class ArticleDTO {
+class ProductDTO {
     private val gson = Gson()
     private val productsIdentifier = "products"
 
-    fun getArticlesForCategory(id: Int): ArrayList<Article> {
+    fun getArticlesForCategory(id: Int): ArrayList<Product> {
         val articleJson = requestProductJson(id)
         return mapJsonOnModel(articleJson)
     }
@@ -21,10 +21,10 @@ class ArticleDTO {
                 .jsonObject.getJSONArray(productsIdentifier)
     }
 
-    private fun mapJsonOnModel(articleResponse: JSONArray): ArrayList<Article> {
-        val articles = arrayListOf<Article>()
+    private fun mapJsonOnModel(articleResponse: JSONArray): ArrayList<Product> {
+        val articles = arrayListOf<Product>()
         for (i in 0 until articleResponse.length()) {
-            articles.add(gson.fromJson(articleResponse.getString(i), Article::class.java))
+            articles.add(gson.fromJson(articleResponse.getString(i), Product::class.java))
         }
         return articles
     }
