@@ -11,11 +11,11 @@ class ArticleDTO {
     private val productsIdentifier = "products"
 
     fun getArticlesForCategory(id: Int): ArrayList<Article> {
-        val articleJson = requestProdutJson(id)
+        val articleJson = requestProductJson(id)
         return mapJsonOnModel(articleJson)
     }
 
-    private fun requestProdutJson(id: Int): JSONArray {
+    private fun requestProductJson(id: Int): JSONArray {
         val articleUrl = "${BuildConfig.API_URL}/category/$id/items"
         return get(articleUrl)
                 .jsonObject.getJSONArray(productsIdentifier)
