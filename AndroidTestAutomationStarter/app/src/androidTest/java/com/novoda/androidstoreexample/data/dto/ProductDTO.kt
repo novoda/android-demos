@@ -1,14 +1,15 @@
 package com.novoda.androidstoreexample.data.dto
 
-import com.google.gson.Gson
-import com.novoda.androidstoreexample.data.models.Product
+import com.novoda.androidstoreexample.models.Product
 import com.novoda.testautomationstarter.test.BuildConfig
+import com.squareup.moshi.Moshi
 import khttp.get
 import org.json.JSONArray
 
 class ProductDTO {
-    private val gson = Gson()
     private val productsIdentifier = "products"
+    private val moshi = Moshi.Builder().build()
+    private val jsonAdapter = moshi.adapter(Product::class.java)
 
     fun getArticlesForCategory(id: Int): ArrayList<Product> {
         val articleJson = requestProductJson(id)
@@ -24,7 +25,7 @@ class ProductDTO {
     private fun mapJsonOnModel(articleResponse: JSONArray): ArrayList<Product> {
         val articles = arrayListOf<Product>()
         for (i in 0 until articleResponse.length()) {
-            articles.add(gson.fromJson(articleResponse.getString(i), Product::class.java))
+            articles.add(jsonAdapter.fromJson(articleResponse.getString(i)))
         }
         return articles
     }

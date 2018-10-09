@@ -1,9 +1,9 @@
 package com.novoda.androidstoreexample.data.repositories
 
-import com.novoda.androidstoreexample.data.dto.ProductDTO
 import com.novoda.androidstoreexample.data.dto.CategoryDTO
-import com.novoda.androidstoreexample.data.models.Product
+import com.novoda.androidstoreexample.data.dto.ProductDTO
 import com.novoda.androidstoreexample.data.models.Article
+import com.novoda.androidstoreexample.models.Product
 
 class ArticleRepository {
     private val categories = CategoryDTO().getAllCategories()

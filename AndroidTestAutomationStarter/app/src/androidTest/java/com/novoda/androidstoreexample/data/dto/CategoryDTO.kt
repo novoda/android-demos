@@ -1,15 +1,16 @@
 package com.novoda.androidstoreexample.data.dto
 
-import com.google.gson.Gson
 import com.novoda.androidstoreexample.BuildConfig
-import com.novoda.androidstoreexample.data.models.Category
+import com.novoda.androidstoreexample.models.Category
+import com.squareup.moshi.Moshi
 import khttp.get
 import org.json.JSONArray
 
 class CategoryDTO {
     private val categoryIdentifier = "categories"
     private val categoriesUrl = "${BuildConfig.API_URL}/categories"
-    private val gson = Gson()
+    private val moshi = Moshi.Builder().build()
+    private val jsonAdapter = moshi.adapter(Category::class.java)
 
     fun getAllCategories(): ArrayList<Category> {
         val categoryResponse = requestCategories()
@@ -19,7 +20,7 @@ class CategoryDTO {
     private fun mapJsonOnModel(categoryResponse: JSONArray): ArrayList<Category> {
         val categories = arrayListOf<Category>()
         for (i in 0 until categoryResponse.length()) {
-            categories.add(gson.fromJson(categoryResponse.getString(i), Category::class.java))
+            categories.add(jsonAdapter.fromJson(categoryResponse.getString(i)))
         }
         return categories
     }
