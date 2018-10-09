@@ -19,7 +19,7 @@ class EspressoTestExampleWithMockServer {
     private val activityTestRule = ActivityTestRule(MainActivity::class.java,
             false,
             false)
-    var mockServerTestRule: MockServerTestRule = MockServerTestRule()
+    private val mockServerTestRule: MockServerTestRule = MockServerTestRule()
 
     @get:Rule
     var chain: TestRule = RuleChain.outerRule(activityTestRule)
