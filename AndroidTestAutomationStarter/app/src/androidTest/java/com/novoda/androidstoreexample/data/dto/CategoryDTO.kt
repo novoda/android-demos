@@ -1,14 +1,11 @@
 package com.novoda.androidstoreexample.data.dto
 
-import com.novoda.androidstoreexample.BuildConfig
 import com.novoda.androidstoreexample.models.Category
 import com.squareup.moshi.Moshi
 import khttp.get
 import org.json.JSONArray
 
 class CategoryDTO {
-    private val categoryIdentifier = "categories"
-    private val categoriesUrl = "${BuildConfig.API_URL}/categories"
     private val moshi = Moshi.Builder().build()
     private val jsonAdapter = moshi.adapter(Category::class.java)
 
@@ -26,5 +23,5 @@ class CategoryDTO {
     }
 
     private fun requestCategories() =
-            get(categoriesUrl).jsonObject.getJSONArray(categoryIdentifier)
+            get(Constants.Urls.category).jsonObject.getJSONArray(Constants.identifier.category)
 }
