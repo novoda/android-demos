@@ -23,5 +23,5 @@ class CategoryDTO {
     }
 
     private fun requestCategories() =
-            get(Constants.Urls.category).jsonObject.getJSONArray(Constants.identifier.category)
+            get(Constants.Urls.category).jsonObject.getJSONArray(Constants.Identifier.category)
 }

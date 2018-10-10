@@ -1,13 +1,11 @@
 package com.novoda.androidstoreexample.data.dto
 
 import com.novoda.androidstoreexample.models.Product
-import com.novoda.testautomationstarter.test.BuildConfig
 import com.squareup.moshi.Moshi
 import khttp.get
 import org.json.JSONArray
 
 class ProductDTO {
-    private val productsIdentifier = "products"
     private val moshi = Moshi.Builder().build()
     private val jsonAdapter = moshi.adapter(Product::class.java)
 
@@ -17,9 +15,9 @@ class ProductDTO {
     }
 
     private fun requestProductJson(id: Int): JSONArray {
-        val articleUrl = "${BuildConfig.API_URL}/category/$id/items"
+        val articleUrl = "${Constants.Urls.itemsPrefix}$id/${Constants.Urls.itemsSuffix}"
         return get(articleUrl)
-                .jsonObject.getJSONArray(productsIdentifier)
+                .jsonObject.getJSONArray(Constants.Identifier.product)
     }
 
     private fun mapJsonOnModel(articleResponse: JSONArray): ArrayList<Product> {
