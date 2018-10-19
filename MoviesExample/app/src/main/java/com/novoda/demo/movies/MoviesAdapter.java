@@ -1,5 +1,7 @@
 package com.novoda.demo.movies;
 
+import android.arch.paging.PagedListAdapter;
+import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,86 +11,87 @@ import com.novoda.demo.movies.databinding.MoviesListCardBinding;
 import com.novoda.demo.movies.databinding.MoviesListItemBinding;
 import com.novoda.demo.movies.model.Movie;
 
-import java.util.ArrayList;
-
-public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MoviesAdapter extends PagedListAdapter<Movie, RecyclerView.ViewHolder> {
 
     private static final int MOVIE_ITEM = 0;
     private static final int NEXT_PAGE_ITEM = 1;
 
-    private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 0);
+    private NetworkStatus networkStatus = null;
 
     public interface Listener {
+
         void onMovieSelected(Movie movie);
-
-        void onPageLoadRequested(int page);
     }
 
-    private final Listener listener;
+    private Listener listener;
 
-    public MoviesAdapter(Listener listener) {
+    MoviesAdapter(Listener listener) {
+        super(new MoviesDiffCallback());
         this.listener = listener;
-        setHasStableIds(true);
     }
 
-    public void setMoviesSate(MoviesSate moviesSate) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MoviesDiffCallback(this.moviesSate, moviesSate), true);
-        this.moviesSate = moviesSate;
-        diffResult.dispatchUpdatesTo(this);
-    }
-
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == NEXT_PAGE_ITEM) {
-            MoviesListCardBinding itemBinding = MoviesListCardBinding.inflate(layoutInflater, parent, false);
-            return new LoadPageItem(itemBinding, listener);
-        }
-
-        MoviesListItemBinding itemBinding = MoviesListItemBinding.inflate(layoutInflater, parent, false);
-
-        return new MovieItem(itemBinding, listener);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof MovieItem) {
-            ((MovieItem) holder).bind(moviesSate.get(position));
+        if (viewType == MOVIE_ITEM) {
+            MoviesListItemBinding itemBinding = MoviesListItemBinding.inflate(layoutInflater, parent, false);
+            return new MovieItem(itemBinding, listener);
         } else {
-            ((LoadPageItem) holder).bind(moviesSate.pageNumber());
+            MoviesListCardBinding itemBinding = MoviesListCardBinding.inflate(layoutInflater, parent, false);
+            return new LoadPageItem(itemBinding);
         }
     }
 
     @Override
-    public int getItemCount() {
-        return moviesSate.size() + 1;
-    }
-
-    @Override
-    public int getItemViewType(final int position) {
-        return moviesSate.size() == position ? NEXT_PAGE_ITEM : MOVIE_ITEM;
-    }
-
-    @Override
-    public long getItemId(final int position) {
-        if (position == moviesSate.size()) {
-            return Long.MAX_VALUE;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof MovieItem) {
+            Movie item = getItem(position);
+            ((MovieItem) holder).bind(item);
+        } else {
+            ((LoadPageItem) holder).bind();
         }
-        return moviesSate.get(position).id.hashCode();
     }
 
-    class MovieItem extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        if (shouldShowLoading() && position == getItemCount() - 1) {
+            return NEXT_PAGE_ITEM;
+        } else {
+            return MOVIE_ITEM;
+        }
+    }
 
+    private boolean shouldShowLoading() {
+        return networkStatus != null && networkStatus != NetworkStatus.LOADED;
+    }
+
+    public void setNetworkStatus(NetworkStatus newNetworkStatus) {
+        NetworkStatus previousState = this.networkStatus;
+        boolean didShowLoading = shouldShowLoading();
+        this.networkStatus = newNetworkStatus;
+        boolean willShowLoading = shouldShowLoading();
+        if (didShowLoading != willShowLoading) {
+            if (didShowLoading) {
+                notifyItemRemoved(getItemCount());
+            } else {
+                notifyItemInserted(getItemCount());
+            }
+        } else if (willShowLoading && previousState != newNetworkStatus) {
+            notifyItemChanged(getItemCount() - 1);
+        }
+    }
+
+    static class MovieItem extends RecyclerView.ViewHolder {
         MoviesListItemBinding binding;
 
         MovieItem(MoviesListItemBinding binding, final Listener listener) {
             super(binding.getRoot());
             this.binding = binding;
             binding.setListener(listener);
-
         }
 
-        public void bind(final Movie movie) {
+        void bind(final Movie movie) {
             binding.setMovie(movie);
             binding.executePendingBindings();
         }
@@ -97,64 +100,30 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     static class LoadPageItem extends RecyclerView.ViewHolder {
 
         MoviesListCardBinding binding;
-        Listener listener;
 
-        LoadPageItem(MoviesListCardBinding binding, Listener listener) {
+        LoadPageItem(MoviesListCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            this.listener = listener;
         }
 
-        public void bind(final int page) {
+        public void bind() {
             Movie movie = new Movie();
-            movie.title = "Loading page " + page;
+            movie.title = "Loading next page";
 
             binding.setMovie(movie);
-            listener.onPageLoadRequested(page);
         }
     }
 
-    private static class MoviesDiffCallback extends DiffUtil.Callback {
+    private static class MoviesDiffCallback extends DiffUtil.ItemCallback<Movie> {
 
-        private final MoviesSate oldMovies;
-        private final MoviesSate newMovies;
-
-        public MoviesDiffCallback(MoviesSate oldMovies, MoviesSate newMovies) {
-            this.oldMovies = oldMovies;
-            this.newMovies = newMovies;
+        @Override
+        public boolean areItemsTheSame(Movie oldItem, Movie newItem) {
+            return oldItem.id.equals(newItem.id);
         }
 
         @Override
-        public int getOldListSize() {
-            return oldMovies.size() + 1;
-        }
-
-        @Override
-        public int getNewListSize() {
-            return newMovies.size() + 1;
-        }
-
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            if (oldItemPosition == oldMovies.size()) {
-                return false;
-            }
-            if (newItemPosition == newMovies.size()) {
-                return false;
-            }
-            return oldMovies.get(oldItemPosition).id.equals(newMovies.get(newItemPosition).id);
-        }
-
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            if (oldItemPosition == oldMovies.size()) {
-                return false;
-            }
-            if (newItemPosition == newMovies.size()) {
-                return false;
-            }
-            return oldMovies.get(oldItemPosition).equals(newMovies.get(newItemPosition));
+        public boolean areContentsTheSame(Movie oldItem, Movie newItem) {
+            return oldItem.equals(newItem);
         }
     }
-
 }

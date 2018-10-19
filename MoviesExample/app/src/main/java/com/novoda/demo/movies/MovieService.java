@@ -13,39 +13,43 @@ import com.novoda.demo.movies.model.Video;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MovieService {
 
+    interface Callback {
+
+        void onResponse(MoviesResponse response);
+
+        void onError(Throwable e);
+    }
+
     private final MoviesApi api;
-    private final MutableLiveData<List<Movie>> moviesLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<Video>> videosLiveData = new MutableLiveData<>();
 
-    public MovieService(MoviesApi api) {
+    MovieService(MoviesApi api) {
         this.api = api;
     }
 
-    public LiveData<List<Movie>> loadMore(int page) {
-        api.topRated(page).enqueue(new Callback<MoviesResponse>() {
+    public void loadMore(int page, final Callback callback) {
+        api.topRated(page).enqueue(new retrofit2.Callback<MoviesResponse>() {
             @Override
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
                 if (response == null || response.body() == null || response.body().results == null) {
                     return;
                 }
-                moviesLiveData.postValue(response.body().results);
+                callback.onResponse(response.body());
             }
 
             @Override
             public void onFailure(Call<MoviesResponse> call, Throwable e) {
-                Log.e("Movies", "while loading movies", e);
+                callback.onError(e);
             }
         });
-        return moviesLiveData;
     }
 
     public LiveData<List<Video>> loadTrailerFor(Movie movie) {
-        api.videos(movie.id).enqueue(new Callback<VideosResponse>() {
+        api.videos(movie.id).enqueue(new retrofit2.Callback<VideosResponse>() {
             @Override
             public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
                 if (response == null || response.body() == null || response.body().results == null) {
