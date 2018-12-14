@@ -9,9 +9,9 @@ interface ShopService {
     @GET("categories")
     fun getCategories(): Call<CategoryResponse>
 
-    @GET("category/{categoryId}/items")
+    @GET("categories/{categoryId}/articles")
     fun getProductsFromCategory(@Path("categoryId") categoryName: Int): Call<ProductResponse>
 
-    @GET("items/{itemId}")
-    fun getItemForId(@Path("itemId") itemId: Int): Call<ProductDetailsResponse>
+    @GET("articles/{articleId}")
+    fun getItemForId(@Path("articleId") itemId: Int): Call<ProductDetailsResponse>
 }
