@@ -27,7 +27,7 @@ compileTestKotlin {
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'de.svenkroell.kotlinapi.MainKt'
+        attributes 'Main-Class': 'com.novoda.kotlinapi.MainKt'
     }
     baseName = project.name
     from {

@@ -1,7 +1,7 @@
-package de.svenkroell.kotlinapi.data
+package com.novoda.kotlinapi.data
 
-import de.svenkroell.kotlinapi.database.InMemoryDatabase
-import de.svenkroell.kotlinapi.model.Category
+import com.novoda.kotlinapi.database.InMemoryDatabase
+import com.novoda.kotlinapi.model.Category
 
 class CategoryDao {
     private val database = InMemoryDatabase()

@@ -9,12 +9,7 @@ The aim is to provide a hands-on introduction to those new to test engineering a
 
 Before launching the app you'll need to start the server.
 
-Navigate to the `simplesinatraapi` directory in this project.
-Make sure you have Ruby installed by running `ruby -v` from the terminal. If it's not installed run `brew install ruby`
-
-Next, run `bundle install`
-
-Finally, run `ruby server.rb`
+execute `start_server.sh`
 
 
 You can check if the server is running by going to http://localhost:4567/ where you should see **Sinatra doesn’t know this ditty.**

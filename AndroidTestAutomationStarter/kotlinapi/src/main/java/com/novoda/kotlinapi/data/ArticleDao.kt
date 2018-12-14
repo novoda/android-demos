@@ -1,7 +1,7 @@
-package de.svenkroell.kotlinapi.data
+package com.novoda.kotlinapi.data
 
-import de.svenkroell.kotlinapi.database.InMemoryDatabase
-import de.svenkroell.kotlinapi.model.Article
+import com.novoda.kotlinapi.database.InMemoryDatabase
+import com.novoda.kotlinapi.model.Article
 import java.util.ArrayList
 
 class ArticleDao {

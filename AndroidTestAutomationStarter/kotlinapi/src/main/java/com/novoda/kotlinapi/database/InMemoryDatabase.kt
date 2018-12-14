@@ -1,7 +1,7 @@
-package de.svenkroell.kotlinapi.database
+package com.novoda.kotlinapi.database
 
-import de.svenkroell.kotlinapi.model.Article
-import de.svenkroell.kotlinapi.model.Category
+import com.novoda.kotlinapi.model.Article
+import com.novoda.kotlinapi.model.Category
 
 class InMemoryDatabase {
     fun categories(): ArrayList<Category> {

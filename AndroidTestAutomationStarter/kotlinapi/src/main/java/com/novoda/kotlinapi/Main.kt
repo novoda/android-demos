@@ -1,7 +1,7 @@
-package de.svenkroell.kotlinapi
+package com.novoda.kotlinapi
 
-import de.svenkroell.kotlinapi.data.ArticleDao
-import de.svenkroell.kotlinapi.data.CategoryDao
+import com.novoda.kotlinapi.data.ArticleDao
+import com.novoda.kotlinapi.data.CategoryDao
 import io.javalin.Javalin
 
 
