@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cd kotlinapi
 
-./gradlew fatJar
+./gradlew clean fatJar
 
-java -jar ./build/libs/kotlinapi.jar
+java -jar ./kotlinapi/build/libs/kotlinapi.jar
