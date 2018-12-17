@@ -7,7 +7,6 @@ import io.javalin.apibuilder.ApiBuilder.get
 import io.javalin.apibuilder.ApiBuilder.path
 import java.lang.RuntimeException
 
-
 fun main(args: Array<String>) {
     val app = Javalin.create().apply {
         exception(RuntimeException::class.java) { e, _ -> e.printStackTrace() }
@@ -30,5 +29,4 @@ fun main(args: Array<String>) {
             }
         }
     }
-
 }

@@ -29,6 +29,7 @@ class InMemoryDatabase {
             3 to arrayListOf(
                     Article(id = 12, title = "Hat Green", price = "$18", image = "hat1", productDescription = descriptionOne)
             ))
+
     private val categories = arrayListOf(
             Category(id = 0, title = "SHIRTS", image = "shirtimage"),
             Category(id = 1, title = "HOODIES", image = "hoodieimage"),
@@ -65,7 +66,6 @@ class InMemoryDatabase {
         }
     }
 
-
     private fun findDuplicateCategories(): Map<Int, Int> {
         return categories.groupingBy { it.id }.eachCount().filter { it.value > 1 }
     }
@@ -73,5 +73,4 @@ class InMemoryDatabase {
     private fun findDublicateArticles(): Map<Int, Int> {
         return articles.flatMap { it.value }.groupingBy { it.id }.eachCount().filter { it.value > 1 }
     }
-
 }
