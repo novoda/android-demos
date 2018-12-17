@@ -2,6 +2,7 @@ package com.novoda.kotlinapi
 
 import com.novoda.kotlinapi.controller.ArticleController
 import com.novoda.kotlinapi.controller.CategoryController
+import com.novoda.kotlinapi.controller.HealthController
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.get
 import io.javalin.apibuilder.ApiBuilder.path
@@ -14,6 +15,9 @@ fun main(args: Array<String>) {
     }.start(4567)
 
     app.routes {
+        path("/") {
+            get(HealthController::apiRunning)
+        }
         path("categories") {
             get(CategoryController::getAllCateories)
             path(":category-id") {

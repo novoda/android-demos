@@ -12,7 +12,7 @@ Before launching the app you'll need to start the server.
 execute `start_server.sh`
 
 
-You can check if the server is running by going to http://localhost:4567/ where you should see **Sinatra doesn’t know this ditty.**
+You can check if the server is running by going to http://localhost:4567/ where you should see **Server is running**
 
 Now all you need to do is run the app from Android Studio!
 
