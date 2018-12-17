@@ -1,5 +1,6 @@
 package com.novoda.androidstoreexample.mvp.presenter.impl
 
+import com.novoda.androidstoreexample.models.Product
 import com.novoda.androidstoreexample.mvp.presenter.BasketPresenter
 import com.novoda.androidstoreexample.mvp.view.BasketView
 import com.novoda.androidstoreexample.services.BasketService
@@ -19,5 +20,19 @@ class BasketPresenterImpl : BasketPresenter {
         basketView.showProgress()
         basketView.showBasketItems(basketService.getBasket())
         basketView.hideProgress()
+    }
+
+    override fun onBasketItemClicked(product: Product) {
+        basketView.onProductClicked(product)
+    }
+
+    override fun onIncreaseItemClicked(product: Product) {
+        basketService.increaseNumberOf(product)
+        loadBasket()
+    }
+
+    override fun onDecreaseAmountClicked(product: Product) {
+        basketService.decreaseNumberOf(product)
+        loadBasket()
     }
 }

@@ -29,7 +29,7 @@
         tools:text="Looooooooooong title" />
 
     <Button
-        android:id="@+id/increaseButton"
+        android:id="@+id/basketViewIncreaseButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
@@ -45,20 +45,20 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/increaseButton"
-        app:layout_constraintStart_toEndOf="@+id/increaseButton"
-        app:layout_constraintTop_toTopOf="@+id/increaseButton"
+        app:layout_constraintBottom_toBottomOf="@+id/basketViewIncreaseButton"
+        app:layout_constraintStart_toEndOf="@+id/basketViewIncreaseButton"
+        app:layout_constraintTop_toTopOf="@+id/basketViewIncreaseButton"
         tools:text="1" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/basketViewDecreaseButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:text="@string/minus"
-        app:layout_constraintBottom_toBottomOf="@+id/increaseButton"
+        app:layout_constraintBottom_toBottomOf="@+id/basketViewIncreaseButton"
         app:layout_constraintStart_toEndOf="@+id/NumberOfItemsTextField"
-        app:layout_constraintTop_toTopOf="@+id/increaseButton" />
+        app:layout_constraintTop_toTopOf="@+id/basketViewIncreaseButton" />
 
     <ImageButton
         android:id="@+id/deleteButton"
