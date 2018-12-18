@@ -10,24 +10,24 @@ class InMemoryDatabase {
     private val descriptionFour = "Chuck consectetur chicken drumstick short ribs in tenderloin frankfurter eiusmod lorem. Dolore magna excepteur venison. Tempor enim rump ut fugiat minim esse."
     private val articles = hashMapOf(
             0 to arrayListOf(
-                    Article(id = 4, title = "Hat Green", price = "$18", image = "shirt1", productDescription = descriptionOne),
-                    Article(id = 5, title = "Hat Green", price = "$18", image = "shirt2", productDescription = descriptionOne),
-                    Article(id = 6, title = "Hat Green", price = "$18", image = "shirt3", productDescription = descriptionOne),
-                    Article(id = 7, title = "Hat Green", price = "$18", image = "shirt4", productDescription = descriptionOne)
+                    Article(id = 4, title = "Hat Green", price = 18, image = "shirt1", productDescription = descriptionOne),
+                    Article(id = 5, title = "Hat Green", price = 18, image = "shirt2", productDescription = descriptionOne),
+                    Article(id = 6, title = "Hat Green", price = 18, image = "shirt3", productDescription = descriptionOne),
+                    Article(id = 7, title = "Hat Green", price = 18, image = "shirt4", productDescription = descriptionOne)
             ),
             1 to arrayListOf(
-                    Article(id = 8, title = "Hat Green", price = "$18", image = "hoodie1", productDescription = descriptionOne),
-                    Article(id = 9, title = "Hat Green", price = "$18", image = "hoodie2", productDescription = descriptionOne),
-                    Article(id = 10, title = "Hat Green", price = "$18", image = "hoodie3", productDescription = descriptionOne),
-                    Article(id = 11, title = "Hat Green", price = "$18", image = "hoodie4", productDescription = descriptionOne)
+                    Article(id = 8, title = "Hat Green", price = 18, image = "hoodie1", productDescription = descriptionOne),
+                    Article(id = 9, title = "Hat Green", price = 18, image = "hoodie2", productDescription = descriptionOne),
+                    Article(id = 10, title = "Hat Green", price = 18, image = "hoodie3", productDescription = descriptionOne),
+                    Article(id = 11, title = "Hat Green", price = 18, image = "hoodie4", productDescription = descriptionOne)
             ),
             2 to arrayListOf(
-                    Article(id = 0, title = "Hat Green", price = "$18", image = "hat1", productDescription = descriptionOne),
-                    Article(id = 1, title = "Hat Back", price = "$12", image = "hat2", productDescription = descriptionTwo),
-                    Article(id = 2, title = "Hat White", price = "$11", image = "hat3", productDescription = descriptionThree),
-                    Article(id = 3, title = "Hat Blue", price = "$29", image = "hat4", productDescription = descriptionFour)),
+                    Article(id = 0, title = "Hat Green", price = 18, image = "hat1", productDescription = descriptionOne),
+                    Article(id = 1, title = "Hat Back", price = 12, image = "hat2", productDescription = descriptionTwo),
+                    Article(id = 2, title = "Hat White", price = 11, image = "hat3", productDescription = descriptionThree),
+                    Article(id = 3, title = "Hat Blue", price = 19, image = "hat4", productDescription = descriptionFour)),
             3 to arrayListOf(
-                    Article(id = 12, title = "Hat Green", price = "$18", image = "hat1", productDescription = descriptionOne)
+                    Article(id = 12, title = "Hat Green", price = 18, image = "hat1", productDescription = descriptionOne)
             ))
 
     private val categories = arrayListOf(

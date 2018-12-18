@@ -1,6 +1,8 @@
 package com.novoda.androidstoreexample.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -36,23 +38,29 @@ class BasketAdapter(
         private val productImage = itemView.findViewById<ImageView>(R.id.basketProductImage)
         private val productTitle = itemView.findViewById<TextView>(R.id.basketProductTitle)
         private val plusButton = itemView.findViewById<Button>(R.id.basketViewIncreaseButton)
-        private val minusButton = itemView.findViewById<Button>(R.id.basketViewDecreaseButton)
-        private val numberOfProducts = itemView.findViewById<TextView>(R.id.NumberOfItemsTextField)
+        private val minusButton = itemView.findViewById<Button>(R.id.basket_view_decrease_button)
+        private val numberOfProducts = itemView.findViewById<TextView>(R.id.number_of_items_text_field)
+        private val priceField = itemView.findViewById<TextView>(R.id.price_per_item_textview)
+        private val totalField = itemView.findViewById<TextView>(R.id.total_text_view)
 
         fun bindProducts(order: Order, context: Context) {
-            val resourceId: Int = ImageHelper().getResourceIdForImage(context, order.product.image)
-            productImage?.setImageResource(resourceId)
-            productImage?.setOnClickListener{
-                productListener.onProductImageClicked(order.product)
+            with(order) {
+                val resourceId: Int = ImageHelper().getResourceIdForImage(context, product.image)
+                productImage?.setImageResource(resourceId)
+                productImage?.setOnClickListener{
+                    productListener.onProductImageClicked(product)
+                }
+                plusButton?.setOnClickListener{
+                    productListener.onIncreaseAmountClicked(product)
+                }
+                minusButton?.setOnClickListener{
+                    productListener.onDecreaseAmountClicked(product)
+                }
+                priceField?.text = context.getString(R.string.price_template, product.price)
+                totalField?.text = context.getString(R.string.price_template, amount)
+                productTitle?.text = order.product.title
+                numberOfProducts?.text = order.numberOfItems.toString()
             }
-            plusButton?.setOnClickListener{
-                productListener.onIncreaseAmountClicked(order.product)
-            }
-            minusButton?.setOnClickListener{
-                productListener.onDecreaseAmountClicked(order.product)
-            }
-            productTitle?.text = order.product.title
-            numberOfProducts?.text = order.numberOfItems.toString()
         }
     }
 }
