@@ -1,6 +1,5 @@
 package com.novoda.androidstoreexample.activities
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -52,7 +51,7 @@ class ProductDetailsActivity : BaseActivity(), ProductDetailView {
         productDetailsProgressBar.visibility = GONE
     }
 
-    fun addToBasket(_: View) {
+    fun addToBasket(view: View) {
         presenter.addToBasket()
     }
 
