@@ -36,4 +36,8 @@ class BasketService {
             }
         }
     }
+
+    fun getTotalAmount(): Int {
+        return getBasket().fold(0) { sum, element -> sum + element.amount}
+    }
 }

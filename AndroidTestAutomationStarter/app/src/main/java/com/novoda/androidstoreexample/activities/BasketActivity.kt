@@ -3,7 +3,6 @@ package com.novoda.androidstoreexample.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.adapters.BasketAdapter
 import com.novoda.androidstoreexample.dagger.basket.BasketModule
@@ -51,6 +50,10 @@ class BasketActivity : BaseActivity(), BasketView {
         val basketAdapter = BasketAdapter(this, orders, listener)
         basketList.layoutManager = LinearLayoutManager(this)
         basketList.adapter = basketAdapter
+    }
+
+    override fun showTotalAmountOfBasket(totalPrice: Int) {
+        basket_total_text_field.text = applicationContext.getString(R.string.price_template, totalPrice)
     }
 
     override fun onProductClicked(product: Product) {

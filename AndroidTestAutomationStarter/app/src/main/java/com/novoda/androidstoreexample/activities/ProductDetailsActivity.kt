@@ -52,7 +52,7 @@ class ProductDetailsActivity : BaseActivity(), ProductDetailView {
         productDetailsProgressBar.visibility = GONE
     }
 
-    fun addToBasket(view: View) {
+    fun addToBasket(_: View) {
         presenter.addToBasket()
     }
 

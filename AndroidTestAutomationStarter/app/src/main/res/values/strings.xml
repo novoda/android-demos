@@ -13,4 +13,5 @@
     <string name="total">Total</string>
     <string name="amount">Amount</string>
     <string name="price_template">£ %1$d</string>
+    <string name="checkout">Checkout</string>
 </resources>

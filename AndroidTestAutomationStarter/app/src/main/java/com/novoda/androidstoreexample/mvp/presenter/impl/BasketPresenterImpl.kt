@@ -19,6 +19,7 @@ class BasketPresenterImpl : BasketPresenter {
     override fun loadBasket() {
         basketView.showProgress()
         basketView.showBasketItems(basketService.getBasket())
+        basketView.showTotalAmountOfBasket(basketService.getTotalAmount())
         basketView.hideProgress()
     }
 
