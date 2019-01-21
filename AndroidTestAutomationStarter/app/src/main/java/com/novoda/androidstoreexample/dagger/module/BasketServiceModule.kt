@@ -6,11 +6,11 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class BasketServiceModule {
+open class BasketServiceModule {
 
     @Provides
     @Singleton
-    fun providesBasket(): BasketService {
+    open fun providesBasket(): BasketService {
         return BasketService()
     }
 }

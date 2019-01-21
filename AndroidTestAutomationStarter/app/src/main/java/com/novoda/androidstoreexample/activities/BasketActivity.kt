@@ -3,6 +3,7 @@ package com.novoda.androidstoreexample.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.novoda.androidstoreexample.R
 import com.novoda.androidstoreexample.adapters.BasketAdapter
 import com.novoda.androidstoreexample.dagger.basket.BasketModule
@@ -69,4 +70,10 @@ class BasketActivity : BaseActivity(), BasketView {
     override fun injectDependencies(appComponent: AppComponent) {
         appComponent.injectBasket(BasketModule(this)).inject(this)
     }
+
+    override fun onCheckoutClicked(view: View) {
+        val intent = Intent(this, CheckoutActivity::class.java)
+        startActivity(intent)
+    }
+
 }

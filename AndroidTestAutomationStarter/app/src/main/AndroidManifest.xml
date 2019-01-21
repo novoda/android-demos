@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".activities.ProductListActivity" />
         <activity android:name=".activities.ProductDetailsActivity" />
-        <activity android:name=".activities.BasketActivity"></activity>
+        <activity android:name=".activities.BasketActivity" />
+        <activity android:name=".activities.CheckoutActivity"></activity>
     </application>
 
 </manifest>
