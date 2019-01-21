@@ -17,7 +17,7 @@ class ProductDTO {
     private fun requestProductJson(id: Int): JSONArray {
         val articleUrl = "${Constants.Urls.itemsPrefix}$id/${Constants.Urls.itemsSuffix}"
         return get(articleUrl)
-                .jsonObject.getJSONArray(Constants.Identifier.product)
+                .jsonObject.getJSONArray(Constants.Identifier.articles)
     }
 
     private fun mapJsonOnModel(articleResponse: JSONArray): ArrayList<Product> {

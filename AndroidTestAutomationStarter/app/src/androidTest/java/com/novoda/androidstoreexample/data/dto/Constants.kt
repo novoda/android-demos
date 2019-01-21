@@ -11,6 +11,6 @@ object Constants {
 
     object Identifier {
         const val category = "categories"
-        const val product = "articles"
+        const val articles = "articles"
     }
 }

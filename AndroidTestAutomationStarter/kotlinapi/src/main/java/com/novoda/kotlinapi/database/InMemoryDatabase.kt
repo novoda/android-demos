@@ -52,25 +52,25 @@ class InMemoryDatabase {
     private fun checkDatabaseIntegrity() {
         if (categories().distinctBy { it.id }.size != categories().size) {
             var errorMessage = "Error: "
-            findDuplicateCategories().forEach { id, number ->
+            findDuplicateCategoryId().forEach { id, number ->
                 errorMessage += "Category $id has been found $number times\n"
             }
             throw RuntimeException(errorMessage)
         }
         if (articles.flatMap { it.value }.size != articles.flatMap { it.value }.distinctBy { it.id }.size) {
             var errorMessage = "Error: "
-            findDublicateArticles().forEach { id, number ->
+            findDuplicateArticleId().forEach { id, number ->
                 errorMessage += "Article $id has been found $number times\n"
             }
             throw RuntimeException(errorMessage)
         }
     }
 
-    private fun findDuplicateCategories(): Map<Int, Int> {
+    private fun findDuplicateCategoryId(): Map<Int, Int> {
         return categories.groupingBy { it.id }.eachCount().filter { it.value > 1 }
     }
 
-    private fun findDublicateArticles(): Map<Int, Int> {
+    private fun findDuplicateArticleId(): Map<Int, Int> {
         return articles.flatMap { it.value }.groupingBy { it.id }.eachCount().filter { it.value > 1 }
     }
 }
