@@ -30,7 +30,7 @@ class ProductListPresenterImpl : ProductListPresenter {
             }
 
             override fun onSuccess(productResponse: ProductResponse) {
-                val productList = productResponse.products.toList()
+                val productList = productResponse.articles.toList()
                 productListView.showProductList(productList)
                 productListView.hideProgress()
             }

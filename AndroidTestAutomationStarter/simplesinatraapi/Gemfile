@@ -1,6 +1,0 @@
-
-source 'https://rubygems.org' do
-  gem 'sinatra', '2.0.0'
-  gem 'faker', '1.8.7'
-  gem 'rufus-scheduler', '3.4.2'
-end

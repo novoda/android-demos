@@ -26,8 +26,8 @@ class ProductDetailPresenterImpl @Inject constructor(private val productDetailVi
             }
 
             override fun onSuccess(response: ProductDetailsResponse) {
-                productDetailView.populateProduct(response.item)
-                product = response.item
+                productDetailView.populateProduct(response.article)
+                product = response.article
                 productDetailView.hideProgress()
             }
         }, productId)
