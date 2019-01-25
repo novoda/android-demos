@@ -3,17 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="200dp">
 
     <ImageView
         android:id="@+id/basketProductImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/basket_item_images"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/hat3" />
@@ -29,46 +27,88 @@
         tools:text="Looooooooooong title" />
 
     <Button
-        android:id="@+id/increaseButton"
+        android:id="@+id/basketViewIncreaseButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/plus"
-        app:layout_constraintBottom_toBottomOf="@+id/basketProductImage"
-        app:layout_constraintStart_toEndOf="@+id/basketProductImage" />
+        app:layout_constraintStart_toEndOf="@+id/basketProductImage"
+        app:layout_constraintTop_toBottomOf="@+id/basketProductTitle" />
 
     <TextView
-        android:id="@+id/NumberOfItemsTextField"
-        android:layout_width="wrap_content"
+        android:id="@+id/number_of_items_text_field"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/increaseButton"
-        app:layout_constraintStart_toEndOf="@+id/increaseButton"
-        app:layout_constraintTop_toTopOf="@+id/increaseButton"
-        tools:text="1" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/price_per_item_textview"
+        app:layout_constraintTop_toBottomOf="@+id/price_per_item_textview"
+        tools:text="100" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/basket_view_decrease_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:text="@string/minus"
-        app:layout_constraintBottom_toBottomOf="@+id/increaseButton"
-        app:layout_constraintStart_toEndOf="@+id/NumberOfItemsTextField"
-        app:layout_constraintTop_toTopOf="@+id/increaseButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/basketViewIncreaseButton"
+        app:layout_constraintStart_toEndOf="@+id/basketViewIncreaseButton"
+        app:layout_constraintTop_toTopOf="@+id/basketViewIncreaseButton"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/deleteButton"
+    <TextView
+        android:id="@+id/price_per_item_textview"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toEndOf="@+id/price_label"
+        app:layout_constraintTop_toTopOf="@+id/price_label"
+        tools:text="£ 15" />
+
+    <TextView
+        android:id="@+id/price_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:text="Price"
+        app:layout_constraintStart_toEndOf="@+id/basket_view_decrease_button"
+        app:layout_constraintTop_toBottomOf="@+id/basketProductTitle" />
+
+    <TextView
+        android:id="@+id/amount_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/amount"
+        app:layout_constraintStart_toStartOf="@+id/price_label"
+        app:layout_constraintTop_toBottomOf="@+id/price_label" />
+
+    <TextView
+        android:id="@+id/basket_item_total_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/total"
+        app:layout_constraintStart_toStartOf="@+id/amount_label"
+        app:layout_constraintTop_toBottomOf="@+id/amount_label" />
+
+    <TextView
+        android:id="@+id/total_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/number_of_items_text_field"
+        app:layout_constraintTop_toBottomOf="@+id/number_of_items_text_field"
+        android:text="0"
+        tools:text="$ 123" />
+
+    <Button
+        android:id="@+id/remove_from_basket_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Remove"
+        app:layout_constraintStart_toStartOf="@+id/basketViewIncreaseButton"
+        app:layout_constraintTop_toBottomOf="@+id/basketViewIncreaseButton" />
 </android.support.constraint.ConstraintLayout>

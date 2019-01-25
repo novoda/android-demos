@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 data class Product(
     val id: Int,
     val title: String,
-    val price: String,
+    val price: Int,
     val image: String,
     @Json(name = "product_description") val productDescription: String
 )
