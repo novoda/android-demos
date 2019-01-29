@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class BasketPresenterImpl : BasketPresenter {
     val basketView: BasketView
-    val basketService: BasketService
 
+    val basketService: BasketService
     @Inject
     constructor(basketView: BasketView, basketService: BasketService) {
         this.basketView = basketView
@@ -35,5 +35,9 @@ class BasketPresenterImpl : BasketPresenter {
     override fun onDecreaseAmountClicked(product: Product) {
         basketService.decreaseNumberOf(product)
         loadBasket()
+    }
+
+    override fun onCheckoutClicked() {
+
     }
 }

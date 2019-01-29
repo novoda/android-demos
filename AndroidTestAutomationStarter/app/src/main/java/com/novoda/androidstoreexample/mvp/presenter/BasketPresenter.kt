@@ -11,4 +11,6 @@ interface BasketPresenter {
     fun onIncreaseItemClicked(product: Product)
 
     fun onDecreaseAmountClicked(product: Product)
+
+    fun onCheckoutClicked()
 }
