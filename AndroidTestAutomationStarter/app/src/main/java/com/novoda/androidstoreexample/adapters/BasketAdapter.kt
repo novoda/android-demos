@@ -35,7 +35,7 @@ class BasketAdapter(
     inner class Holder(itemView: View, private val productListener: BasketAdapterListener) : RecyclerView.ViewHolder(itemView) {
         private val productImage = itemView.findViewById<ImageView>(R.id.basketProductImage)
         private val productTitle = itemView.findViewById<TextView>(R.id.basketProductTitle)
-        private val plusButton = itemView.findViewById<Button>(R.id.basketViewIncreaseButton)
+        private val plusButton = itemView.findViewById<Button>(R.id.basket_view_increase_button)
         private val minusButton = itemView.findViewById<Button>(R.id.basket_view_decrease_button)
         private val numberOfProducts = itemView.findViewById<TextView>(R.id.number_of_items_text_field)
         private val priceField = itemView.findViewById<TextView>(R.id.price_per_item_textview)
