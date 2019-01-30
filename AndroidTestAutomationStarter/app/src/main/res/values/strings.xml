@@ -14,4 +14,5 @@
     <string name="amount">Amount</string>
     <string name="price_template">£ %1$d</string>
     <string name="checkout">Checkout</string>
+    <string name="title_activity_purchase_confirmation">PurchaseConfirmationActivity</string>
 </resources>

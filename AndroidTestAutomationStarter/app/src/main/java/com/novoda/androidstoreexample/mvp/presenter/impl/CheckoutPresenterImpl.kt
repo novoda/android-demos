@@ -11,8 +11,7 @@ class CheckoutPresenterImpl @Inject constructor(private val checkoutView: Checko
 
     override fun onBuyClick() {
         basketService.emptyBasket()
-        checkoutView.displaySuccessToast()
-        checkoutView.goToHomeScreen()
+        checkoutView.goToConfirmationScreen()
     }
 
 }

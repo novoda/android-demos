@@ -1,0 +1,9 @@
+package com.novoda.androidstoreexample.dagger.confirmation
+
+import com.novoda.androidstoreexample.activities.ConfirmationActivity
+import dagger.Subcomponent
+
+@Subcomponent(modules = [ConfirmationModule::class])
+interface ConfirmationComponent {
+    fun inject(confirmationActivity: ConfirmationActivity)
+}
