@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath gradlePlugins.buildProperties
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.novoda.build-properties'
+
+buildProperties {
+    secrets {
+        using file('secrets.properties')
+    }
+}
+
+android {
+    compileSdkVersion 28
+
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
+
+    defaultConfig {
+        applicationId "com.novoda.movies.mvi"
+        minSdkVersion 28
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigString 'API_KEY', buildProperties.secrets['api_key']
+        buildConfigString 'BASE_URL', buildProperties.secrets['base_url']
+        buildConfigString 'IMAGE_BASE_URL', buildProperties.secrets['image_base_url']
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':core')
+    implementation project(':search')
+
+    implementation libraries.kotlin.stdLib
+    implementation libraries.kotlin.reflect
+    implementation libraries.support.appCompat
+    implementation libraries.support.constraintLayout
+
+    testImplementation libraries.test.junit
+}
