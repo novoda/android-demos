@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 28
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libraries.kotlin.stdLib
+    implementation libraries.kotlin.reflect
+    implementation libraries.support.appCompat
+    implementation libraries.rxJava
+    implementation libraries.rxAndroid
+    implementation libraries.okHttp.client
+    implementation libraries.okHttp.loggingInterceptor
+    implementation libraries.retrofit.lib
+    implementation libraries.retrofit.rxJavaAdapter
+    implementation libraries.retrofit.moshiConverter
+    implementation libraries.glide.lib
+    kapt libraries.glide.compiler
+
+    testImplementation libraries.test.junit
+    testImplementation libraries.test.mockito
+    testImplementation libraries.test.mockitoKotlin
+    testImplementation libraries.test.mockitoInline
+    testImplementation libraries.test.assertj
+}

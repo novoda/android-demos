@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="search_result_count">
+        <item quantity="one">1 Movie found</item>
+        <item quantity="other">%d Movies found</item>
+    </plurals>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Search</string>
+    <string name="search_no_results_description">No Results found for \"%s\"</string>
+</resources>
