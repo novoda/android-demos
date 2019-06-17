@@ -6,6 +6,10 @@ import com.novoda.androidstoreexample.dagger.categoryList.CategoryListComponent
 import com.novoda.androidstoreexample.dagger.categoryList.CategoryListModule
 import com.novoda.androidstoreexample.dagger.categoryList.ProductListComponent
 import com.novoda.androidstoreexample.dagger.categoryList.ProductListModule
+import com.novoda.androidstoreexample.dagger.checkout.CheckoutComponent
+import com.novoda.androidstoreexample.dagger.checkout.CheckoutModule
+import com.novoda.androidstoreexample.dagger.confirmation.ConfirmationComponent
+import com.novoda.androidstoreexample.dagger.confirmation.ConfirmationModule
 import com.novoda.androidstoreexample.dagger.module.BasketServiceModule
 import com.novoda.androidstoreexample.dagger.module.ClientModule
 import com.novoda.androidstoreexample.dagger.module.HostModule
@@ -22,4 +26,6 @@ interface AppComponent {
     fun injectProducts(productListModule: ProductListModule): ProductListComponent
     fun injectProductDetails(productDetailsModule: ProductDetailsModule): ProductDetailsComponent
     fun injectBasket(basketModule: BasketModule): BasketComponent
+    fun injectCheckout(checkoutModule: CheckoutModule): CheckoutComponent
+    fun injectConfirmation(confirmationModule: ConfirmationModule): ConfirmationComponent
 }

@@ -22,4 +22,26 @@ class BasketService {
         }
         return orders
     }
+
+    fun increaseNumberOf(product: Product) {
+        basket[product]?.let {
+            basket[product] = it + 1
+        }
+    }
+
+    fun decreaseNumberOf(product: Product) {
+        basket[product]?.let {
+            if (it > 1) {
+                basket[product] = it - 1
+            }
+        }
+    }
+
+    fun getTotalAmount(): Int {
+        return getBasket().fold(0) { sum, element -> sum + element.amount}
+    }
+
+    fun emptyBasket() {
+        basket.clear()
+    }
 }

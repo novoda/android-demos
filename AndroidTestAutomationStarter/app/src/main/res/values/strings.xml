@@ -10,4 +10,9 @@
     <string name="minus">-</string>
     <string name="basket">Basket</string>
     <string name="to_the_basket">To the basket</string>
+    <string name="total">Total</string>
+    <string name="amount">Amount</string>
+    <string name="price_template">£ %1$d</string>
+    <string name="checkout">Checkout</string>
+    <string name="title_activity_purchase_confirmation">PurchaseConfirmationActivity</string>
 </resources>

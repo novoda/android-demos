@@ -1,6 +1,7 @@
 package com.novoda.androidstoreexample.adapters
 
 import android.content.Context
+import android.content.res.Resources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class ProductListAdapter(
             val resourceId: Int = ImageHelper().getResourceIdForImage(context, product.image)
             productImage?.setImageResource(resourceId)
             productName?.text = product.title
-            productPrice?.text = product.price
+            productPrice?.text = context.getString(R.string.price_template, product.price)
             itemView.setOnClickListener { itemClick(product.id) }
         }
     }
