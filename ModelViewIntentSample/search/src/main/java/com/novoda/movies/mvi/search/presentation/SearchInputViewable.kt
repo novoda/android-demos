@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.view
+package com.novoda.movies.mvi.search.presentation
 
 internal interface SearchInputViewable {
     var currentQuery: String

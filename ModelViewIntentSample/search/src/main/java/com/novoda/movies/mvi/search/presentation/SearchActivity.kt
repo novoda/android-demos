@@ -1,9 +1,10 @@
-package com.novoda.movies.mvi.search
+package com.novoda.movies.mvi.search.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.novoda.movies.mvi.search.view.SearchInputView
-import com.novoda.movies.mvi.search.view.SearchResultsView
+import com.novoda.movies.mvi.search.Dependencies
+import com.novoda.movies.mvi.search.R
+import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity() {
@@ -35,7 +36,11 @@ internal class SearchActivity : AppCompatActivity() {
         fun inject(searchActivity: SearchActivity) {
             val dependencies = searchActivity.application as Dependencies
             val networkDependencyProvider = dependencies.networkDependencyProvider
-            val searchDependencyProvider = SearchDependencyProvider(networkDependencyProvider, dependencies.endpoints)
+            val searchDependencyProvider =
+                SearchDependencyProvider(
+                    networkDependencyProvider,
+                    dependencies.endpoints
+                )
             searchActivity.presenter = searchDependencyProvider.provideSearchResultsPresenter()
         }
     }

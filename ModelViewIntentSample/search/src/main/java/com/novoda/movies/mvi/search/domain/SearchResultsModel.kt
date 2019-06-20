@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search
+package com.novoda.movies.mvi.search.domain
 
 import io.reactivex.Observable
 

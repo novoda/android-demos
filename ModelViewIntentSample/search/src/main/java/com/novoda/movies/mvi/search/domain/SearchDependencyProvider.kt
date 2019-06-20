@@ -1,9 +1,13 @@
-package com.novoda.movies.mvi.search
+package com.novoda.movies.mvi.search.domain
 
-import com.novoda.movies.mvi.search.api.ApiSearchResultsConverter
-import com.novoda.movies.mvi.search.api.SearchApi
-import com.novoda.movies.mvi.search.api.SearchBackend
-import com.novoda.movies.mvi.search.view.SearchResultsConverter
+import com.novoda.movies.mvi.search.Endpoints
+import com.novoda.movies.mvi.search.NetworkDependencyProvider
+import com.novoda.movies.mvi.search.ProductionSchedulingStrategy
+import com.novoda.movies.mvi.search.data.ApiSearchResultsConverter
+import com.novoda.movies.mvi.search.data.SearchApi
+import com.novoda.movies.mvi.search.data.SearchBackend
+import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
+import com.novoda.movies.mvi.search.presentation.SearchResultsPresenter
 
 internal class SearchDependencyProvider(
     private val networkDependencyProvider: NetworkDependencyProvider,

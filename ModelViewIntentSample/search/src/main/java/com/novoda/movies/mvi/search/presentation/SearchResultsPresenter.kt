@@ -1,10 +1,8 @@
-package com.novoda.movies.mvi.search
+package com.novoda.movies.mvi.search.presentation
 
 import android.util.Log
-import com.novoda.movies.mvi.search.SearchResultsModel.State
-import com.novoda.movies.mvi.search.view.SearchInputViewable
-import com.novoda.movies.mvi.search.view.SearchResultsConverter
-import com.novoda.movies.mvi.search.view.SearchResultsViewable
+import com.novoda.movies.mvi.search.domain.SearchResultsModel
+import com.novoda.movies.mvi.search.domain.SearchResultsModel.State
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

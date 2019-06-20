@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.view
+package com.novoda.movies.mvi.search.presentation
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup

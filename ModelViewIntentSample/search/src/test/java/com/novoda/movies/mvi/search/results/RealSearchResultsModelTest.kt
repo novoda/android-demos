@@ -2,10 +2,10 @@ package com.novoda.movies.mvi.search.results
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.novoda.movies.mvi.search.RealSearchResultsModel
-import com.novoda.movies.mvi.search.SearchResults
-import com.novoda.movies.mvi.search.SearchResultsModel.State.*
-import com.novoda.movies.mvi.search.api.SearchBackend
+import com.novoda.movies.mvi.search.domain.RealSearchResultsModel
+import com.novoda.movies.mvi.search.domain.SearchResults
+import com.novoda.movies.mvi.search.domain.SearchResultsModel.State.*
+import com.novoda.movies.mvi.search.data.SearchBackend
 import io.reactivex.Single
 import org.junit.Test
 
@@ -127,10 +127,11 @@ class RealSearchResultsModelTest {
         )
     }
 
-    private fun results(): SearchResults = SearchResults(
-        listOf(mock(), mock()),
-        totalResults = 10
-    )
+    private fun results(): SearchResults =
+        SearchResults(
+            listOf(mock(), mock()),
+            totalResults = 10
+        )
 
     private fun givenBackendSucceedWith(searchResults: SearchResults) {
         givenBackendReturn(Single.just(searchResults))

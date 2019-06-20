@@ -1,6 +1,6 @@
-package com.novoda.movies.mvi.search.api
+package com.novoda.movies.mvi.search.data
 
-import com.novoda.movies.mvi.search.SearchResults
+import com.novoda.movies.mvi.search.domain.SearchResults
 import io.reactivex.Single
 
 internal class SearchBackend(

@@ -15,7 +15,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        <com.novoda.movies.mvi.search.view.SearchInputView
+        <com.novoda.movies.mvi.search.presentation.SearchInputView
                 android:id="@+id/search_input"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
@@ -24,7 +24,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <com.novoda.movies.mvi.search.view.SearchResultsView
+    <com.novoda.movies.mvi.search.presentation.SearchResultsView
             android:id="@+id/search_results"
             android:layout_width="0dp"
             android:layout_height="0dp"

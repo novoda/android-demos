@@ -1,8 +1,9 @@
-package com.novoda.movies.mvi.search
+package com.novoda.movies.mvi.search.domain
 
-import com.novoda.movies.mvi.search.SearchResultsModel.State
-import com.novoda.movies.mvi.search.SearchResultsModel.State.*
-import com.novoda.movies.mvi.search.api.SearchBackend
+import com.novoda.movies.mvi.search.SchedulingStrategy
+import com.novoda.movies.mvi.search.domain.SearchResultsModel.State
+import com.novoda.movies.mvi.search.domain.SearchResultsModel.State.*
+import com.novoda.movies.mvi.search.data.SearchBackend
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.BehaviorSubject
