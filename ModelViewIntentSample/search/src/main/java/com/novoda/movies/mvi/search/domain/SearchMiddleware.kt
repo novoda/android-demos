@@ -2,14 +2,26 @@ package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 
 
 internal class SearchMiddleware : Middleware<SearchAction, SearchState, SearchChanges> {
 
     override fun bind(actions: Observable<SearchAction>, state: Observable<SearchState>): Observable<SearchChanges> {
-        TODO("")
+        return actions
+                .withLatestFrom(state, actionToState())
+                .switchMap { (action, state) -> handle(action, state) }
     }
 
+    private fun actionToState(): BiFunction<SearchAction, SearchState, Pair<SearchAction, SearchState>> =
+            BiFunction { action, state -> action to state }
+
+    private fun handle(action: SearchAction, state: SearchState): Observable<SearchChanges> =
+            when (action) {
+                is SearchAction.ChangeQuery -> TODO()
+                is SearchAction.ExecuteSearch -> TODO()
+                is SearchAction.ClearQuery -> TODO()
+            }
 }
 
 
@@ -29,8 +41,8 @@ internal sealed class SearchState {
 
     data class TextInput(override val queryString: String) : SearchState()
     data class Content(
-        override val queryString: String,
-        val searchResults: SearchResults
+            override val queryString: String,
+            val searchResults: SearchResults
     ) : SearchState()
 
     data class Loading(override val queryString: String) : SearchState()
