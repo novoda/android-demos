@@ -2,12 +2,12 @@ package com.novoda.movies.mvi.search.domain
 
 import java.net.URL
 
-internal data class SearchResults(
+data class SearchResults(
     val items: List<SearchResultItem>,
     val totalResults: Int
 )
 
-internal data class SearchResultItem(
+data class SearchResultItem(
     val id: Int,
     val title: String,
     val posterPath: URL

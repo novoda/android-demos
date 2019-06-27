@@ -1,6 +1,7 @@
 package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
+import com.novoda.movies.mvi.search.domain.SearchChanges.*
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 
@@ -18,7 +19,7 @@ internal class SearchMiddleware : Middleware<SearchAction, SearchState, SearchCh
 
     private fun handle(action: SearchAction, state: SearchState): Observable<SearchChanges> =
             when (action) {
-                is SearchAction.ChangeQuery -> TODO()
+                is SearchAction.ChangeQuery -> Observable.just(SearchQueryUpdate(action.queryString))
                 is SearchAction.ExecuteSearch -> TODO()
                 is SearchAction.ClearQuery -> TODO()
             }
@@ -31,27 +32,18 @@ internal sealed class SearchAction {
     object ClearQuery : SearchAction()
 }
 
-internal sealed class SearchState {
-    abstract val queryString: String
-
-    object Initial : SearchState() {
-        override val queryString: String
-            get() = ""
+data class SearchState(val queryString: String, val isLoading:Boolean, val throwable: Throwable?) {
+    companion object {
+        fun initialState(): SearchState {
+            return SearchState("", false, null)
+        }
     }
-
-    data class TextInput(override val queryString: String) : SearchState()
-    data class Content(
-            override val queryString: String,
-            val searchResults: SearchResults
-    ) : SearchState()
-
-    data class Loading(override val queryString: String) : SearchState()
-    data class Error(override val queryString: String, val throwable: Throwable) : SearchState()
 }
 
-internal sealed class SearchChanges {
+sealed class SearchChanges {
 
     object SearchInProgress : SearchChanges()
     data class SearchCompleted(val results: SearchResults) : SearchChanges()
     data class SearchFailed(val throwable: Throwable) : SearchChanges()
+    data class SearchQueryUpdate(val queryString: String): SearchChanges()
 }
