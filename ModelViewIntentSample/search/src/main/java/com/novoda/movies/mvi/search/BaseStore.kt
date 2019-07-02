@@ -5,10 +5,10 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.BehaviorSubject
 
-abstract class BaseStore<A, S, C>(
-    private val reducer: Reducer<S, C>,
-    private val middlewares: List<Middleware<A, S, C>>,
-    initialValue: S
+class BaseStore<A, S, C>(
+        private val reducer: Reducer<S, C>,
+        private val middlewares: List<Middleware<A, S, C>>,
+        initialValue: S
 ) : Store<A, S, C> {
     private val changes = BehaviorSubject.create<C>()
     private val state = BehaviorSubject.createDefault(initialValue)

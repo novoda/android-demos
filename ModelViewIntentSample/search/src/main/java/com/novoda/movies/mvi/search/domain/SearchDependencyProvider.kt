@@ -1,5 +1,6 @@
 package com.novoda.movies.mvi.search.domain
 
+import com.novoda.movies.mvi.search.BaseStore
 import com.novoda.movies.mvi.search.Endpoints
 import com.novoda.movies.mvi.search.NetworkDependencyProvider
 import com.novoda.movies.mvi.search.ProductionSchedulingStrategy
@@ -10,29 +11,37 @@ import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
 import com.novoda.movies.mvi.search.presentation.SearchResultsPresenter
 
 internal class SearchDependencyProvider(
-    private val networkDependencyProvider: NetworkDependencyProvider,
-    private val endpoints: Endpoints
+        private val networkDependencyProvider: NetworkDependencyProvider,
+        private val endpoints: Endpoints
 ) {
 
     private fun provideSearchResultsModel(): SearchResultsModel {
         return RealSearchResultsModel(
-            provideSearchBackend(),
-            ProductionSchedulingStrategy()
+                provideSearchBackend(),
+                ProductionSchedulingStrategy()
         )
     }
 
     private fun provideSearchBackend(): SearchBackend {
         val searchApi = networkDependencyProvider.provideRetrofit().create(SearchApi::class.java)
         return SearchBackend(
-            searchApi,
-            ApiSearchResultsConverter(endpoints)
+                searchApi,
+                ApiSearchResultsConverter(endpoints)
         )
     }
 
     fun provideSearchResultsPresenter(): SearchResultsPresenter {
         return SearchResultsPresenter(
-            provideSearchResultsModel(),
-            SearchResultsConverter()
+                provideSearchResultsModel(),
+                SearchResultsConverter()
+        )
+    }
+
+    fun provideSearchStore(): BaseStore<SearchAction, SearchState, SearchChanges> {
+        return BaseStore(
+                reducer = SearchReducer(),
+                middlewares = listOf(SearchMiddleware()),
+                initialValue = SearchState.initialState()
         )
     }
 }
