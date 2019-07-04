@@ -35,4 +35,8 @@ class BaseStore<A, S, C>(
 
         return disposables
     }
+
+    fun unbind() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

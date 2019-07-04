@@ -2,11 +2,16 @@ package com.novoda.movies.mvi.search.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.novoda.movies.mvi.search.BaseStore
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.MVIView
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.domain.SearchAction
+import com.novoda.movies.mvi.search.domain.SearchChanges
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
+import com.novoda.movies.mvi.search.domain.SearchMiddleware
+import com.novoda.movies.mvi.search.domain.SearchReducer
 import com.novoda.movies.mvi.search.domain.SearchState
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -17,9 +22,14 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
-    lateinit var presenter: SearchResultsPresenter
+    private val searchStore = BaseStore(
+            SearchReducer(),
+            listOf(SearchMiddleware()),
+            SearchState.initialState()
+    )
 
-    private val actionStream: PublishSubject<SearchAction> = PublishSubject.create()
+    override val actions: Observable<SearchAction>
+        get() = searchInput.actions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,31 +41,27 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
 
     override fun onStart() {
         super.onStart()
-        presenter.bind(searchInput, resultsView)
+        searchStore.wire() //TODO: Move to a place where it survives activity lifecycle
+        searchStore.bind(this)
     }
 
-    override val actions: Observable<SearchAction>
-        get() = actionStream
-
     override fun render(state: SearchState) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.v("APP", "state: $state")
     }
 
     override fun onStop() {
+        searchStore.unbind()
         super.onStop()
-        presenter.unbind()
     }
 
     class Injector {
         fun inject(searchActivity: SearchActivity) {
             val dependencies = searchActivity.application as Dependencies
             val networkDependencyProvider = dependencies.networkDependencyProvider
-            val searchDependencyProvider =
-                SearchDependencyProvider(
-                    networkDependencyProvider,
-                    dependencies.endpoints
-                )
-            searchActivity.presenter = searchDependencyProvider.provideSearchResultsPresenter()
+            SearchDependencyProvider(
+                networkDependencyProvider,
+                dependencies.endpoints
+            )
         }
     }
 }

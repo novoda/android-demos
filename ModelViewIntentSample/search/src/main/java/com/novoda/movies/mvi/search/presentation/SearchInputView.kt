@@ -15,6 +15,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import com.novoda.movies.mvi.search.R
+import com.novoda.movies.mvi.search.domain.SearchAction
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.search_bar.view.*
 
 internal class SearchInputView @JvmOverloads constructor(
@@ -26,6 +29,8 @@ internal class SearchInputView @JvmOverloads constructor(
     private lateinit var searchInput: EditText
     private lateinit var clearTextButton: View
 
+    private val actionStream: PublishSubject<SearchAction> = PublishSubject.create()
+
     override var currentQuery: String
         get() = searchInput.text.toString()
         set(text) {
@@ -36,6 +41,9 @@ internal class SearchInputView @JvmOverloads constructor(
     override var onQuerySubmitted: () -> Unit = {}
     override var onQueryChanged: (query: String) -> Unit = {}
     override var onQueryCleared: () -> Unit = {}
+
+    val actions: Observable<SearchAction>
+        get() = actionStream
 
     override fun showKeyboard() {
         searchInput.showKeyboard()
@@ -51,7 +59,6 @@ internal class SearchInputView @JvmOverloads constructor(
         setupSearchInput()
         clearTextButton.setOnClickListener { clearText() }
     }
-
 
     private fun setupSearchInput() {
         searchInput.isSaveEnabled = false
@@ -82,6 +89,7 @@ internal class SearchInputView @JvmOverloads constructor(
         AfterTextChangedWatcher {
         override fun afterTextChanged(text: Editable) {
             onQueryChanged(text.toString())
+            actionStream.onNext(SearchAction.ChangeQuery(text.toString()))
 
             val showClear = text.isNotEmpty()
             clearTextButton.visibility = if (showClear) View.VISIBLE else View.GONE
