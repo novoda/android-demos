@@ -65,6 +65,7 @@ internal class SearchInputView @JvmOverloads constructor(
         searchInput.setOnEditorActionListener { inputView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || enterKeyPressed(keyEvent)) {
                 onQuerySubmitted()
+                actionStream.onNext(SearchAction.ExecuteSearch)
                 inputView.hideKeyboard()
                 inputView.clearFocus()
                 return@setOnEditorActionListener true

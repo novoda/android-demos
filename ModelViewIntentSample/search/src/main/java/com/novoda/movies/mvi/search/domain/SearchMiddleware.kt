@@ -1,12 +1,14 @@
 package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
+import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.SearchChanges.*
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
+import java.util.*
 
 
-internal class SearchMiddleware : Middleware<SearchAction, SearchState, SearchChanges> {
+internal class SearchMiddleware(private val backend: SearchBackend) : Middleware<SearchAction, SearchState, SearchChanges> {
 
     override fun bind(actions: Observable<SearchAction>, state: Observable<SearchState>): Observable<SearchChanges> {
         return actions
@@ -20,11 +22,18 @@ internal class SearchMiddleware : Middleware<SearchAction, SearchState, SearchCh
     private fun handle(action: SearchAction, state: SearchState): Observable<SearchChanges> =
             when (action) {
                 is SearchAction.ChangeQuery -> Observable.just(SearchQueryUpdate(action.queryString))
-                is SearchAction.ExecuteSearch -> TODO()
+                is SearchAction.ExecuteSearch -> processAction(state)
                 is SearchAction.ClearQuery -> TODO()
             }
-}
 
+    private fun processAction(state: SearchState): Observable<SearchChanges> {
+        return backend.search(state.queryString)
+                .toObservable()
+                .map { searchResult -> SearchCompleted(searchResult) as SearchChanges }
+                .startWith(SearchInProgress)
+                .onErrorReturn { throwable -> SearchFailed(throwable) }
+    }
+}
 
 internal sealed class SearchAction {
     data class ChangeQuery(val queryString: String) : SearchAction()
@@ -32,10 +41,10 @@ internal sealed class SearchAction {
     object ClearQuery : SearchAction()
 }
 
-data class SearchState(val queryString: String, val isLoading:Boolean, val throwable: Throwable?) {
+data class SearchState(val queryString: String, val searchResults: SearchResults, val isLoading: Boolean, val throwable: Throwable?) {
     companion object {
         fun initialState(): SearchState {
-            return SearchState("", false, null)
+            return SearchState("", SearchResults(emptyList(), 0),false, null)
         }
     }
 }
@@ -45,5 +54,5 @@ sealed class SearchChanges {
     object SearchInProgress : SearchChanges()
     data class SearchCompleted(val results: SearchResults) : SearchChanges()
     data class SearchFailed(val throwable: Throwable) : SearchChanges()
-    data class SearchQueryUpdate(val queryString: String): SearchChanges()
+    data class SearchQueryUpdate(val queryString: String) : SearchChanges()
 }

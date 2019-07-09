@@ -22,11 +22,7 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
-    private val searchStore = BaseStore(
-            SearchReducer(),
-            listOf(SearchMiddleware()),
-            SearchState.initialState()
-    )
+    lateinit var searchStore: BaseStore<SearchAction, SearchState, SearchChanges>
 
     override val actions: Observable<SearchAction>
         get() = searchInput.actions
@@ -58,10 +54,11 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
         fun inject(searchActivity: SearchActivity) {
             val dependencies = searchActivity.application as Dependencies
             val networkDependencyProvider = dependencies.networkDependencyProvider
-            SearchDependencyProvider(
-                networkDependencyProvider,
-                dependencies.endpoints
+            val searchDependencyProvider = SearchDependencyProvider(
+                    networkDependencyProvider,
+                    dependencies.endpoints
             )
+            searchActivity.searchStore = searchDependencyProvider.provideSearchStore()
         }
     }
 }

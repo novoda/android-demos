@@ -40,7 +40,8 @@ internal class SearchDependencyProvider(
     fun provideSearchStore(): BaseStore<SearchAction, SearchState, SearchChanges> {
         return BaseStore(
                 reducer = SearchReducer(),
-                middlewares = listOf(SearchMiddleware()),
+                schedulingStrategy = ProductionSchedulingStrategy(),
+                middlewares = listOf(SearchMiddleware(provideSearchBackend())),
                 initialValue = SearchState.initialState()
         )
     }
