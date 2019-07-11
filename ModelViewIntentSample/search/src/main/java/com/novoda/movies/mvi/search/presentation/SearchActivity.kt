@@ -10,11 +10,8 @@ import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchChanges
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
-import com.novoda.movies.mvi.search.domain.SearchMiddleware
-import com.novoda.movies.mvi.search.domain.SearchReducer
 import com.novoda.movies.mvi.search.domain.SearchState
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, SearchState> {
