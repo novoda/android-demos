@@ -3,8 +3,8 @@ package com.novoda.movies.mvi.search.presentation
 import java.net.URL
 
 internal data class ViewSearchResults(
-    val totalItemCount: Int,
-    val items: List<ViewSearchItem>
+    val totalItemCount: Int = 0,
+    val items: List<ViewSearchItem> = emptyList()
 )
 
 internal data class ViewSearchItem(

@@ -3,6 +3,7 @@ package com.novoda.movies.mvi.search.domain
 import com.novoda.movies.mvi.search.Middleware
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.SearchChanges.*
+import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
@@ -46,11 +47,11 @@ internal sealed class SearchAction {
 }
 
 
-sealed class SearchState {
+internal sealed class SearchState {
 
     abstract val queryString: String
 
-    data class Content(override val queryString: String, val results: SearchResults) : SearchState()
+    data class Content(override val queryString: String, val results: ViewSearchResults) : SearchState()
     data class Loading(override val queryString: String) : SearchState()
     data class Error(override val queryString: String, val throwable: Throwable) : SearchState()
 }

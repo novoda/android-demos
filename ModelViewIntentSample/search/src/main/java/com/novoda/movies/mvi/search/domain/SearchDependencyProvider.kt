@@ -8,19 +8,12 @@ import com.novoda.movies.mvi.search.data.ApiSearchResultsConverter
 import com.novoda.movies.mvi.search.data.SearchApi
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
-import com.novoda.movies.mvi.search.presentation.SearchResultsPresenter
+import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 
 internal class SearchDependencyProvider(
         private val networkDependencyProvider: NetworkDependencyProvider,
         private val endpoints: Endpoints
 ) {
-
-    private fun provideSearchResultsModel(): SearchResultsModel {
-        return RealSearchResultsModel(
-                provideSearchBackend(),
-                ProductionSchedulingStrategy()
-        )
-    }
 
     private fun provideSearchBackend(): SearchBackend {
         val searchApi = networkDependencyProvider.provideRetrofit().create(SearchApi::class.java)
@@ -30,19 +23,14 @@ internal class SearchDependencyProvider(
         )
     }
 
-    fun provideSearchResultsPresenter(): SearchResultsPresenter {
-        return SearchResultsPresenter(
-                provideSearchResultsModel(),
-                SearchResultsConverter()
+    fun provideSearchStore(): BaseStore<SearchAction, SearchState, SearchChanges> {
+        return BaseStore(
+                reducer = SearchReducer(provideSearchResultsConverter()),
+                schedulingStrategy = ProductionSchedulingStrategy(),
+                middlewares = listOf(SearchMiddleware(provideSearchBackend(),ProductionSchedulingStrategy().work)),
+                initialValue = SearchState.Content(queryString = "", results = ViewSearchResults())
         )
     }
 
-    fun provideSearchStore(): BaseStore<SearchAction, SearchState, SearchChanges> {
-        return BaseStore(
-                reducer = SearchReducer(),
-                schedulingStrategy = ProductionSchedulingStrategy(),
-                middlewares = listOf(SearchMiddleware(provideSearchBackend(),ProductionSchedulingStrategy().work)),
-                initialValue = SearchState.Content(queryString = "", results = SearchResults())
-        )
-    }
+    private fun provideSearchResultsConverter() = SearchResultsConverter()
 }
