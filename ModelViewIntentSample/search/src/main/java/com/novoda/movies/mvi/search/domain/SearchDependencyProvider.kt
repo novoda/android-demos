@@ -42,7 +42,7 @@ internal class SearchDependencyProvider(
                 reducer = SearchReducer(),
                 schedulingStrategy = ProductionSchedulingStrategy(),
                 middlewares = listOf(SearchMiddleware(provideSearchBackend(),ProductionSchedulingStrategy().work)),
-                initialValue = SearchState.initialState()
+                initialValue = SearchState.Content(queryString = "", results = SearchResults())
         )
     }
 }

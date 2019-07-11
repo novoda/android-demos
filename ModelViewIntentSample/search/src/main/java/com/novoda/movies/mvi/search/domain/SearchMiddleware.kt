@@ -45,17 +45,14 @@ internal sealed class SearchAction {
     object ClearQuery : SearchAction()
 }
 
-data class SearchState(
-    val queryString: String,
-    val searchResults: SearchResults,
-    val isLoading: Boolean,
-    val throwable: Throwable?
-) {
-    companion object {
-        fun initialState(): SearchState {
-            return SearchState("", SearchResults(emptyList(), 0), false, null)
-        }
-    }
+
+sealed class SearchState {
+
+    abstract val queryString: String
+
+    data class Content(override val queryString: String, val results: SearchResults) : SearchState()
+    data class Loading(override val queryString: String) : SearchState()
+    data class Error(override val queryString: String, val throwable: Throwable) : SearchState()
 }
 
 sealed class SearchChanges {
