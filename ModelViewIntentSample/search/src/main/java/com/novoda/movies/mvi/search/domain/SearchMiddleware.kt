@@ -10,33 +10,33 @@ import io.reactivex.functions.BiFunction
 
 
 internal class SearchMiddleware(
-    private val backend: SearchBackend,
-    private val workScheduler: Scheduler
+        private val backend: SearchBackend,
+        private val workScheduler: Scheduler
 ) : Middleware<SearchAction, SearchState, SearchChanges> {
 
     override fun bind(actions: Observable<SearchAction>, state: Observable<SearchState>): Observable<SearchChanges> {
         return actions
-            .withLatestFrom(state, actionToState())
-            .switchMap { (action, state) -> handle(action, state) }
+                .withLatestFrom(state, actionToState())
+                .switchMap { (action, state) -> handle(action, state) }
     }
 
     private fun actionToState(): BiFunction<SearchAction, SearchState, Pair<SearchAction, SearchState>> =
-        BiFunction { action, state -> action to state }
+            BiFunction { action, state -> action to state }
 
     private fun handle(action: SearchAction, state: SearchState): Observable<SearchChanges> =
-        when (action) {
-            is SearchAction.ChangeQuery -> Observable.just(SearchQueryUpdate(action.queryString))
-            is SearchAction.ExecuteSearch -> processAction(state)
-            is SearchAction.ClearQuery -> TODO()
-        }
+            when (action) {
+                is SearchAction.ChangeQuery -> Observable.just(SearchQueryUpdate(action.queryString))
+                is SearchAction.ExecuteSearch -> processAction(state)
+                is SearchAction.ClearQuery -> Observable.just(SearchQueryUpdate(""))
+            }
 
     private fun processAction(state: SearchState): Observable<SearchChanges> {
         return backend.search(state.queryString)
-            .toObservable()
-            .map { searchResult -> SearchCompleted(searchResult) as SearchChanges }
-            .startWith(SearchInProgress)
-            .onErrorReturn { throwable -> SearchFailed(throwable) }
-            .subscribeOn(workScheduler)
+                .toObservable()
+                .map { searchResult -> SearchCompleted(searchResult) as SearchChanges }
+                .startWith(SearchInProgress)
+                .onErrorReturn { throwable -> SearchFailed(throwable) }
+                .subscribeOn(workScheduler)
     }
 }
 

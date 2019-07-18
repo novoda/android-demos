@@ -3,6 +3,8 @@ package com.novoda.movies.mvi.search
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 
+// TODO: Consider a better interface for the view so that we can compose
+// more views in the same Activity
 interface MVIView<A, S> {
     val actions: Observable<A>
 

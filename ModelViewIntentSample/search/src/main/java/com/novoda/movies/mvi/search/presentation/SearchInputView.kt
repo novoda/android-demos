@@ -21,9 +21,9 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.search_bar.view.*
 
 internal class SearchInputView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), SearchInputViewable {
 
     private lateinit var searchInput: EditText
@@ -77,7 +77,8 @@ internal class SearchInputView @JvmOverloads constructor(
     }
 
     private fun clearText() {
-        searchInput.text.clear()
+        onQueryCleared()
+        actionStream.onNext(SearchAction.ClearQuery)
     }
 
     private fun enterKeyPressed(keyEvent: KeyEvent?): Boolean {
@@ -87,7 +88,7 @@ internal class SearchInputView @JvmOverloads constructor(
     }
 
     private val textChangedListener = object :
-        AfterTextChangedWatcher {
+            AfterTextChangedWatcher {
         override fun afterTextChanged(text: Editable) {
             onQueryChanged(text.toString())
             actionStream.onNext(SearchAction.ChangeQuery(text.toString()))

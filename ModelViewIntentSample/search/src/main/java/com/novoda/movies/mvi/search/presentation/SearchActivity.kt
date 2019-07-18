@@ -40,7 +40,10 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
 
     override fun render(state: SearchState) {
         when (state) {
-            is SearchState.Content -> resultsView.showResults(state.results)
+            is SearchState.Content -> {
+                searchInput.currentQuery = state.queryString
+                resultsView.showResults(state.results)
+            }
         }
         Log.v("APP", "state: $state")
     }
@@ -55,8 +58,8 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
             val dependencies = searchActivity.application as Dependencies
             val networkDependencyProvider = dependencies.networkDependencyProvider
             val searchDependencyProvider = SearchDependencyProvider(
-                networkDependencyProvider,
-                dependencies.endpoints
+                    networkDependencyProvider,
+                    dependencies.endpoints
             )
             searchActivity.searchStore = searchDependencyProvider.provideSearchStore()
         }
