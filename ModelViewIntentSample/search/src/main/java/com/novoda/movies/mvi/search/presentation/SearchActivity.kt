@@ -12,6 +12,7 @@ import com.novoda.movies.mvi.search.domain.SearchChanges
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import com.novoda.movies.mvi.search.domain.SearchState
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, SearchState> {
@@ -24,18 +25,22 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
     override val actions: Observable<SearchAction>
         get() = searchInput.actions
 
+    private var wireDisposable: Disposable? = null
+    private var bindDisposable: Disposable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector().inject(this)
         setContentView(R.layout.activity_search)
         searchInput = search_input
         resultsView = search_results
+
+        wireDisposable = searchStore.wire()
     }
 
     override fun onStart() {
         super.onStart()
-        searchStore.wire() //TODO: Move to a place where it survives activity lifecycle
-        searchStore.bind(this)
+        bindDisposable = searchStore.bind(this)
     }
 
     override fun render(state: SearchState) {
@@ -44,13 +49,21 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
                 searchInput.currentQuery = state.queryString
                 resultsView.showResults(state.results)
             }
+
+            //TODO: Handle Loading
+            //TODO: Handle Error
         }
         Log.v("APP", "state: $state")
     }
 
     override fun onStop() {
-        searchStore.unbind()
+        bindDisposable?.dispose()
         super.onStop()
+    }
+
+    override fun onDestroy() {
+        wireDisposable?.dispose()
+        super.onDestroy()
     }
 
     class Injector {

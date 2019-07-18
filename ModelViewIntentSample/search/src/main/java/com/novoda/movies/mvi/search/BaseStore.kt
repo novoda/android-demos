@@ -4,6 +4,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 class BaseStore<A, S, C>(
         private val schedulingStrategy: SchedulingStrategy,
@@ -13,6 +14,7 @@ class BaseStore<A, S, C>(
 ) : Store<A, S, C> {
     private val changes = BehaviorSubject.create<C>()
     private val state = BehaviorSubject.createDefault(initialValue)
+    private val actions: PublishSubject<A> = PublishSubject.create()
 
     override fun wire(): Disposable {
         val disposables = CompositeDisposable()
@@ -24,18 +26,20 @@ class BaseStore<A, S, C>(
                 .subscribe(state::onNext)
         )
 
+        for (middleware in middlewares) {
+            val observable = middleware
+                    .bind(actions, state)
+                    .subscribeOn(schedulingStrategy.work)
+            disposables.add(observable.subscribe(changes::onNext))
+        }
+
         return disposables
     }
 
     override fun bind(view: MVIView<A, S>): Disposable {
         val disposables = CompositeDisposable()
 
-        for (middleware in middlewares) {
-            val observable = middleware
-                    .bind(view.actions, state)
-                    .subscribeOn(schedulingStrategy.work)
-            disposables.add(observable.subscribe(changes::onNext))
-        }
+        disposables.add(view.actions.subscribe(actions::onNext))
 
         disposables.add(state
                 .observeOn(schedulingStrategy.ui)
@@ -43,9 +47,5 @@ class BaseStore<A, S, C>(
         )
 
         return disposables
-    }
-
-    fun unbind() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
