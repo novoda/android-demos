@@ -20,7 +20,7 @@ The **Store** is the glue between the above components and is mainly responsible
 
 In this concrete implementation the MVIView is a wrapper around the Activity which collaborates between multiple custom views. It merges and exposes user actions from all custom view and is capable of rendering a view state, without performing any further logic. 
 
-For example a `SearchInputView` will emit an `SubmitQuery:Action`.
+For example a `SearchInputView` will emit a `SubmitQuery:Action`.
 
 ## Middleware <Action, Change>
 
