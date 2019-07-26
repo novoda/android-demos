@@ -39,8 +39,7 @@ Following the above example the `SearchReducer` would map `SearchCompleted:Chang
 
 The Store is the glue between the above mentioned components. It listens to user actions, forwards them to all middlewares, forwards their changes to the reducer and passes the generated view state back to the view.
 
-
-
-
-
-
+# Diagrams
+| High-level Diagram|Sequence Diagram|
+|----|----|
+|![MainView](https://user-images.githubusercontent.com/1046688/61949720-071baa00-afac-11e9-96e1-4e68c5b0844e.png)| ![Untitled](https://user-images.githubusercontent.com/1046688/61949761-20245b00-afac-11e9-94ab-bf51764b6cca.png) |
