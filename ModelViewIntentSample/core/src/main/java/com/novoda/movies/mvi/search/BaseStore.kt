@@ -7,10 +7,10 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 class BaseStore<A, S, C>(
-        private val schedulingStrategy: SchedulingStrategy,
-        private val reducer: Reducer<S, C>,
-        private val middlewares: List<Middleware<A, S, C>>,
-        initialValue: S
+    private val schedulingStrategy: SchedulingStrategy,
+    private val reducer: Reducer<S, C>,
+    private val middlewares: List<Middleware<A, S, C>>,
+    initialValue: S
 ) : Store<A, S, C> {
     private val changes = BehaviorSubject.create<C>()
     private val state = BehaviorSubject.createDefault(initialValue)
