@@ -24,28 +24,24 @@ internal class SearchInputView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), SearchInputViewable {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private lateinit var searchInput: EditText
     private lateinit var clearTextButton: View
 
     private val actionStream: PublishSubject<SearchAction> = PublishSubject.create()
 
-    override var currentQuery: String
+    var currentQuery: String
         get() = searchInput.text.toString()
         set(text) {
             searchInput.fillWith(text)
             searchInput.setSelection(text.length)
         }
 
-    override var onQuerySubmitted: () -> Unit = {}
-    override var onQueryChanged: (query: String) -> Unit = {}
-    override var onQueryCleared: () -> Unit = {}
-
     val actions: Observable<SearchAction>
         get() = actionStream
 
-    override fun showKeyboard() {
+    private fun showKeyboard() {
         searchInput.showKeyboard()
     }
 
@@ -64,7 +60,6 @@ internal class SearchInputView @JvmOverloads constructor(
         searchInput.isSaveEnabled = false
         searchInput.setOnEditorActionListener { inputView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || enterKeyPressed(keyEvent)) {
-                onQuerySubmitted()
                 actionStream.onNext(SearchAction.ExecuteSearch)
                 inputView.hideKeyboard()
                 inputView.clearFocus()
@@ -77,7 +72,6 @@ internal class SearchInputView @JvmOverloads constructor(
     }
 
     private fun clearText() {
-        onQueryCleared()
         actionStream.onNext(SearchAction.ClearQuery)
     }
 
@@ -90,7 +84,6 @@ internal class SearchInputView @JvmOverloads constructor(
     private val textChangedListener = object :
             AfterTextChangedWatcher {
         override fun afterTextChanged(text: Editable) {
-            onQueryChanged(text.toString())
             actionStream.onNext(SearchAction.ChangeQuery(text.toString()))
 
             val showClear = text.isNotEmpty()
