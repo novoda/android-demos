@@ -3,6 +3,7 @@ package com.novoda.demo.movies;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         resultList.setAdapter(adapter);
         callback = new MovieService.Callback() {
             @Override
-            public void onNewData(MoviesState moviesSate) {
+            public void onNewData(@NonNull MoviesState moviesSate) {
                 adapter.setMoviesSate(moviesSate);
             }
 
             @Override
-            public void onFailure(Throwable e) {
+            public void onFailure(@NonNull Throwable e) {
                 Log.e("Movies", "while loading movies", e);
             }
         };
@@ -74,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
     private void startLoadingTrailer(Movie movie) {
         movieService.loadTrailerFor(movie, new MovieService.TrailerCallback() {
             @Override
-            public void onTrailerLoaded(Video video) {
+            public void onTrailerLoaded(@NonNull Video video) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(video.trailerUrl())));
             }
 
             @Override
-            public void onFailure(Throwable e) {
+            public void onFailure(@NonNull Throwable e) {
                 Log.e("Movies", "while loading videos", e);
             }
         });

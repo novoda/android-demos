@@ -1,5 +1,6 @@
 package com.novoda.demo.movies;
 
+import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,19 +32,20 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Listener listener;
 
-    public MoviesAdapter(Listener listener) {
+    MoviesAdapter(Listener listener) {
         this.listener = listener;
         setHasStableIds(true);
     }
 
-    public void setMoviesSate(MoviesState moviesSate) {
+    void setMoviesSate(MoviesState moviesSate) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MoviesDiffCallback(this.moviesSate, moviesSate), true);
         this.moviesSate = moviesSate;
         diffResult.dispatchUpdatesTo(this);
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_list_card, parent, false);
         if (viewType == 1) {
             return new LoadPageItem(view, listener);
@@ -52,7 +54,7 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MovieItem) {
             ((MovieItem) holder).bind(moviesSate.get(position));
         } else {
