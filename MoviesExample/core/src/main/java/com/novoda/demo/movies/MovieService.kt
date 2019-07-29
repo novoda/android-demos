@@ -12,14 +12,14 @@ import rx.schedulers.Schedulers
 import java.util.ArrayList
 
 class MovieService(private val api: MoviesApi) {
-    private var moviesSate = MoviesState(ArrayList(), 1)
+    private var moviesState = MoviesState(ArrayList(), 1)
 
     private var callback: Callback? = null
 
     fun subscribe(callback: Callback) {
         this.callback = callback
-        callback.onNewData(moviesSate)
-        if (moviesSate.isEmpty) {
+        callback.onNewData(moviesState)
+        if (moviesState.isEmpty) {
             loadMore()
         }
     }
@@ -29,15 +29,15 @@ class MovieService(private val api: MoviesApi) {
     }
 
     fun loadMore() {
-        api.topRated(moviesSate.pageNumber()).enqueue(object : retrofit2.Callback<MoviesResponse> {
+        api.topRated(moviesState.pageNumber()).enqueue(object : retrofit2.Callback<MoviesResponse> {
             override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>?) {
                 if (response?.body() == null || response.body()?.results == null) {
                     return
                 }
-                val movies = moviesSate.movies()
+                val movies = moviesState.movies()
                 movies.addAll(response.body()!!.results)
-                moviesSate = MoviesState(movies, moviesSate.pageNumber() + 1)
-                callback!!.onNewData(moviesSate)
+                moviesState = MoviesState(movies, moviesState.pageNumber() + 1)
+                callback!!.onNewData(moviesState)
             }
 
             override fun onFailure(call: Call<MoviesResponse>, throwable: Throwable) {
