@@ -75,7 +75,7 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (position == moviesSate.size()) {
             return Long.MAX_VALUE;
         }
-        return moviesSate.get(position).id.hashCode();
+        return moviesSate.get(position).getId().hashCode();
     }
 
     class MovieItem extends RecyclerView.ViewHolder {
@@ -99,8 +99,8 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(final Movie movie) {
-            text.setText(movie.title);
-            rating.setText(Double.toString(movie.rating));
+            text.setText(movie.getTitle());
+            rating.setText(Double.toString(movie.getRating()));
             Glide.with(itemView.getContext()).load(movie.posterUrl()).into(poster);
         }
     }
@@ -150,7 +150,7 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (newItemPosition == newMovies.size()) {
                 return false;
             }
-            return oldMovies.get(oldItemPosition).id.equals(newMovies.get(newItemPosition).id);
+            return oldMovies.get(oldItemPosition).getId().equals(newMovies.get(newItemPosition).getId());
         }
 
         @Override
