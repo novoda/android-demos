@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.novoda.demo.movies.MoviesSate;
 import com.novoda.demo.movies.model.Movie;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int MOVIE_ITEM = 0;
     private static final int NEXT_PAGE_ITEM = 1;
 
-    private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 0);
+    private MoviesState moviesSate = new MoviesState(new ArrayList<Movie>(), 0);
 
     interface Listener {
         void onMovieSelected(Movie movie);
@@ -37,7 +36,7 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         setHasStableIds(true);
     }
 
-    public void setMoviesSate(MoviesSate moviesSate) {
+    public void setMoviesSate(MoviesState moviesSate) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MoviesDiffCallback(this.moviesSate, moviesSate), true);
         this.moviesSate = moviesSate;
         diffResult.dispatchUpdatesTo(this);
@@ -125,10 +124,10 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static class MoviesDiffCallback extends DiffUtil.Callback {
 
-        private final MoviesSate oldMovies;
-        private final MoviesSate newMovies;
+        private final MoviesState oldMovies;
+        private final MoviesState newMovies;
 
-        public MoviesDiffCallback(MoviesSate oldMovies, MoviesSate newMovies) {
+        public MoviesDiffCallback(MoviesState oldMovies, MoviesState newMovies) {
             this.oldMovies = oldMovies;
             this.newMovies = newMovies;
         }

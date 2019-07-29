@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
 public class MovieService {
 
     private final MoviesApi api;
-    private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
+    private MoviesState moviesSate = new MoviesState(new ArrayList<Movie>(), 1);
 
     private Callback callback;
 
@@ -48,7 +48,7 @@ public class MovieService {
                 }
                 List<Movie> movies = moviesSate.movies();
                 movies.addAll(response.body().results);
-                moviesSate = new MoviesSate(movies, moviesSate.pageNumber() + 1);
+                moviesSate = new MoviesState(movies, moviesSate.pageNumber() + 1);
                 callback.onNewData(moviesSate);
             }
 
@@ -93,7 +93,7 @@ public class MovieService {
          }
 
     interface Callback {
-        void onNewData(MoviesSate moviesSate);
+        void onNewData(MoviesState moviesSate);
 
         void onFailure(Throwable e);
     }

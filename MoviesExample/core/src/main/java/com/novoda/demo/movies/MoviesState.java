@@ -4,12 +4,12 @@ import com.novoda.demo.movies.model.Movie;
 
 import java.util.List;
 
-public class MoviesSate {
+public class MoviesState {
 
     private final List<Movie> movies;
     private final int pageNumber;
 
-    public MoviesSate(List<Movie> movies, int pageNumber) {
+    public MoviesState(List<Movie> movies, int pageNumber) {
         this.movies = movies;
         this.pageNumber = pageNumber;
     }
@@ -43,7 +43,7 @@ public class MoviesSate {
             return false;
         }
 
-        MoviesSate that = (MoviesSate) o;
+        MoviesState that = (MoviesState) o;
 
         if (pageNumber != that.pageNumber) {
             return false;

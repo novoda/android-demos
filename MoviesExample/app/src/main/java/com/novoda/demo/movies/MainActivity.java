@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         resultList.setAdapter(adapter);
         callback = new MovieService.Callback() {
             @Override
-            public void onNewData(MoviesSate moviesSate) {
+            public void onNewData(MoviesState moviesSate) {
                 adapter.setMoviesSate(moviesSate);
             }
 
