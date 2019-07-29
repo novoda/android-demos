@@ -3,7 +3,7 @@ package com.novoda.demo.movies.model
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
-        val id: String? = null,
+        val id: String = "",
         val title: String? = null,
         val poster_path: String? = null,
         val backdrop_path: String? = null,
