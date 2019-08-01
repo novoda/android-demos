@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.R
@@ -49,9 +50,11 @@ internal class SearchActivity : AppCompatActivity(),
             is SearchState.Content -> {
                 searchInput.currentQuery = state.queryString
                 resultsView.showResults(state.results)
+                loading_spinner.visibility = View.INVISIBLE
             }
 
-            //TODO: Handle Loading
+            is SearchState.Loading -> loading_spinner.visibility = View.VISIBLE
+            is SearchState.Error -> loading_spinner.visibility = View.VISIBLE
             //TODO: Handle Error
         }
         Log.v("APP", "state: $state")
