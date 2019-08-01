@@ -1,6 +1,7 @@
 package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
+import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.SearchChanges.*
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
@@ -10,7 +11,7 @@ import io.reactivex.functions.BiFunction
 
 
 internal class SearchMiddleware(
-        private val backend: SearchBackend,
+        private val dataSource: MovieDataSource,
         private val workScheduler: Scheduler
 ) : Middleware<SearchAction, SearchState, SearchChanges> {
 
@@ -31,7 +32,7 @@ internal class SearchMiddleware(
             }
 
     private fun processAction(state: SearchState): Observable<SearchChanges> {
-        return backend.search(state.queryString)
+        return dataSource.search(state.queryString)
                 .toObservable()
                 .map { searchResult -> SearchCompleted(searchResult) as SearchChanges }
                 .startWith(SearchInProgress)

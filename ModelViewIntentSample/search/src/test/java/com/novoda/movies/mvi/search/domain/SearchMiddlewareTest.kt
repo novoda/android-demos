@@ -3,6 +3,7 @@ package com.novoda.movies.mvi.search.domain
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.stub
+import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 import io.reactivex.Single
@@ -14,8 +15,8 @@ import org.junit.Test
 
 class SearchMiddlewareTest {
 
-    private val backend: SearchBackend = mock()
-    private val searchMiddleware = SearchMiddleware(backend, Schedulers.trampoline())
+    private val dataSource: MovieDataSource = mock()
+    private val searchMiddleware = SearchMiddleware(dataSource, Schedulers.trampoline())
 
     private val actions = PublishSubject.create<SearchAction>()
     private val state = PublishSubject.create<SearchState>()
@@ -45,10 +46,10 @@ class SearchMiddlewareTest {
     }
 
     @Test
-    fun `GIVEN backend has results WHEN execute search THEN search is in progress AND search is completed`() {
+    fun `GIVEN dataSource has results WHEN execute search THEN search is in progress AND search is completed`() {
         val searchResults = SearchResults(items = listOf())
         state.onNext(SearchState.Content(queryString = "iron man", results = ViewSearchResults()))
-        backend.stub { on { search("iron man") } doReturn Single.just(searchResults) }
+        dataSource.stub { on { search("iron man") } doReturn Single.just(searchResults) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
@@ -59,10 +60,10 @@ class SearchMiddlewareTest {
     }
 
     @Test
-    fun `GIVEN backend errors WHEN execute search THEN search is in progress AND search failed`() {
-        val exception = IllegalStateException("backend is down")
+    fun `GIVEN dataSource errors WHEN execute search THEN search is in progress AND search failed`() {
+        val exception = Throwable()
         state.onNext(SearchState.Content(queryString = "iron man", results = ViewSearchResults()))
-        backend.stub { on { search("iron man") } doReturn (Single.error(exception)) }
+        dataSource.stub { on { search("iron man") } doReturn (Single.error(exception)) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
