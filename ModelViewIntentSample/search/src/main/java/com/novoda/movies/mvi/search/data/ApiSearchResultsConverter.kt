@@ -13,7 +13,6 @@ internal class ApiSearchResultsConverter(
         return apiSearchResults.toSearchResults()
     }
 
-
     private fun ApiSearchResults.toSearchResults(): SearchResults {
         return SearchResults(
             items = results.map {

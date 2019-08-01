@@ -36,14 +36,14 @@ class BaseStore<A, S, C>(
         return disposables
     }
 
-    override fun bind(view: MVIView<A, S>): Disposable {
+    override fun bind(actionProvider: ActionProvider<A>, viewRender: ViewRender<S>): Disposable {
         val disposables = CompositeDisposable()
 
-        disposables.add(view.actions.subscribe(actions::onNext))
+        disposables.add(actionProvider.actions.subscribe(actions::onNext))
 
         disposables.add(state
                 .observeOn(schedulingStrategy.ui)
-                .subscribe(view::render)
+                .subscribe(viewRender::render)
         )
 
         return disposables
