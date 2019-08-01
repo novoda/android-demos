@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.view.View.*
 import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.R
@@ -14,6 +15,7 @@ import com.novoda.movies.mvi.search.ViewRender
 import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import com.novoda.movies.mvi.search.domain.SearchState
+import com.novoda.movies.mvi.search.domain.SearchState.*
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -47,17 +49,13 @@ internal class SearchActivity : AppCompatActivity(),
 
     override fun render(state: SearchState) {
         when (state) {
-            is SearchState.Content -> {
-                searchInput.currentQuery = state.queryString
+            is Content -> {
                 resultsView.showResults(state.results)
-                loading_spinner.visibility = View.INVISIBLE
             }
-
-            is SearchState.Loading -> loading_spinner.visibility = View.VISIBLE
-            is SearchState.Error -> loading_spinner.visibility = View.VISIBLE
-            //TODO: Handle Error
         }
-        Log.v("APP", "state: $state")
+
+        error_view.visibility = if (state is Error) VISIBLE else INVISIBLE
+        loading_spinner.visibility = if (state is Loading) VISIBLE else INVISIBLE
     }
 
     override fun onStop() {
