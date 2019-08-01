@@ -50,6 +50,9 @@ internal class SearchActivity : AppCompatActivity(),
     override fun render(state: SearchState) {
         when (state) {
             is Content -> {
+                if (searchInput.currentQuery != state.queryString) {
+                    searchInput.currentQuery = state.queryString
+                }
                 resultsView.showResults(state.results)
             }
         }
