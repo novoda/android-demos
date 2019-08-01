@@ -9,6 +9,7 @@ import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.data.SearchApi
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
+import com.novoda.movies.mvi.search.presentation.SearchStore
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 
 internal class SearchDependencyProvider(
@@ -24,7 +25,7 @@ internal class SearchDependencyProvider(
         )
     }
 
-    fun provideSearchStore(): BaseStore<SearchAction, SearchState, SearchChanges> {
+    fun provideSearchStore(): SearchStore {
         return BaseStore(
             reducer = SearchReducer(provideSearchResultsConverter()),
             schedulingStrategy = ProductionSchedulingStrategy(),

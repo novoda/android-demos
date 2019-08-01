@@ -1,15 +1,19 @@
 package com.novoda.movies.mvi.search.presentation
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.novoda.movies.mvi.search.*
+import com.novoda.movies.mvi.search.ActionProvider
+import com.novoda.movies.mvi.search.Dependencies
+import com.novoda.movies.mvi.search.R
+import com.novoda.movies.mvi.search.ViewRender
 import com.novoda.movies.mvi.search.domain.SearchAction
-import com.novoda.movies.mvi.search.domain.SearchChanges
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import com.novoda.movies.mvi.search.domain.SearchState
 import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(),
@@ -19,28 +23,25 @@ internal class SearchActivity : AppCompatActivity(),
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
-    lateinit var searchStore: BaseStore<SearchAction, SearchState, SearchChanges>
+    private lateinit var viewModel: SearchViewModel
 
     override val actions: Observable<SearchAction>
         get() = searchInput.actions
 
-    private var wireDisposable: Disposable? = null
-    private var bindDisposable: Disposable? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector().inject(this)
+        viewModel = ViewModelProviders.of(this, SearchViewModelFactory(this))
+                .get(SearchViewModel::class.java)
         setContentView(R.layout.activity_search)
         searchInput = search_input
         resultsView = search_results
 
-        wireDisposable = searchStore.wire()
+        viewModel.wire()
     }
 
     override fun onStart() {
         super.onStart()
-        bindDisposable = searchStore.bind(actionProvider = this, viewRender = this)
+        viewModel.bind(this, this)
     }
 
     override fun render(state: SearchState) {
@@ -57,24 +58,28 @@ internal class SearchActivity : AppCompatActivity(),
     }
 
     override fun onStop() {
-        bindDisposable?.dispose()
+        viewModel.unbind()
         super.onStop()
     }
 
     override fun onDestroy() {
-        wireDisposable?.dispose()
+        viewModel.unwire()
         super.onDestroy()
     }
+}
 
-    class Injector {
-        fun inject(searchActivity: SearchActivity) {
-            val dependencies = searchActivity.application as Dependencies
-            val networkDependencyProvider = dependencies.networkDependencyProvider
-            val searchDependencyProvider = SearchDependencyProvider(
-                    networkDependencyProvider,
-                    dependencies.endpoints
-            )
-            searchActivity.searchStore = searchDependencyProvider.provideSearchStore()
-        }
+internal class SearchViewModelFactory(
+        private val searchActivity: SearchActivity) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        val dependencies = searchActivity.application as Dependencies
+        val networkDependencyProvider = dependencies.networkDependencyProvider
+        val searchDependencyProvider = SearchDependencyProvider(
+                networkDependencyProvider,
+                dependencies.endpoints
+        )
+
+        return SearchViewModel(searchDependencyProvider.provideSearchStore())
+                .let { modelClass.cast(it) }!!
     }
 }
