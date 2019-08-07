@@ -15,62 +15,63 @@ internal class RealSearchResultsModel(
 ) : SearchResultsModel {
     private val state: Subject<State> = BehaviorSubject.createDefault(Initial)
 
-    private val actions: Subject<Action> = PublishSubject.create()
+    private val stateChange: Subject<StateChange> = PublishSubject.create()
+
     init {
-        actions
-            .withLatestFrom(state, actionToState())
-            .switchMap { (action, state) ->
-                handle(action, state)
-            }.subscribe(state)
-
+        stateChange.scan(
+            Initial as State, asState()
+        ).doOnNext {
+            state.onNext(it)
+        }.subscribe()
     }
 
-    private fun actionToState(): BiFunction<Action, State, Pair<Action, State>> {
-        return BiFunction { action, state ->
-            action to state
+    private fun asState(): BiFunction<State, in StateChange, State> {
+        return BiFunction { state, changes ->
+            return@BiFunction when (changes) {
+                StateChange.IndicateProgress -> Loading(state.queryString)
+                is StateChange.ChangeQuery -> TextInput(changes.queryString)
+                is StateChange.ShowResults -> Content(state.queryString, changes.searchResults)
+                is StateChange.ShowError -> Error(state.queryString, changes.throwable)
+            }
         }
-    }
-
-    private fun handle(action: Action, state: State): Observable<State> {
-        return when (action) {
-            is Action.ChangeQuery -> textInput(action.queryString)
-            is Action.ClearQuery -> textInputWithEmptyQuery()
-            is Action.ExecuteSearch -> processQuery(state.queryString)
-        }
-    }
-
-    private fun textInputWithEmptyQuery(): Observable<State> =
-        Observable.just(TextInput("") as State)
-
-    private fun textInput(queryString: String) =
-        Observable.just(TextInput(queryString) as State)
-
-    private fun processQuery(query: String): Observable<State> {
-        return backend.search(query)
-            .toObservable()
-            .map { results -> Content(query, results) as State }
-            .startWith(Loading(query))
-            .onErrorReturn { throwable -> Error(query, throwable) }
-            .subscribeOn(schedulingStrategy.work)
     }
 
     override fun state(): Observable<State> = state
-        .subscribeOn(schedulingStrategy.work)
         .observeOn(schedulingStrategy.ui)
 
-    override fun executeSearch() = actions.onNext(Action.ExecuteSearch)
+    override fun executeSearch() {
+        Observable.just(true)
+            .withLatestFrom(state, queryString())
+            .flatMap { query ->
+                backend.search(query)
+                    .toObservable()
+                    .map { results -> StateChange.ShowResults(results) as StateChange }
+                    .startWith(StateChange.IndicateProgress)
+                    .onErrorReturn { throwable -> StateChange.ShowError(throwable) }
+                    .subscribeOn(schedulingStrategy.work)
+            }.doOnNext { change ->
+                this.stateChange.onNext(change)
+            }.subscribe()
+
+    }
+
+    private fun queryString(): BiFunction<Boolean, State, String> {
+        return BiFunction { _, state ->
+            state.queryString
+        }
+    }
 
     override fun queryChanged(queryString: String) =
-        actions.onNext(Action.ChangeQuery(queryString))
+        stateChange.onNext(StateChange.ChangeQuery(queryString = queryString))
 
     override fun clearQuery() {
-        actions.onNext(Action.ClearQuery)
+        stateChange.onNext(StateChange.ChangeQuery(queryString = ""))
     }
 
-    private sealed class Action {
-        data class ChangeQuery(val queryString: String) : Action()
-        object ExecuteSearch : Action()
-        object ClearQuery : Action()
+    private sealed class StateChange {
+        object IndicateProgress : StateChange()
+        data class ChangeQuery(val queryString: String) : StateChange()
+        data class ShowResults(val searchResults: SearchResults) : StateChange()
+        data class ShowError(val throwable: Throwable) : StateChange()
     }
 }
-
