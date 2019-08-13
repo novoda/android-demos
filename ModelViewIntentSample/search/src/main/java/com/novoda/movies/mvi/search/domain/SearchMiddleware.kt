@@ -3,7 +3,6 @@ package com.novoda.movies.mvi.search.domain
 import com.novoda.movies.mvi.search.Middleware
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.ScreenStateChanges.*
-import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
@@ -25,17 +24,17 @@ internal class SearchMiddleware(
 
     private fun handle(action: SearchAction, state: ScreenState): Observable<ScreenStateChanges> =
             when (action) {
-                is SearchAction.ChangeQuery -> Observable.just(ScreenStateQueryUpdate(action.queryString))
+                is SearchAction.ChangeQuery -> Observable.just(UpdateSearchQuery(action.queryString))
                 is SearchAction.ExecuteSearch -> processAction(state)
-                is SearchAction.ClearQuery -> Observable.just(ScreenStateQueryUpdate(""))
+                is SearchAction.ClearQuery -> Observable.just(UpdateSearchQuery(""))
             }
 
     private fun processAction(state: ScreenState): Observable<ScreenStateChanges> {
         return backend.search(state.queryString)
                 .toObservable()
-                .map { searchResult -> ScreenStateCompleted(searchResult) as ScreenStateChanges }
-                .startWith(ScreenStateInProgress)
-                .onErrorReturn { throwable -> ScreenStateFailed(throwable) }
+                .map { searchResult -> AddResults(searchResult) as ScreenStateChanges }
+                .startWith(IndicateProgress)
+                .onErrorReturn { throwable -> HandleError(throwable) }
                 .subscribeOn(workScheduler)
     }
 }
@@ -47,19 +46,3 @@ internal sealed class SearchAction {
 }
 
 
-internal sealed class ScreenState {
-
-    abstract val queryString: String
-
-    data class Content(override val queryString: String, val results: ViewSearchResults) : ScreenState()
-    data class Loading(override val queryString: String) : ScreenState()
-    data class Error(override val queryString: String, val throwable: Throwable) : ScreenState()
-}
-
-sealed class ScreenStateChanges {
-
-    object ScreenStateInProgress : ScreenStateChanges()
-    data class ScreenStateCompleted(val results: SearchResults) : ScreenStateChanges()
-    data class ScreenStateFailed(val throwable: Throwable) : ScreenStateChanges()
-    data class ScreenStateQueryUpdate(val queryString: String) : ScreenStateChanges()
-}

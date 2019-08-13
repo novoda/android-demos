@@ -32,7 +32,7 @@ class SearchMiddlewareTest {
 
         actions.onNext(SearchAction.ChangeQuery(queryString = "superman"))
 
-        changes.assertValue(ScreenStateChanges.ScreenStateQueryUpdate("superman"))
+        changes.assertValue(ScreenStateChanges.UpdateSearchQuery("superman"))
     }
 
     @Test
@@ -41,7 +41,7 @@ class SearchMiddlewareTest {
 
         actions.onNext(SearchAction.ClearQuery)
 
-        changes.assertValue(ScreenStateChanges.ScreenStateQueryUpdate(""))
+        changes.assertValue(ScreenStateChanges.UpdateSearchQuery(""))
     }
 
     @Test
@@ -53,8 +53,8 @@ class SearchMiddlewareTest {
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            ScreenStateChanges.ScreenStateInProgress,
-            ScreenStateChanges.ScreenStateCompleted(results = searchResults)
+            ScreenStateChanges.IndicateProgress,
+            ScreenStateChanges.AddResults(results = searchResults)
         )
     }
 
@@ -67,8 +67,8 @@ class SearchMiddlewareTest {
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            ScreenStateChanges.ScreenStateInProgress,
-            ScreenStateChanges.ScreenStateFailed(exception)
+            ScreenStateChanges.IndicateProgress,
+            ScreenStateChanges.HandleError(exception)
         )
     }
 }
