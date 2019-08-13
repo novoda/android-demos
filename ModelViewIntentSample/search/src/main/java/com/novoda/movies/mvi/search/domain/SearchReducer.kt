@@ -10,36 +10,47 @@ internal class SearchReducer(
 
     override fun reduce(state: ScreenState, change: ScreenStateChanges): ScreenState =
         when (change) {
-            ScreenStateChanges.IndicateProgress -> ScreenState.Loading(
-                queryString = state.queryString
-            )
-            is ScreenStateChanges.AddResults -> ScreenState.Content(
-                queryString = state.queryString,
-                results = searchResultsConverter.convert(change.results)
-            )
-            is ScreenStateChanges.HandleError -> ScreenState.Error(
-                queryString = state.queryString,
-                throwable = change.throwable
-            )
-            is ScreenStateChanges.UpdateSearchQuery -> ScreenState.Content(
-                queryString = change.queryString,
-                results = ViewSearchResults()
-            )
+            ScreenStateChanges.ShowProgress -> state.showLoading()
+            ScreenStateChanges.HideProgress -> state.hideLoading()
+            is ScreenStateChanges.AddResults -> state.addResults(change.results)
+            is ScreenStateChanges.UpdateSearchQuery -> state.updateQuery(change.queryString)
+            is ScreenStateChanges.HandleError -> state.toError(change.throwable)
         }
+
+    private fun ScreenState.addResults(results: SearchResults): ScreenState {
+        return copy(results = searchResultsConverter.convert(results))
+    }
+
 }
 
-internal sealed class ScreenState {
-
-    abstract val queryString: String
-
-    data class Content(override val queryString: String, val results: ViewSearchResults) : ScreenState()
-    data class Loading(override val queryString: String) : ScreenState()
-    data class Error(override val queryString: String, val throwable: Throwable) : ScreenState()
+private fun ScreenState.toError(throwable: Throwable): ScreenState {
+    return copy(error = throwable)
 }
+
+private fun ScreenState.updateQuery(queryString: String): ScreenState {
+    return copy(queryString = queryString)
+}
+
+private fun ScreenState.hideLoading(): ScreenState {
+    return copy(loading = false)
+}
+
+private fun ScreenState.showLoading(): ScreenState {
+    return copy(loading = true)
+}
+
+
+internal data class ScreenState(
+    var queryString: String,
+    var loading: Boolean = false,
+    var results: ViewSearchResults? = null,
+    var error: Throwable? = null
+)
 
 sealed class ScreenStateChanges {
 
-    object IndicateProgress : ScreenStateChanges()
+    object ShowProgress : ScreenStateChanges()
+    object HideProgress : ScreenStateChanges()
     data class AddResults(val results: SearchResults) : ScreenStateChanges()
     data class HandleError(val throwable: Throwable) : ScreenStateChanges()
     data class UpdateSearchQuery(val queryString: String) : ScreenStateChanges()

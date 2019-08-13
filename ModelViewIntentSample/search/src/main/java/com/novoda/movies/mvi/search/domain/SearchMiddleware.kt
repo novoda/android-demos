@@ -33,7 +33,7 @@ internal class SearchMiddleware(
         return backend.search(state.queryString)
                 .toObservable()
                 .map { searchResult -> AddResults(searchResult) as ScreenStateChanges }
-                .startWith(IndicateProgress)
+                .startWith(ShowProgress)
                 .onErrorReturn { throwable -> HandleError(throwable) }
                 .subscribeOn(workScheduler)
     }

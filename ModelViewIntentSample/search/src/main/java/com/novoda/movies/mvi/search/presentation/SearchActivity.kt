@@ -7,10 +7,10 @@ import com.novoda.movies.mvi.search.BaseStore
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.MVIView
 import com.novoda.movies.mvi.search.R
-import com.novoda.movies.mvi.search.domain.SearchAction
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges
-import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import com.novoda.movies.mvi.search.domain.ScreenState
+import com.novoda.movies.mvi.search.domain.ScreenStateChanges
+import com.novoda.movies.mvi.search.domain.SearchAction
+import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search.*
@@ -44,15 +44,13 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Scree
     }
 
     override fun render(state: ScreenState) {
-        when (state) {
-            is ScreenState.Content -> {
-                searchInput.currentQuery = state.queryString
-                resultsView.showResults(state.results)
-            }
 
-            //TODO: Handle Loading
-            //TODO: Handle Error
+        if (state.results != null) {
+            searchInput.currentQuery = state.queryString
+            resultsView.showResults(state.results!!)
         }
+
+
         Log.v("APP", "state: $state")
     }
 
@@ -71,8 +69,8 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Scree
             val dependencies = searchActivity.application as Dependencies
             val networkDependencyProvider = dependencies.networkDependencyProvider
             val searchDependencyProvider = SearchDependencyProvider(
-                    networkDependencyProvider,
-                    dependencies.endpoints
+                networkDependencyProvider,
+                dependencies.endpoints
             )
             searchActivity.screenStore = searchDependencyProvider.provideSearchStore()
         }
