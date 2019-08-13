@@ -18,8 +18,8 @@ class SearchMiddlewareTest {
     private val searchMiddleware = SearchMiddleware(backend, Schedulers.trampoline())
 
     private val actions = PublishSubject.create<SearchAction>()
-    private val state = PublishSubject.create<SearchState>()
-    private lateinit var changes: TestObserver<SearchChanges>
+    private val state = PublishSubject.create<ScreenState>()
+    private lateinit var changes: TestObserver<ScreenStateChanges>
 
     @Before
     fun setUp() {
@@ -28,47 +28,47 @@ class SearchMiddlewareTest {
 
     @Test
     fun `GIVEN state with query WHEN query changed THEN query is updated`() {
-        state.onNext(SearchState.Loading(queryString = "iron man"))
+        state.onNext(ScreenState.Loading(queryString = "iron man"))
 
         actions.onNext(SearchAction.ChangeQuery(queryString = "superman"))
 
-        changes.assertValue(SearchChanges.SearchQueryUpdate("superman"))
+        changes.assertValue(ScreenStateChanges.ScreenStateQueryUpdate("superman"))
     }
 
     @Test
     fun `GIVEN state with query WHEN query cleared THEN updated query is empty`() {
-        state.onNext(SearchState.Loading(queryString = "iron man"))
+        state.onNext(ScreenState.Loading(queryString = "iron man"))
 
         actions.onNext(SearchAction.ClearQuery)
 
-        changes.assertValue(SearchChanges.SearchQueryUpdate(""))
+        changes.assertValue(ScreenStateChanges.ScreenStateQueryUpdate(""))
     }
 
     @Test
     fun `GIVEN backend has results WHEN execute search THEN search is in progress AND search is completed`() {
         val searchResults = SearchResults(items = listOf())
-        state.onNext(SearchState.Content(queryString = "iron man", results = ViewSearchResults()))
+        state.onNext(ScreenState.Content(queryString = "iron man", results = ViewSearchResults()))
         backend.stub { on { search("iron man") } doReturn Single.just(searchResults) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            SearchChanges.SearchInProgress,
-            SearchChanges.SearchCompleted(results = searchResults)
+            ScreenStateChanges.ScreenStateInProgress,
+            ScreenStateChanges.ScreenStateCompleted(results = searchResults)
         )
     }
 
     @Test
     fun `GIVEN backend errors WHEN execute search THEN search is in progress AND search failed`() {
         val exception = IllegalStateException("backend is down")
-        state.onNext(SearchState.Content(queryString = "iron man", results = ViewSearchResults()))
+        state.onNext(ScreenState.Content(queryString = "iron man", results = ViewSearchResults()))
         backend.stub { on { search("iron man") } doReturn (Single.error(exception)) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            SearchChanges.SearchInProgress,
-            SearchChanges.SearchFailed(exception)
+            ScreenStateChanges.ScreenStateInProgress,
+            ScreenStateChanges.ScreenStateFailed(exception)
         )
     }
 }

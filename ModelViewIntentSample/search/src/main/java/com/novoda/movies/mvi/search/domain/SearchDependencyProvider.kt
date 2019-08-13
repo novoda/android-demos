@@ -23,12 +23,12 @@ internal class SearchDependencyProvider(
         )
     }
 
-    fun provideSearchStore(): BaseStore<SearchAction, SearchState, SearchChanges> {
+    fun provideSearchStore(): BaseStore<SearchAction, ScreenState, ScreenStateChanges> {
         return BaseStore(
             reducer = SearchReducer(provideSearchResultsConverter()),
             schedulingStrategy = ProductionSchedulingStrategy(),
             middlewares = listOf(SearchMiddleware(provideSearchBackend(), ProductionSchedulingStrategy().work)),
-            initialValue = SearchState.Content(queryString = "", results = ViewSearchResults())
+            initialValue = ScreenState.Content(queryString = "", results = ViewSearchResults())
         )
     }
 

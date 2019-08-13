@@ -8,19 +8,19 @@ import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.MVIView
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.domain.SearchAction
-import com.novoda.movies.mvi.search.domain.SearchChanges
+import com.novoda.movies.mvi.search.domain.ScreenStateChanges
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
-import com.novoda.movies.mvi.search.domain.SearchState
+import com.novoda.movies.mvi.search.domain.ScreenState
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search.*
 
-internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, SearchState> {
+internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, ScreenState> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
-    lateinit var searchStore: BaseStore<SearchAction, SearchState, SearchChanges>
+    lateinit var screenStore: BaseStore<SearchAction, ScreenState, ScreenStateChanges>
 
     override val actions: Observable<SearchAction>
         get() = searchInput.actions
@@ -35,17 +35,17 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
         searchInput = search_input
         resultsView = search_results
 
-        wireDisposable = searchStore.wire()
+        wireDisposable = screenStore.wire()
     }
 
     override fun onStart() {
         super.onStart()
-        bindDisposable = searchStore.bind(this)
+        bindDisposable = screenStore.bind(this)
     }
 
-    override fun render(state: SearchState) {
+    override fun render(state: ScreenState) {
         when (state) {
-            is SearchState.Content -> {
+            is ScreenState.Content -> {
                 searchInput.currentQuery = state.queryString
                 resultsView.showResults(state.results)
             }
@@ -74,7 +74,7 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
                     networkDependencyProvider,
                     dependencies.endpoints
             )
-            searchActivity.searchStore = searchDependencyProvider.provideSearchStore()
+            searchActivity.screenStore = searchDependencyProvider.provideSearchStore()
         }
     }
 }
