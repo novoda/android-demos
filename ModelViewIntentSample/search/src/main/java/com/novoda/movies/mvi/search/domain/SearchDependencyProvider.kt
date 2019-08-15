@@ -28,7 +28,7 @@ internal class SearchDependencyProvider(
             reducer = SearchReducer(provideSearchResultsConverter()),
             schedulingStrategy = ProductionSchedulingStrategy(),
             middlewares = listOf(SearchMiddleware(provideSearchBackend(), ProductionSchedulingStrategy().work)),
-            initialValue = ScreenState(queryString = "", results = ViewSearchResults())
+            initialValue = ScreenState(queryString = "", results = ViewSearchResults.emptyResults)
         )
     }
 

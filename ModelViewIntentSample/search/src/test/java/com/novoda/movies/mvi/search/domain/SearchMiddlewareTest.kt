@@ -28,7 +28,7 @@ class SearchMiddlewareTest {
 
     @Test
     fun `GIVEN state with query WHEN query changed THEN query is updated`() {
-        state.onNext(ScreenState(queryString = "iron man"))
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
 
         actions.onNext(SearchAction.ChangeQuery(queryString = "superman"))
 
@@ -36,40 +36,44 @@ class SearchMiddlewareTest {
     }
 
     @Test
-    fun `GIVEN state with query WHEN query cleared THEN updated query is empty`() {
-        state.onNext(ScreenState(queryString = "iron man"))
+    fun `WHEN query cleared THEN updated query is empty AND results are removed`() {
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
 
         actions.onNext(SearchAction.ClearQuery)
 
-        changes.assertValue(ScreenStateChanges.UpdateSearchQuery(""))
+        changes.assertValues(
+                ScreenStateChanges.UpdateSearchQuery(""),
+                ScreenStateChanges.RemoveResults
+        )
     }
 
     @Test
     fun `GIVEN backend has results WHEN execute search THEN first show progress AND add results AND hide progress`() {
         val searchResults = SearchResults(items = listOf())
-        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults()))
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
         backend.stub { on { search("iron man") } doReturn Single.just(searchResults) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            ScreenStateChanges.ShowProgress,
-            ScreenStateChanges.AddResults(results = searchResults),
-            ScreenStateChanges.HideProgress
+                ScreenStateChanges.ShowProgress,
+                ScreenStateChanges.AddResults(results = searchResults),
+                ScreenStateChanges.HideProgress
         )
     }
 
     @Test
     fun `GIVEN backend errors WHEN execute search THEN search is in progress AND search failed`() {
         val exception = IllegalStateException("backend is down")
-        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults()))
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
         backend.stub { on { search("iron man") } doReturn (Single.error(exception)) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            ScreenStateChanges.ShowProgress,
-            ScreenStateChanges.HandleError(exception)
+                ScreenStateChanges.ShowProgress,
+                ScreenStateChanges.HandleError(exception),
+                ScreenStateChanges.HideProgress
         )
     }
 
