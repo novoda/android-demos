@@ -2,12 +2,7 @@ package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
 import com.novoda.movies.mvi.search.data.SearchBackend
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.AddResults
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.HandleError
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.HideProgress
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.RemoveResults
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.ShowProgress
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.UpdateSearchQuery
+import com.novoda.movies.mvi.search.domain.ScreenStateChanges.*
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
@@ -35,9 +30,9 @@ internal class SearchMiddleware(
             }
 
     private fun processClearQuery(): Observable<ScreenStateChanges> {
-        val updateSearch = Observable.just(UpdateSearchQuery("") as ScreenStateChanges)
+        val updateQuery = Observable.just(UpdateSearchQuery("") as ScreenStateChanges)
         val removeResults = Observable.just(RemoveResults)
-        return updateSearch.concatWith(removeResults)
+        return updateQuery.concatWith(removeResults)
     }
 
     private fun processAction(state: ScreenState): Observable<ScreenStateChanges> {

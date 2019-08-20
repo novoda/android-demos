@@ -43,7 +43,6 @@ private fun ScreenState.showLoading(): ScreenState {
     return copy(loading = true)
 }
 
-
 internal data class ScreenState(
     var queryString: String,
     var loading: Boolean = false,
