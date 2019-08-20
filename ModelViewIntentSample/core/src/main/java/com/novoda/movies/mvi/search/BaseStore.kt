@@ -11,7 +11,7 @@ class BaseStore<A, S, C>(
     private val middlewares: List<Middleware<A, S, C>>,
     private val initialValue: S
 ) : Store<A, S, C> {
-    private val changes = BehaviorSubject.create<C>()
+    private val changes = PublishSubject.create<C>()
     private val state = BehaviorSubject.createDefault(initialValue)
     private val actions: PublishSubject<A> = PublishSubject.create()
 
