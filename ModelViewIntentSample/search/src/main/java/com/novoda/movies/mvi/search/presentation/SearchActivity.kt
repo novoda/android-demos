@@ -44,10 +44,8 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Scree
     }
 
     override fun render(state: ScreenState) {
-        if (state.results != null) {
-            searchInput.currentQuery = state.queryString
-            resultsView.showResults(state.results!!)
-        }
+        searchInput.currentQuery = state.queryString
+        resultsView.showResults(state.results)
 
         Log.v("APP", "state: $state")
     }
