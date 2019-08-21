@@ -1,19 +1,19 @@
 package com.novoda.demo.coroutines.simple
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
 // TODO.
-//  1. Text view with a timer
-//  2. Timer increases value per second
-//  3. Timer increase must be calculated in a background thread
-//  4. Collaborator doing this
-// -> Activity should not know anything about coroutines.
+// 1. On activity start we see a loading on main screen
+// 2. Loading while a 2 seconds background operation completes
+// 3. After completing background operation print "DONE" on screen
+// 4. Move loading / background job to separate components
 
 class MainActivity : AppCompatActivity() {
+
+    private var viewModel: ViewModel = ViewModel { main_text_view.text = it }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,26 +22,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        updateCounter { counter: String ->
-            main_text_view.text = counter
+        viewModel.load()
+    }
+
+}
+
+private class ViewModel(private val callback: (String) -> Unit) {
+    private val uiScope = CoroutineScope(Dispatchers.Main)
+    private val service = Service()
+
+    fun load() {
+        uiScope.launch {
+            callback("LOADING")
+            val job = service.backgroundJobAsync()
+            callback(job.await())
         }
     }
 
-    private fun updateCounter(block: (String) -> Unit) {
-        var counter = 1
-        block(counter.toString())
+}
 
-        GlobalScope.launch(Dispatchers.IO) {
-            while (true) {
-                delay(1000)
-                counter++
-                Log.d("MainActivity", "Loop $counter - Increased in thread: ${Thread.currentThread().name}")
-
-                withContext(Dispatchers.Main) {
-                    block(counter.toString())
-                }
-                Log.d("MainActivity", "Loop $counter finished")
-            }
+private class Service {
+    suspend fun backgroundJobAsync() = withContext(Dispatchers.IO) {
+        async {
+            Thread.sleep(5000)
+            "DONE"
         }
     }
 }
