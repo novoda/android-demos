@@ -7,20 +7,20 @@ import com.novoda.movies.mvi.search.BaseStore
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.MVIView
 import com.novoda.movies.mvi.search.R
+import com.novoda.movies.mvi.search.domain.ScreenState
+import com.novoda.movies.mvi.search.domain.ScreenStateChanges
 import com.novoda.movies.mvi.search.domain.SearchAction
-import com.novoda.movies.mvi.search.domain.SearchChanges
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
-import com.novoda.movies.mvi.search.domain.SearchState
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search.*
 
-internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, SearchState> {
+internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, ScreenState> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
-    lateinit var searchStore: BaseStore<SearchAction, SearchState, SearchChanges>
+    lateinit var screenStore: BaseStore<SearchAction, ScreenState, ScreenStateChanges>
 
     override val actions: Observable<SearchAction>
         get() = searchInput.actions
@@ -35,24 +35,18 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
         searchInput = search_input
         resultsView = search_results
 
-        wireDisposable = searchStore.wire()
+        wireDisposable = screenStore.wire()
     }
 
     override fun onStart() {
         super.onStart()
-        bindDisposable = searchStore.bind(this)
+        bindDisposable = screenStore.bind(this)
     }
 
-    override fun render(state: SearchState) {
-        when (state) {
-            is SearchState.Content -> {
-                searchInput.currentQuery = state.queryString
-                resultsView.showResults(state.results)
-            }
+    override fun render(state: ScreenState) {
+        searchInput.currentQuery = state.queryString
+        resultsView.showResults(state.results)
 
-            //TODO: Handle Loading
-            //TODO: Handle Error
-        }
         Log.v("APP", "state: $state")
     }
 
@@ -71,10 +65,10 @@ internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, Searc
             val dependencies = searchActivity.application as Dependencies
             val networkDependencyProvider = dependencies.networkDependencyProvider
             val searchDependencyProvider = SearchDependencyProvider(
-                    networkDependencyProvider,
-                    dependencies.endpoints
+                networkDependencyProvider,
+                dependencies.endpoints
             )
-            searchActivity.searchStore = searchDependencyProvider.provideSearchStore()
+            searchActivity.screenStore = searchDependencyProvider.provideSearchStore()
         }
     }
 }
