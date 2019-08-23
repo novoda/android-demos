@@ -19,8 +19,8 @@ class SearchMiddlewareTest {
     private val searchMiddleware = SearchMiddleware(dataSource, Schedulers.trampoline())
 
     private val actions = PublishSubject.create<SearchAction>()
-    private val state = PublishSubject.create<SearchState>()
-    private lateinit var changes: TestObserver<SearchChanges>
+    private val state = PublishSubject.create<ScreenState>()
+    private lateinit var changes: TestObserver<ScreenStateChanges>
 
     @Before
     fun setUp() {
@@ -29,47 +29,53 @@ class SearchMiddlewareTest {
 
     @Test
     fun `GIVEN state with query WHEN query changed THEN query is updated`() {
-        state.onNext(SearchState.Loading(queryString = "iron man"))
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
 
         actions.onNext(SearchAction.ChangeQuery(queryString = "superman"))
 
-        changes.assertValue(SearchChanges.SearchQueryUpdate("superman"))
+        changes.assertValue(ScreenStateChanges.UpdateSearchQuery("superman"))
     }
 
     @Test
-    fun `GIVEN state with query WHEN query cleared THEN updated query is empty`() {
-        state.onNext(SearchState.Loading(queryString = "iron man"))
+    fun `WHEN query cleared THEN updated query is empty AND results are removed`() {
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
 
         actions.onNext(SearchAction.ClearQuery)
 
-        changes.assertValue(SearchChanges.SearchQueryUpdate(""))
+        changes.assertValues(
+                ScreenStateChanges.UpdateSearchQuery(""),
+                ScreenStateChanges.RemoveResults
+        )
     }
 
     @Test
     fun `GIVEN dataSource has results WHEN execute search THEN search is in progress AND search is completed`() {
         val searchResults = SearchResults(items = listOf())
-        state.onNext(SearchState.Content(queryString = "iron man", results = ViewSearchResults()))
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
         dataSource.stub { on { search("iron man") } doReturn Single.just(searchResults) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            SearchChanges.SearchInProgress,
-            SearchChanges.SearchCompleted(results = searchResults)
+                ScreenStateChanges.ShowProgress,
+                ScreenStateChanges.AddResults(results = searchResults),
+                ScreenStateChanges.HideProgress
         )
     }
 
     @Test
     fun `GIVEN dataSource errors WHEN execute search THEN search is in progress AND search failed`() {
         val exception = Throwable()
-        state.onNext(SearchState.Content(queryString = "iron man", results = ViewSearchResults()))
+        state.onNext(ScreenState(queryString = "iron man", results = ViewSearchResults.emptyResults))
         dataSource.stub { on { search("iron man") } doReturn (Single.error(exception)) }
 
         actions.onNext(SearchAction.ExecuteSearch)
 
         changes.assertValues(
-            SearchChanges.SearchInProgress,
-            SearchChanges.SearchFailed(exception)
+                ScreenStateChanges.ShowProgress,
+                ScreenStateChanges.HandleError(exception),
+                ScreenStateChanges.HideProgress
         )
     }
+
 }

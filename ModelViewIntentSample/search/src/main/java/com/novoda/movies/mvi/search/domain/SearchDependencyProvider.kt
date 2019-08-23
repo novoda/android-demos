@@ -30,7 +30,7 @@ internal class SearchDependencyProvider(
             reducer = SearchReducer(provideSearchResultsConverter()),
             schedulingStrategy = ProductionSchedulingStrategy(),
             middlewares = listOf(SearchMiddleware(provideMovieDataSource(), ProductionSchedulingStrategy().work)),
-            initialValue = SearchState.Content(queryString = "", results = ViewSearchResults())
+            initialValue = ScreenState(queryString = "", results = ViewSearchResults.emptyResults)
         )
     }
 

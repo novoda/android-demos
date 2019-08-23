@@ -6,22 +6,21 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
-import android.view.View.*
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.ViewRender
+import com.novoda.movies.mvi.search.domain.ScreenState
 import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
-import com.novoda.movies.mvi.search.domain.SearchState
-import com.novoda.movies.mvi.search.domain.SearchState.*
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(),
         ActionProvider<SearchAction>,
-        ViewRender<SearchState> {
+        ViewRender<ScreenState> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
@@ -47,18 +46,14 @@ internal class SearchActivity : AppCompatActivity(),
         viewModel.bind(this, this)
     }
 
-    override fun render(state: SearchState) {
-        when (state) {
-            is Content -> {
-                if (searchInput.currentQuery != state.queryString) {
-                    searchInput.currentQuery = state.queryString
-                }
-                resultsView.showResults(state.results)
-            }
-        }
+    override fun render(state: ScreenState) {
+        searchInput.currentQuery = state.queryString
+        resultsView.showResults(state.results)
+        error_view.visibility = if (state.error != null) VISIBLE else INVISIBLE
+        loading_spinner.visibility = if (state.loading) VISIBLE else INVISIBLE
 
-        error_view.visibility = if (state is Error) VISIBLE else INVISIBLE
-        loading_spinner.visibility = if (state is Loading) VISIBLE else INVISIBLE
+
+        Log.v("APP_STATE", "state: $state")
     }
 
     override fun onStop() {
