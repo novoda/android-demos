@@ -17,6 +17,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/second_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World - Secondary!"
+        android:textSize="40sp"
+        app:layout_constraintTop_toBottomOf="@+id/main_text_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/check_box" />
+
     <CheckBox
         android:id="@+id/check_box"
         android:layout_width="wrap_content"
@@ -24,7 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_text_view"
+        app:layout_constraintBottom_toTopOf="@+id/second_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
