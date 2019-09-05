@@ -1,7 +1,6 @@
 package com.novoda.movies.mvi.search.presentation
 
 import android.arch.lifecycle.ViewModel
-import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.BaseStore
 import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.domain.ScreenState
@@ -20,8 +19,8 @@ internal class SearchViewModel(private val store: SearchStore) : ViewModel() {
         wireDisposable = store.wire()
     }
 
-    fun bind(actionProvider: ActionProvider<SearchAction>, displayer: Displayer<ScreenState>) {
-        bindDisposable = store.bind(actionProvider = actionProvider, displayer = displayer)
+    fun bind(displayer: Displayer<SearchAction, ScreenState>) {
+        bindDisposable = store.bind(displayer = displayer)
     }
 
     override fun onCleared() {

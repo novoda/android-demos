@@ -3,11 +3,8 @@ package com.novoda.movies.mvi.search
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 
-interface ActionProvider<A> {
+interface Displayer<A, S> {
     val actions: Observable<A>
-}
-
-interface Displayer<S> {
     fun render(state: S)
 }
 
@@ -21,5 +18,5 @@ interface Middleware<A, S, C> {
 
 interface Store<A, S, C> {
     fun wire(): Disposable
-    fun bind(actionProvider: ActionProvider<A>, displayer: Displayer<S>): Disposable
+    fun bind(displayer: Displayer<A, S>): Disposable
 }

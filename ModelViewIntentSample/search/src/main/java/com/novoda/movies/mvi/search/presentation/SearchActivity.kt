@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.R
@@ -19,8 +18,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(),
-        ActionProvider<SearchAction>,
-        Displayer<ScreenState> {
+        Displayer<SearchAction, ScreenState> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
@@ -41,7 +39,7 @@ internal class SearchActivity : AppCompatActivity(),
 
     override fun onStart() {
         super.onStart()
-        viewModel.bind(this, this)
+        viewModel.bind(this)
     }
 
     override fun render(state: ScreenState) {
