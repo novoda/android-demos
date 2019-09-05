@@ -26,5 +26,3 @@ internal class SearchViewModel(private val store: SearchStore) : ViewModel() {
 
     fun unbind() = bindDisposable?.dispose()
 }
-
-
