@@ -11,21 +11,20 @@ import android.view.View.VISIBLE
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.R
-import com.novoda.movies.mvi.search.domain.ScreenState
-import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
+import com.novoda.movies.mvi.search.presentation.SearchActivity.State
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(),
-        Displayer<SearchAction, ScreenState> {
+        Displayer<SearchActivity.Action, State> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
     private lateinit var viewModel: SearchViewModel
 
-    override val actions: Observable<SearchAction>
+    override val actions: Observable<Action>
         get() = searchInput.actions
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +41,7 @@ internal class SearchActivity : AppCompatActivity(),
         viewModel.bind(this)
     }
 
-    override fun render(state: ScreenState) {
+    override fun render(state: State) {
         searchInput.currentQuery = state.queryString
         resultsView.showResults(state.results)
         error_view.visibility = if (state.error != null) VISIBLE else INVISIBLE
@@ -55,6 +54,19 @@ internal class SearchActivity : AppCompatActivity(),
     override fun onStop() {
         viewModel.unbind()
         super.onStop()
+    }
+
+    internal data class State(
+            var queryString: String,
+            var loading: Boolean = false,
+            var results: ViewSearchResults,
+            var error: Throwable? = null
+    )
+
+    internal sealed class Action {
+        data class ChangeQuery(val queryString: String) : Action()
+        object ExecuteSearch : Action()
+        object ClearQuery : Action()
     }
 }
 

@@ -8,6 +8,7 @@ import com.novoda.movies.mvi.search.data.ApiSearchResultsConverter
 import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.data.SearchApi
 import com.novoda.movies.mvi.search.data.SearchBackend
+import com.novoda.movies.mvi.search.presentation.SearchActivity.State
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
 import com.novoda.movies.mvi.search.presentation.SearchStore
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
@@ -27,10 +28,10 @@ internal class SearchDependencyProvider(
 
     fun provideSearchStore(): SearchStore {
         return BaseStore(
-            reducer = SearchReducer(provideSearchResultsConverter()),
-            schedulingStrategy = ProductionSchedulingStrategy(),
-            middlewares = listOf(SearchMiddleware(provideMovieDataSource(), ProductionSchedulingStrategy().work)),
-            initialValue = ScreenState(queryString = "", results = ViewSearchResults.emptyResults)
+                reducer = SearchReducer(provideSearchResultsConverter()),
+                schedulingStrategy = ProductionSchedulingStrategy(),
+                middlewares = listOf(SearchMiddleware(provideMovieDataSource(), ProductionSchedulingStrategy().work)),
+                initialValue = State(queryString = "", results = ViewSearchResults.emptyResults)
         )
     }
 

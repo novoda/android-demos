@@ -2,7 +2,10 @@ package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
 import com.novoda.movies.mvi.search.data.MovieDataSource
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges.*
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
+import com.novoda.movies.mvi.search.presentation.SearchActivity.Action
+import com.novoda.movies.mvi.search.presentation.SearchActivity.State
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
@@ -11,34 +14,34 @@ import io.reactivex.functions.BiFunction
 internal class SearchMiddleware(
         private val dataSource: MovieDataSource,
         private val workScheduler: Scheduler
-) : Middleware<SearchAction, ScreenState, ScreenStateChanges> {
+) : Middleware<Action, State, Changes> {
 
-    override fun bind(actions: Observable<SearchAction>, state: Observable<ScreenState>): Observable<ScreenStateChanges> {
+    override fun bind(actions: Observable<Action>, state: Observable<State>): Observable<Changes> {
         return actions
                 .withLatestFrom(state, actionToState())
                 .switchMap { (action, state) -> handle(action, state) }
     }
 
-    private fun actionToState(): BiFunction<SearchAction, ScreenState, Pair<SearchAction, ScreenState>> =
+    private fun actionToState(): BiFunction<Action, State, Pair<Action, State>> =
             BiFunction { action, state -> action to state }
 
-    private fun handle(action: SearchAction, state: ScreenState): Observable<ScreenStateChanges> =
+    private fun handle(action: Action, state: State): Observable<Changes> =
             when (action) {
-                is SearchAction.ChangeQuery -> Observable.just(UpdateSearchQuery(action.queryString))
-                is SearchAction.ExecuteSearch -> processAction(state)
-                is SearchAction.ClearQuery -> processClearQuery()
+                is Action.ChangeQuery -> Observable.just(UpdateSearchQuery(action.queryString))
+                is Action.ExecuteSearch -> processAction(state)
+                is Action.ClearQuery -> processClearQuery()
             }
 
-    private fun processClearQuery(): Observable<ScreenStateChanges> {
-        val updateQuery = Observable.just(UpdateSearchQuery("") as ScreenStateChanges)
+    private fun processClearQuery(): Observable<Changes> {
+        val updateQuery = Observable.just(UpdateSearchQuery("") as Changes)
         val removeResults = Observable.just(RemoveResults)
         return updateQuery.concatWith(removeResults)
     }
 
-    private fun processAction(state: ScreenState): Observable<ScreenStateChanges> {
+    private fun processAction(state: State): Observable<Changes> {
         val loadContent = dataSource.search(state.queryString)
                 .toObservable()
-                .map { searchResult -> AddResults(searchResult) as ScreenStateChanges }
+                .map { searchResult -> AddResults(searchResult) as Changes }
                 .startWith(ShowProgress)
                 .onErrorReturn { throwable -> HandleError(throwable) }
         val hideProgress = Observable.just(HideProgress)
@@ -48,11 +51,4 @@ internal class SearchMiddleware(
                 .subscribeOn(workScheduler)
     }
 }
-
-internal sealed class SearchAction {
-    data class ChangeQuery(val queryString: String) : SearchAction()
-    object ExecuteSearch : SearchAction()
-    object ClearQuery : SearchAction()
-}
-
 
