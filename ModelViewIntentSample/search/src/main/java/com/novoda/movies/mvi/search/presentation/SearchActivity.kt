@@ -11,7 +11,7 @@ import android.view.View.VISIBLE
 import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.R
-import com.novoda.movies.mvi.search.ViewRender
+import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.domain.ScreenState
 import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(),
         ActionProvider<SearchAction>,
-        ViewRender<ScreenState> {
+        Displayer<ScreenState> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView

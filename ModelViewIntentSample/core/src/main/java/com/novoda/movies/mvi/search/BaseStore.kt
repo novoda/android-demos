@@ -40,7 +40,7 @@ class BaseStore<A, S, C>(
         return disposables
     }
 
-    override fun bind(actionProvider: ActionProvider<A>, viewRender: ViewRender<S>): Disposable {
+    override fun bind(actionProvider: ActionProvider<A>, displayer: Displayer<S>): Disposable {
         val disposables = CompositeDisposable()
 
         disposables.add(actionProvider.actions.subscribe(actions::onNext))
@@ -48,7 +48,7 @@ class BaseStore<A, S, C>(
         disposables.add(
             state
                 .observeOn(schedulingStrategy.ui)
-                .subscribe(viewRender::render)
+                .subscribe(displayer::render)
         )
 
         return disposables
