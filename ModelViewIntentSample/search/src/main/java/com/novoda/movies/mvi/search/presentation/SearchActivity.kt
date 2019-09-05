@@ -10,8 +10,8 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import com.novoda.movies.mvi.search.ActionProvider
 import com.novoda.movies.mvi.search.Dependencies
-import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.Displayer
+import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.domain.ScreenState
 import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
@@ -37,8 +37,6 @@ internal class SearchActivity : AppCompatActivity(),
         setContentView(R.layout.activity_search)
         searchInput = search_input
         resultsView = search_results
-
-        viewModel.wire()
     }
 
     override fun onStart() {
@@ -59,11 +57,6 @@ internal class SearchActivity : AppCompatActivity(),
     override fun onStop() {
         viewModel.unbind()
         super.onStop()
-    }
-
-    override fun onDestroy() {
-        viewModel.unwire()
-        super.onDestroy()
     }
 }
 
