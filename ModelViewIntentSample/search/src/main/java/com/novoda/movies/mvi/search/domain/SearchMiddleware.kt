@@ -5,6 +5,7 @@ import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
 import com.novoda.movies.mvi.search.presentation.SearchActivity.Action
+import com.novoda.movies.mvi.search.presentation.SearchActivity.Action.*
 import com.novoda.movies.mvi.search.presentation.SearchActivity.State
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -27,9 +28,9 @@ internal class SearchMiddleware(
 
     private fun handle(action: Action, state: State): Observable<Changes> =
             when (action) {
-                is Action.ChangeQuery -> Observable.just(UpdateSearchQuery(action.queryString))
-                is Action.ExecuteSearch -> processAction(state)
-                is Action.ClearQuery -> processClearQuery()
+                is ChangeQuery -> Observable.just(UpdateSearchQuery(action.queryString))
+                is ExecuteSearch -> processAction(state)
+                is ClearQuery -> processClearQuery()
             }
 
     private fun processClearQuery(): Observable<Changes> {
