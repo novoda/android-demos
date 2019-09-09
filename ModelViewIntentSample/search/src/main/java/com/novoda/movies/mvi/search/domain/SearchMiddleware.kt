@@ -1,7 +1,7 @@
 package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Middleware
-import com.novoda.movies.mvi.search.data.MovieDataSource
+import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
 import com.novoda.movies.mvi.search.presentation.SearchViewModel
@@ -12,7 +12,7 @@ import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
 
 internal class SearchMiddleware(
-        private val dataSource: MovieDataSource,
+        private val dataSource: SearchBackend,
         private val workScheduler: Scheduler
 ) : Middleware<SearchViewModel.Action, State, Changes> {
 

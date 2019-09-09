@@ -3,7 +3,7 @@ package com.novoda.movies.mvi.search.domain
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.stub
-import com.novoda.movies.mvi.search.data.MovieDataSource
+import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
@@ -17,7 +17,7 @@ import org.junit.Test
 
 class SearchMiddlewareTest {
 
-    private val dataSource: MovieDataSource = mock()
+    private val dataSource: SearchBackend = mock()
     private val searchMiddleware = SearchMiddleware(dataSource, Schedulers.trampoline())
 
     private val actions = PublishSubject.create<Action>()

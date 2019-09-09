@@ -5,7 +5,6 @@ import com.novoda.movies.mvi.search.Endpoints
 import com.novoda.movies.mvi.search.NetworkDependencyProvider
 import com.novoda.movies.mvi.search.ProductionSchedulingStrategy
 import com.novoda.movies.mvi.search.data.ApiSearchResultsConverter
-import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.data.SearchApi
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
@@ -18,7 +17,7 @@ internal class SearchDependencyProvider(
         private val endpoints: Endpoints
 ) {
 
-    private fun provideMovieDataSource(): MovieDataSource {
+    private fun provideSearchBackend(): SearchBackend {
         val searchApi = networkDependencyProvider.provideRetrofit().create(SearchApi::class.java)
         return SearchBackend(
                 searchApi,
@@ -30,7 +29,7 @@ internal class SearchDependencyProvider(
         return BaseStore(
                 reducer = SearchReducer(provideSearchResultsConverter()),
                 schedulingStrategy = ProductionSchedulingStrategy(),
-                middlewares = listOf(SearchMiddleware(provideMovieDataSource(), ProductionSchedulingStrategy().work)),
+                middlewares = listOf(SearchMiddleware(provideSearchBackend(), ProductionSchedulingStrategy().work)),
                 initialValue = State(queryString = "", results = ViewSearchResults.emptyResults)
         )
     }
