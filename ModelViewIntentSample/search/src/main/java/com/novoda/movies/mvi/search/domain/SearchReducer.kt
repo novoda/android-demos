@@ -2,8 +2,8 @@ package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Reducer
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
-import com.novoda.movies.mvi.search.presentation.SearchActivity.State
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 
 internal class SearchReducer(

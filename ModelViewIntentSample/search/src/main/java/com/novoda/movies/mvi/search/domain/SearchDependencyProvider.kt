@@ -8,9 +8,9 @@ import com.novoda.movies.mvi.search.data.ApiSearchResultsConverter
 import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.data.SearchApi
 import com.novoda.movies.mvi.search.data.SearchBackend
-import com.novoda.movies.mvi.search.presentation.SearchActivity.State
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
 import com.novoda.movies.mvi.search.presentation.SearchStore
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
 
 internal class SearchDependencyProvider(

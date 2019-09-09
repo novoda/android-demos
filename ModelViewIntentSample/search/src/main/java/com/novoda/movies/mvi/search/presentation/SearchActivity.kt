@@ -12,12 +12,13 @@ import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
-import com.novoda.movies.mvi.search.presentation.SearchActivity.State
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search.*
 
 internal class SearchActivity : AppCompatActivity(),
-        Displayer<SearchActivity.Action, State> {
+        Displayer<Action, State> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
@@ -54,19 +55,6 @@ internal class SearchActivity : AppCompatActivity(),
     override fun onStop() {
         viewModel.unbind()
         super.onStop()
-    }
-
-    internal data class State(
-            var queryString: String,
-            var loading: Boolean = false,
-            var results: ViewSearchResults,
-            var error: Throwable? = null
-    )
-
-    internal sealed class Action {
-        data class ChangeQuery(val queryString: String) : Action()
-        object ExecuteSearch : Action()
-        object ClearQuery : Action()
     }
 }
 

@@ -4,29 +4,28 @@ import com.novoda.movies.mvi.search.Middleware
 import com.novoda.movies.mvi.search.data.MovieDataSource
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
-import com.novoda.movies.mvi.search.presentation.SearchActivity.Action
-import com.novoda.movies.mvi.search.presentation.SearchActivity.Action.*
-import com.novoda.movies.mvi.search.presentation.SearchActivity.State
+import com.novoda.movies.mvi.search.presentation.SearchViewModel
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.*
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
 
-
 internal class SearchMiddleware(
         private val dataSource: MovieDataSource,
         private val workScheduler: Scheduler
-) : Middleware<Action, State, Changes> {
+) : Middleware<SearchViewModel.Action, State, Changes> {
 
-    override fun bind(actions: Observable<Action>, state: Observable<State>): Observable<Changes> {
+    override fun bind(actions: Observable<SearchViewModel.Action>, state: Observable<State>): Observable<Changes> {
         return actions
                 .withLatestFrom(state, actionToState())
                 .switchMap { (action, state) -> handle(action, state) }
     }
 
-    private fun actionToState(): BiFunction<Action, State, Pair<Action, State>> =
+    private fun actionToState(): BiFunction<SearchViewModel.Action, State, Pair<SearchViewModel.Action, State>> =
             BiFunction { action, state -> action to state }
 
-    private fun handle(action: Action, state: State): Observable<Changes> =
+    private fun handle(action: SearchViewModel.Action, state: State): Observable<Changes> =
             when (action) {
                 is ChangeQuery -> Observable.just(UpdateSearchQuery(action.queryString))
                 is ExecuteSearch -> processAction(state)
