@@ -12,7 +12,7 @@ import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
 
 internal class SearchMiddleware(
-        private val dataSource: SearchBackend,
+        private val backend: SearchBackend,
         private val workScheduler: Scheduler
 ) : Middleware<SearchViewModel.Action, State, Changes> {
 
@@ -39,7 +39,7 @@ internal class SearchMiddleware(
     }
 
     private fun processAction(state: State): Observable<Changes> {
-        val loadContent = dataSource.search(state.queryString)
+        val loadContent = backend.search(state.queryString)
                 .toObservable()
                 .map { searchResult -> AddResults(searchResult) as Changes }
                 .startWith(ShowProgress)

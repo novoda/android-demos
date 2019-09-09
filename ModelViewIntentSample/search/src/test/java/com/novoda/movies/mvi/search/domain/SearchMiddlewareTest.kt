@@ -17,8 +17,8 @@ import org.junit.Test
 
 class SearchMiddlewareTest {
 
-    private val dataSource: SearchBackend = mock()
-    private val searchMiddleware = SearchMiddleware(dataSource, Schedulers.trampoline())
+    private val backend: SearchBackend = mock()
+    private val searchMiddleware = SearchMiddleware(backend, Schedulers.trampoline())
 
     private val actions = PublishSubject.create<Action>()
     private val state = PublishSubject.create<State>()
@@ -54,7 +54,7 @@ class SearchMiddlewareTest {
     fun `GIVEN dataSource has results WHEN execute search THEN search is in progress AND search is completed`() {
         val searchResults = SearchResults(items = listOf())
         state.onNext(State(queryString = "iron man", results = ViewSearchResults.emptyResults))
-        dataSource.stub { on { search("iron man") } doReturn Single.just(searchResults) }
+        backend.stub { on { search("iron man") } doReturn Single.just(searchResults) }
 
         actions.onNext(Action.ExecuteSearch)
 
@@ -69,7 +69,7 @@ class SearchMiddlewareTest {
     fun `GIVEN dataSource errors WHEN execute search THEN search is in progress AND search failed`() {
         val exception = Throwable()
         state.onNext(State(queryString = "iron man", results = ViewSearchResults.emptyResults))
-        dataSource.stub { on { search("iron man") } doReturn (Single.error(exception)) }
+        backend.stub { on { search("iron man") } doReturn (Single.error(exception)) }
 
         actions.onNext(Action.ExecuteSearch)
 
