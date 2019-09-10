@@ -1,13 +1,13 @@
 package com.novoda.movies.mvi.search.presentation
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.novoda.movies.mvi.search.Dependencies
 import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.R

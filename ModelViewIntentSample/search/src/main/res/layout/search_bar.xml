@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:parentTag="android.support.constraint.ConstraintLayout"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     >
 
     <EditText

@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -28,7 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libraries.kotlin.stdLib
     implementation libraries.kotlin.reflect
-    implementation libraries.support.appCompat
+    implementation libraries.androidx.appCompat
     implementation libraries.rxJava
     implementation libraries.rxAndroid
     implementation libraries.okHttp.client

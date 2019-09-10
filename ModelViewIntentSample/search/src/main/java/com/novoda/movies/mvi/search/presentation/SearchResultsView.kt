@@ -1,13 +1,13 @@
 package com.novoda.movies.mvi.search.presentation
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.novoda.movies.mvi.search.R
 import kotlinx.android.synthetic.main.search_results_view.view.*
 

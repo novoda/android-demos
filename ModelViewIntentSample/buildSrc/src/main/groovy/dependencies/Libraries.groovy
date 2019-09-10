@@ -2,12 +2,13 @@ package dependencies
 
 final class Libraries {
 
-    final Support support = new Support()
+    final AndroidX androidx = new AndroidX()
     final Test test = new Test()
     final Kotlin kotlin = new Kotlin()
     final Retrofit retrofit = new Retrofit()
     final Glide glide = new Glide()
     final OkHttp okHttp = new OkHttp()
+    final Lifecycle lifecycle = new Lifecycle()
     final String moshi = 'com.squareup.moshi:moshi:1.8.0'
     final String rxJava = 'io.reactivex.rxjava2:rxjava:2.2.9'
     final String rxAndroid = 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -36,16 +37,18 @@ final class Libraries {
         final String moshiConverter = "com.squareup.retrofit2:converter-moshi:${version}"
     }
 
-    static final class Support {
+    static final class AndroidX {
 
-        private final String version = '28.0.0'
-        final String v4 = "com.android.support:support-v4:${version}"
-        final String design = "com.android.support:design:${version}"
-        final String appCompat = "com.android.support:appcompat-v7:${version}"
-        final String recyclerview = "com.android.support:recyclerview-v7:${version}"
-        final String constraintLayout = 'com.android.support.constraint:constraint-layout:1.1.3'
+        final String appCompat = "androidx.appcompat:appcompat:1.1.0"
+        final String recyclerview = "androidx.recyclerview:recyclerview:1.0.0"
+        final String constraintLayout = 'androidx.constraintlayout:constraintlayout:1.1.3'
     }
 
+    static final class Lifecycle {
+        private final String version = '2.1.0'
+
+        final String extensions = "androidx.lifecycle:lifecycle-extensions:${version}"
+    }
 
     static final class Test {
 

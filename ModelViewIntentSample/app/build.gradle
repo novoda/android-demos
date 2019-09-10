@@ -33,7 +33,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigString 'API_KEY', buildProperties.secrets['api_key']
         buildConfigString 'BASE_URL', buildProperties.secrets['base_url']
@@ -55,8 +55,8 @@ dependencies {
 
     implementation libraries.kotlin.stdLib
     implementation libraries.kotlin.reflect
-    implementation libraries.support.appCompat
-    implementation libraries.support.constraintLayout
+    implementation libraries.androidx.appCompat
+    implementation libraries.androidx.constraintLayout
 
     testImplementation libraries.test.junit
 }

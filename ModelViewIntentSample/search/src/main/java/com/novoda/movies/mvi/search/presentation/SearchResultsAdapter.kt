@@ -1,7 +1,7 @@
 package com.novoda.movies.mvi.search.presentation
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 internal class SearchResultsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

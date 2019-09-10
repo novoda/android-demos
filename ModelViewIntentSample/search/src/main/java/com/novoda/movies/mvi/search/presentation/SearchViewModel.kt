@@ -1,6 +1,6 @@
 package com.novoda.movies.mvi.search.presentation
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.novoda.movies.mvi.search.BaseStore
 import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.domain.SearchReducer

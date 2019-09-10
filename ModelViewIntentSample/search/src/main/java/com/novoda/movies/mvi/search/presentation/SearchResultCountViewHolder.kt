@@ -1,11 +1,11 @@
 package com.novoda.movies.mvi.search.presentation
 
 import android.content.Context
-import android.support.annotation.PluralsRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.PluralsRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.novoda.movies.mvi.search.R
 
 internal class SearchResultCountViewHolder(

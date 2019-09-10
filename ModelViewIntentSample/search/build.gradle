@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -30,9 +30,10 @@ dependencies {
 
     implementation libraries.kotlin.stdLib
     implementation libraries.kotlin.reflect
-    implementation libraries.support.appCompat
-    implementation libraries.support.constraintLayout
-    implementation libraries.support.recyclerview
+    implementation libraries.androidx.appCompat
+    implementation libraries.androidx.constraintLayout
+    implementation libraries.androidx.recyclerview
+    implementation libraries.lifecycle.extensions
     implementation libraries.rxJava
     implementation libraries.rxAndroid
     implementation libraries.okHttp.client
@@ -48,5 +49,4 @@ dependencies {
     testImplementation libraries.test.mockitoKotlin
     testImplementation libraries.test.mockitoInline
     testImplementation libraries.test.assertj
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
 }

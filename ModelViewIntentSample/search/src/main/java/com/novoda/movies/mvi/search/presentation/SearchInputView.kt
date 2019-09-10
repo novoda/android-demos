@@ -1,7 +1,6 @@
 package com.novoda.movies.mvi.search.presentation
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -14,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.*
