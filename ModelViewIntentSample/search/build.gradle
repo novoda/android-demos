@@ -34,6 +34,7 @@ dependencies {
     implementation libraries.androidx.constraintLayout
     implementation libraries.androidx.recyclerview
     implementation libraries.lifecycle.extensions
+    implementation libraries.lifecycle.reactiveStreams
     implementation libraries.rxJava
     implementation libraries.rxAndroid
     implementation libraries.okHttp.client

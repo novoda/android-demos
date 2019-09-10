@@ -48,6 +48,7 @@ final class Libraries {
         private final String version = '2.1.0'
 
         final String extensions = "androidx.lifecycle:lifecycle-extensions:${version}"
+        final String reactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams:${version}"
     }
 
     static final class Test {
