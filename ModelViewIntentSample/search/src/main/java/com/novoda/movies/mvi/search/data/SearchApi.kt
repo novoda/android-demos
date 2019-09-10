@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.api
+package com.novoda.movies.mvi.search.data
 
 import io.reactivex.Single
 import retrofit2.http.GET

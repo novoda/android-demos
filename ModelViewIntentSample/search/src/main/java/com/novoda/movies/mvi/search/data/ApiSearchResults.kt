@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.api
+package com.novoda.movies.mvi.search.data
 
 
 internal data class ApiSearchResults(

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Search</string>
     <string name="search_no_results_description">No Results found for \"%s\"</string>
+    <string name="movies_error">There was an error fetching the movies</string>
 </resources>

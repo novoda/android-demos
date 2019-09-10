@@ -1,8 +1,8 @@
-package com.novoda.movies.mvi.search.api
+package com.novoda.movies.mvi.search.data
 
 import com.novoda.movies.mvi.search.Endpoints
-import com.novoda.movies.mvi.search.SearchResultItem
-import com.novoda.movies.mvi.search.SearchResults
+import com.novoda.movies.mvi.search.domain.SearchResultItem
+import com.novoda.movies.mvi.search.domain.SearchResults
 import java.net.URL
 
 internal class ApiSearchResultsConverter(
@@ -12,7 +12,6 @@ internal class ApiSearchResultsConverter(
     fun convert(apiSearchResults: ApiSearchResults): SearchResults {
         return apiSearchResults.toSearchResults()
     }
-
 
     private fun ApiSearchResults.toSearchResults(): SearchResults {
         return SearchResults(

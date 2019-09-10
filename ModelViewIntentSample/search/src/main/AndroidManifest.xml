@@ -9,8 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity"
-                  android:screenOrientation="portrait"/>
+        <activity android:name=".presentation.SearchActivity" />
     </application>
 
 </manifest>

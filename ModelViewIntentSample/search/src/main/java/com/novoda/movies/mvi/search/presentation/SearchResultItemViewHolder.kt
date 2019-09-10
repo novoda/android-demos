@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.view
+package com.novoda.movies.mvi.search.presentation
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable

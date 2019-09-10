@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.view
+package com.novoda.movies.mvi.search.presentation
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -15,29 +15,34 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import com.novoda.movies.mvi.search.R
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.*
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.search_bar.view.*
 
 internal class SearchInputView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), SearchInputViewable {
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private lateinit var searchInput: EditText
     private lateinit var clearTextButton: View
 
-    override var currentQuery: String
+    private val actionStream: PublishSubject<Action> = PublishSubject.create()
+
+    var currentQuery: String
         get() = searchInput.text.toString()
         set(text) {
             searchInput.fillWith(text)
             searchInput.setSelection(text.length)
         }
 
-    override var onQuerySubmitted: () -> Unit = {}
-    override var onQueryChanged: (query: String) -> Unit = {}
-    override var onQueryCleared: () -> Unit = {}
+    val actions: Observable<Action>
+        get() = actionStream
 
-    override fun showKeyboard() {
+    private fun showKeyboard() {
         searchInput.showKeyboard()
     }
 
@@ -52,12 +57,11 @@ internal class SearchInputView @JvmOverloads constructor(
         clearTextButton.setOnClickListener { clearText() }
     }
 
-
     private fun setupSearchInput() {
         searchInput.isSaveEnabled = false
         searchInput.setOnEditorActionListener { inputView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || enterKeyPressed(keyEvent)) {
-                onQuerySubmitted()
+                actionStream.onNext(ExecuteSearch)
                 inputView.hideKeyboard()
                 inputView.clearFocus()
                 return@setOnEditorActionListener true
@@ -69,7 +73,7 @@ internal class SearchInputView @JvmOverloads constructor(
     }
 
     private fun clearText() {
-        searchInput.text.clear()
+        actionStream.onNext(ClearQuery)
     }
 
     private fun enterKeyPressed(keyEvent: KeyEvent?): Boolean {
@@ -79,9 +83,9 @@ internal class SearchInputView @JvmOverloads constructor(
     }
 
     private val textChangedListener = object :
-        AfterTextChangedWatcher {
+            AfterTextChangedWatcher {
         override fun afterTextChanged(text: Editable) {
-            onQueryChanged(text.toString())
+            actionStream.onNext(ChangeQuery(text.toString()))
 
             val showClear = text.isNotEmpty()
             clearTextButton.visibility = if (showClear) View.VISIBLE else View.GONE

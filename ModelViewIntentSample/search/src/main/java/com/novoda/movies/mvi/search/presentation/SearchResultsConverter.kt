@@ -1,7 +1,7 @@
-package com.novoda.movies.mvi.search.view
+package com.novoda.movies.mvi.search.presentation
 
-import com.novoda.movies.mvi.search.SearchResultItem
-import com.novoda.movies.mvi.search.SearchResults
+import com.novoda.movies.mvi.search.domain.SearchResultItem
+import com.novoda.movies.mvi.search.domain.SearchResults
 
 internal open class SearchResultsConverter {
 

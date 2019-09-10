@@ -48,4 +48,5 @@ dependencies {
     testImplementation libraries.test.mockitoKotlin
     testImplementation libraries.test.mockitoInline
     testImplementation libraries.test.assertj
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
 }

@@ -1,4 +1,4 @@
-package com.novoda.movies.mvi.search.view
+package com.novoda.movies.mvi.search.presentation
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -15,7 +15,7 @@ internal class SearchResultsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), SearchResultsViewable {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private lateinit var resultList: RecyclerView
     private lateinit var noResultsView: View
@@ -38,16 +38,16 @@ internal class SearchResultsView @JvmOverloads constructor(
         resultList.layoutManager = LinearLayoutManager(context)
     }
 
-    override fun showResults(results: ViewSearchResults) {
+    fun showResults(results: ViewSearchResults) {
         adapter.bind(results)
         showAllExcept(noResultsView)
     }
 
-    override fun showTextInput() {
+    fun showTextInput() {
         hideAll()
     }
 
-    override fun showNoResults(attemptedQuery: String) {
+    fun showNoResults(attemptedQuery: String) {
         val text = context.getString(R.string.search_no_results_description, attemptedQuery)
         noResultsView.no_results_description.text = text
         hideAllExcept(noResultsView)
