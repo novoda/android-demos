@@ -3,11 +3,8 @@ package com.novoda.movies.mvi.search
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 
-// TODO: Consider a better interface for the view so that we can compose
-// more views in the same Activity
-interface MVIView<A, S> {
+interface Displayer<A, S> {
     val actions: Observable<A>
-
     fun render(state: S)
 }
 
@@ -21,5 +18,5 @@ interface Middleware<A, S, C> {
 
 interface Store<A, S, C> {
     fun wire(): Disposable
-    fun bind(view: MVIView<A, S>): Disposable
+    fun bind(displayer: Displayer<A, S>): Disposable
 }

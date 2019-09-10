@@ -1,74 +1,75 @@
 package com.novoda.movies.mvi.search.presentation
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.novoda.movies.mvi.search.BaseStore
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import com.novoda.movies.mvi.search.Dependencies
-import com.novoda.movies.mvi.search.MVIView
+import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.R
-import com.novoda.movies.mvi.search.domain.ScreenState
-import com.novoda.movies.mvi.search.domain.ScreenStateChanges
-import com.novoda.movies.mvi.search.domain.SearchAction
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search.*
 
-internal class SearchActivity : AppCompatActivity(), MVIView<SearchAction, ScreenState> {
+internal class SearchActivity : AppCompatActivity(),
+        Displayer<Action, State> {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
-    lateinit var screenStore: BaseStore<SearchAction, ScreenState, ScreenStateChanges>
+    private lateinit var viewModel: SearchViewModel
 
-    override val actions: Observable<SearchAction>
+    override val actions: Observable<Action>
         get() = searchInput.actions
-
-    private var wireDisposable: Disposable? = null
-    private var bindDisposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector().inject(this)
+        viewModel = ViewModelProviders.of(this, SearchViewModelFactory(this))
+                .get(SearchViewModel::class.java)
         setContentView(R.layout.activity_search)
         searchInput = search_input
         resultsView = search_results
-
-        wireDisposable = screenStore.wire()
     }
 
     override fun onStart() {
         super.onStart()
-        bindDisposable = screenStore.bind(this)
+        viewModel.bind(this)
     }
 
-    override fun render(state: ScreenState) {
+    override fun render(state: State) {
         searchInput.currentQuery = state.queryString
         resultsView.showResults(state.results)
+        error_view.visibility = if (state.error != null) VISIBLE else INVISIBLE
+        loading_spinner.visibility = if (state.loading) VISIBLE else INVISIBLE
 
-        Log.v("APP", "state: $state")
+
+        Log.v("APP_STATE", "state: $state")
     }
 
     override fun onStop() {
-        bindDisposable?.dispose()
+        viewModel.unbind()
         super.onStop()
     }
+}
 
-    override fun onDestroy() {
-        wireDisposable?.dispose()
-        super.onDestroy()
-    }
+internal class SearchViewModelFactory(
+        private val searchActivity: SearchActivity) : ViewModelProvider.Factory {
 
-    class Injector {
-        fun inject(searchActivity: SearchActivity) {
-            val dependencies = searchActivity.application as Dependencies
-            val networkDependencyProvider = dependencies.networkDependencyProvider
-            val searchDependencyProvider = SearchDependencyProvider(
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        val dependencies = searchActivity.application as Dependencies
+        val networkDependencyProvider = dependencies.networkDependencyProvider
+        val searchDependencyProvider = SearchDependencyProvider(
                 networkDependencyProvider,
                 dependencies.endpoints
-            )
-            searchActivity.screenStore = searchDependencyProvider.provideSearchStore()
-        }
+        )
+
+        return SearchViewModel(searchDependencyProvider.provideSearchStore())
+                .let { modelClass.cast(it) }!!
     }
 }
