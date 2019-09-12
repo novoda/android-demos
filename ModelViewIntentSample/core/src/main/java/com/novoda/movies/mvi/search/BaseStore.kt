@@ -1,5 +1,6 @@
 package com.novoda.movies.mvi.search
 
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
@@ -12,8 +13,11 @@ class BaseStore<A, S, C>(
         private val initialValue: S
 ) : Store<A, S, C> {
     private val changes = PublishSubject.create<C>()
-    private val state = BehaviorSubject.createDefault(initialValue)
-    private val actions: PublishSubject<A> = PublishSubject.create()
+
+    private val stateSubject = BehaviorSubject.createDefault(initialValue)
+    val state : Observable<S> = stateSubject.observeOn(schedulingStrategy.ui)
+
+    private val viewActions: PublishSubject<A> = PublishSubject.create()
 
     override fun wire(): Disposable {
         val disposables = CompositeDisposable()
@@ -27,12 +31,12 @@ class BaseStore<A, S, C>(
         disposables.add(
                 newState
                         .subscribeOn(schedulingStrategy.work)
-                        .subscribe(state::onNext)
+                        .subscribe(stateSubject::onNext)
         )
 
         for (middleware in middlewares) {
             val observable = middleware
-                    .bind(actions, state)
+                    .bind(viewActions, stateSubject)
                     .subscribeOn(schedulingStrategy.work)
             disposables.add(observable.subscribe(changes::onNext))
         }
@@ -40,16 +44,9 @@ class BaseStore<A, S, C>(
         return disposables
     }
 
-    override fun bind(displayer: Displayer<A, S>): Disposable {
+    override fun bind(actions: Observable<A>): Disposable {
         val disposables = CompositeDisposable()
-
-        disposables.add(displayer.actions.subscribe(actions::onNext))
-
-        disposables.add(
-                state
-                        .observeOn(schedulingStrategy.ui)
-                        .subscribe(displayer::render)
-        )
+        disposables.add(actions.subscribe(viewActions::onNext))
 
         return disposables
     }

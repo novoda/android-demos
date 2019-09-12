@@ -5,11 +5,11 @@ import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.novoda.movies.mvi.search.Dependencies
-import com.novoda.movies.mvi.search.Displayer
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.domain.SearchDependencyProvider
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
@@ -17,15 +17,14 @@ import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_search.*
 
-internal class SearchActivity : AppCompatActivity(),
-        Displayer<Action, State> {
+internal class SearchActivity : AppCompatActivity() {
 
     private lateinit var searchInput: SearchInputView
     private lateinit var resultsView: SearchResultsView
 
     private lateinit var viewModel: SearchViewModel
 
-    override val actions: Observable<Action>
+    private val actions: Observable<Action>
         get() = searchInput.actions
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +38,14 @@ internal class SearchActivity : AppCompatActivity(),
 
     override fun onStart() {
         super.onStart()
-        viewModel.bind(this)
+        viewModel.bind(actions)
+
+        viewModel.state.observe(this, Observer { state ->
+            render(state)
+        })
     }
 
-    override fun render(state: State) {
+    private fun render(state: State) {
         searchInput.currentQuery = state.queryString
         resultsView.showResults(state.results)
         error_view.visibility = if (state.error != null) VISIBLE else INVISIBLE
