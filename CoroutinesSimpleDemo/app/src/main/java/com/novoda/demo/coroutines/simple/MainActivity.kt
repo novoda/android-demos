@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 // TODO.
 // 1. On activity start we see a loading on main screen
@@ -56,7 +55,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             _firstResult.value = "LOADING"
             val job = async {
-                service.backgroundJobAsync()
+                service.firstBackgroundJobAsync()
             }
             val job2 = async {
                 service.secondBackgroundJobAsync()
@@ -72,14 +71,14 @@ class MainViewModel : ViewModel() {
 
     }
 
-    private class Service(val context: CoroutineContext = Dispatchers.IO) {
-        suspend fun backgroundJobAsync() = withContext(context) {
+    class Service {
+        suspend fun firstBackgroundJobAsync() = withContext(Dispatchers.IO) {
             delay(4000)
             Log.e("COROUTINES", "JOB1")
             "HI"
         }
 
-        suspend fun secondBackgroundJobAsync() = withContext(context) {
+        suspend fun secondBackgroundJobAsync() = withContext(Dispatchers.IO) {
             delay(2000)
             Log.e("COROUTINES", "JOB2")
             "FRANK"
