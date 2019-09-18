@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 // TODO.
 // 1. On activity start we see a loading on main screen
@@ -28,9 +29,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.firstResult.observe(this, Observer {
             main_text_view.text = it
         })
-        viewModel.secondResult.observe(this, Observer {
-            second_text_view.text = it
-        })
 
         check_box.setOnClickListener {
             Log.e("COROUTINES", "CANCELLING")
@@ -50,53 +48,49 @@ class MainViewModel : ViewModel() {
 
     private val _firstResult = MutableLiveData<String>()
     val firstResult: LiveData<String> = _firstResult
-    private val _secondResult = MutableLiveData<String>()
-    val secondResult: LiveData<String> = _secondResult
 
     private val service = Service()
-    private val secondService = SecondService()
 
     fun load() {
+        Log.e("COROUTINES", "START")
         viewModelScope.launch {
             _firstResult.value = "LOADING"
-            val job = service.backgroundJobAsync()
-            _firstResult.value = job.await()
+            val job = async {
+                service.backgroundJobAsync()
+            }
+            val job2 = async {
+                service.secondBackgroundJobAsync()
+            }
+
+            Log.e("COROUTINES", "${job.await()} ${job2.await()} ")
+            val job3 = service.finalBackgroundJobAsync(job.await(), job2.await())
+            _firstResult.value = job3.await()
         }
-        viewModelScope.launch {
-            _secondResult.value = "ALSO LOADING"
-            val job = secondService.backgroundJobAsync()
-            _secondResult.value = job.await()
-        }
-    }
+
 
 //    fun cancel() = uiScope?.cancel()
 
-}
-
-private class Service {
-    suspend fun backgroundJobAsync() = withContext(Dispatchers.IO) {
-        async {
-            Thread.sleep(5000)
-            if (this.isActive) {
-                Log.e("COROUTINES", "JOB")
-                "DONE"
-            } else {
-                ""
-            }
-        }
     }
-}
 
-private class SecondService {
-    suspend fun backgroundJobAsync() = withContext(Dispatchers.IO) {
-        async {
-            Thread.sleep(10000)
-            if (this.isActive) {
-                Log.e("COROUTINES", "SECOND JOB")
-                "DONE IN PARALLEL"
-            } else {
-                ""
-            }
+    private class Service(val context: CoroutineContext = Dispatchers.IO) {
+        suspend fun backgroundJobAsync() = withContext(context) {
+            delay(4000)
+            Log.e("COROUTINES", "JOB1")
+            "HI"
         }
+
+        suspend fun secondBackgroundJobAsync() = withContext(context) {
+            delay(2000)
+            Log.e("COROUTINES", "JOB2")
+            "FRANK"
+        }
+
+        suspend fun finalBackgroundJobAsync(first: String, second: String) =
+            withContext(Dispatchers.IO) {
+                async {
+                    Log.e("COROUTINES", "JOB3 $first $second")
+                    "$first $second"
+                }
+            }
     }
 }
