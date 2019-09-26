@@ -3,9 +3,16 @@ package com.novoda.movies.mvi.search.domain
 import com.novoda.movies.mvi.search.Middleware
 import com.novoda.movies.mvi.search.data.SearchBackend
 import com.novoda.movies.mvi.search.domain.SearchReducer.Changes
-import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.AddResults
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.HandleError
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.HideProgress
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.RemoveResults
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.ShowProgress
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.UpdateSearchQuery
 import com.novoda.movies.mvi.search.presentation.SearchViewModel
-import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.*
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.ChangeQuery
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.ClearQuery
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.ExecuteSearch
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -33,7 +40,7 @@ internal class SearchMiddleware(
             }
 
     private fun processClearQuery(): Observable<Changes> {
-        val updateQuery = Observable.just(UpdateSearchQuery("") as Changes)
+        val updateQuery = Observable.just(UpdateSearchQuery("", true) as Changes)
         val removeResults = Observable.just(RemoveResults)
         return updateQuery.concatWith(removeResults)
     }

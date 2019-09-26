@@ -37,6 +37,7 @@ internal class SearchViewModel(private val store: SearchStore) : ViewModel() {
 
     internal data class State(
         var queryString: String,
+        var shouldUpdateDisplayedQuery: Boolean = false,
         var loading: Boolean = false,
         var results: ViewSearchResults,
         var error: Throwable? = null

@@ -1,7 +1,12 @@
 package com.novoda.movies.mvi.search.domain
 
 import com.novoda.movies.mvi.search.Reducer
-import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.*
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.AddResults
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.HandleError
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.HideProgress
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.RemoveResults
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.ShowProgress
+import com.novoda.movies.mvi.search.domain.SearchReducer.Changes.UpdateSearchQuery
 import com.novoda.movies.mvi.search.presentation.SearchResultsConverter
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.State
 import com.novoda.movies.mvi.search.presentation.ViewSearchResults
@@ -16,7 +21,7 @@ internal class SearchReducer(
                 is HideProgress -> state.hideLoading()
                 is AddResults -> state.addResults(change.results)
                 is RemoveResults -> state.removeResults()
-                is UpdateSearchQuery -> state.updateQuery(change.queryString)
+                is UpdateSearchQuery -> state.updateQuery(change.queryString, change.shouldUpdateDisplayedQuery)
                 is HandleError -> state.toError(change.throwable)
             }
 
@@ -30,7 +35,7 @@ internal class SearchReducer(
         data class AddResults(val results: SearchResults) : Changes()
         object RemoveResults : Changes()
         data class HandleError(val throwable: Throwable) : Changes()
-        data class UpdateSearchQuery(val queryString: String) : Changes()
+        data class UpdateSearchQuery(val queryString: String, val shouldUpdateDisplayedQuery: Boolean = false) : Changes()
     }
 
 }
@@ -43,8 +48,8 @@ private fun State.toError(throwable: Throwable): State {
     return copy(error = throwable)
 }
 
-private fun State.updateQuery(queryString: String): State {
-    return copy(queryString = queryString)
+private fun State.updateQuery(queryString: String, shouldUpdateDisplayedQuery: Boolean): State {
+    return copy(queryString = queryString, shouldUpdateDisplayedQuery = shouldUpdateDisplayedQuery)
 }
 
 private fun State.hideLoading(): State {

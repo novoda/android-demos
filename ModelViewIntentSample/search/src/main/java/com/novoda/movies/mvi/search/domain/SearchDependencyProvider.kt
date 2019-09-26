@@ -30,7 +30,7 @@ internal class SearchDependencyProvider(
                 reducer = SearchReducer(provideSearchResultsConverter()),
                 schedulingStrategy = ProductionSchedulingStrategy(),
                 middlewares = listOf(SearchMiddleware(provideSearchBackend(), ProductionSchedulingStrategy().work)),
-                initialValue = State(queryString = "", results = ViewSearchResults.emptyResults)
+                initialValue = State(queryString = "", shouldUpdateDisplayedQuery = true, results = ViewSearchResults.emptyResults)
         )
     }
 

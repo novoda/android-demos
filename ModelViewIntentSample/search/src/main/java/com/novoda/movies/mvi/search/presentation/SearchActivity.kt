@@ -46,7 +46,9 @@ internal class SearchActivity : AppCompatActivity() {
     }
 
     private fun render(state: State) {
-        searchInput.currentQuery = state.queryString
+        if (state.shouldUpdateDisplayedQuery || searchInput.isEmpty()) {
+            searchInput.currentQuery = state.queryString
+        }
         resultsView.showResults(state.results)
         error_view.visibility = if (state.error != null) VISIBLE else INVISIBLE
         loading_spinner.visibility = if (state.loading) VISIBLE else INVISIBLE

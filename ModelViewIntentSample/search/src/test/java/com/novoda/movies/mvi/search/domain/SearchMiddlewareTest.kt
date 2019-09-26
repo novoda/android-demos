@@ -45,7 +45,7 @@ class SearchMiddlewareTest {
         actions.onNext(Action.ClearQuery)
 
         changes.assertValues(
-                Changes.UpdateSearchQuery(""),
+                Changes.UpdateSearchQuery("", true),
                 Changes.RemoveResults
         )
     }

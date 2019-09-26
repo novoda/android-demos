@@ -16,7 +16,9 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.novoda.movies.mvi.search.R
 import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action
-import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.*
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.ChangeQuery
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.ClearQuery
+import com.novoda.movies.mvi.search.presentation.SearchViewModel.Action.ExecuteSearch
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.search_bar.view.*
@@ -97,6 +99,8 @@ internal class SearchInputView @JvmOverloads constructor(
         setText(text)
         addTextChangedListener(textChangedListener)
     }
+
+    fun isEmpty(): Boolean = searchInput.text.isEmpty()
 
     private interface AfterTextChangedWatcher : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
