@@ -17,4 +17,8 @@ public class VideosResponse {
                 ", results=" + results +
                 '}';
     }
+
+    public List<Video> results() {
+        return results;
+    }
 }

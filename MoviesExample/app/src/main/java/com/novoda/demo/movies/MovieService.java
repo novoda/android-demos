@@ -5,6 +5,7 @@ import com.novoda.demo.movies.api.MoviesResponse;
 import com.novoda.demo.movies.api.VideosResponse;
 import com.novoda.demo.movies.model.Movie;
 import com.novoda.demo.movies.model.Video;
+import com.novoda.demo.movies.repository.VideosRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,14 @@ import retrofit2.Call;
 import retrofit2.Response;
 import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MovieService {
 
     private final MoviesApi api;
+    private final VideosRepository repository = new VideosRepository();
     private MoviesSate moviesSate = new MoviesSate(new ArrayList<Movie>(), 1);
 
     private Callback callback;
@@ -47,7 +50,7 @@ public class MovieService {
                     return;
                 }
                 List<Movie> movies = moviesSate.movies();
-                movies.addAll(response.body().results);
+                movies.addAll(response.body().results());
                 moviesSate = new MoviesSate(movies, moviesSate.pageNumber() + 1);
                 callback.onNewData(moviesSate);
             }
@@ -61,10 +64,14 @@ public class MovieService {
 
     public void loadTrailerFor(Movie movie, final TrailerCallback trailerCallback) {
         api.videos(movie.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable(new Func1<VideosResponse, Observable<Video>>() {
                     @Override
                     public Observable<Video> call(final VideosResponse videosResponse) {
-                        return Observable.from(videosResponse.results);
+                        List<Video> results = videosResponse.results();
+                        repository.store(results);
+                        return Observable.from(results);
                     }
                 })
                 .takeFirst(new Func1<Video, Boolean>() {
@@ -73,7 +80,6 @@ public class MovieService {
                         return video.trailerUrl() != null;
                     }
                 })
-                .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Video>() {
                     @Override
                     public void onCompleted() {
@@ -105,3 +111,4 @@ public class MovieService {
     }
 
 }
+

@@ -14,6 +14,15 @@ public class MoviesResponse {
 
     public int total_results;
 
+    public List<Movie> results() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
     @Override
     public String toString() {
         return "MoviesResponse{" +
