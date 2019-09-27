@@ -13,8 +13,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 import rx.Observable;
-import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -80,19 +80,9 @@ public class MovieService {
                         return video.trailerUrl() != null;
                     }
                 })
-                .subscribe(new Observer<Video>() {
+                .subscribe(new Action1<Video>() {
                     @Override
-                    public void onCompleted() {
-                        // noop
-                    }
-
-                    @Override
-                    public void onError(final Throwable e) {
-                        trailerCallback.onFailure(e);
-                    }
-
-                    @Override
-                    public void onNext(final Video video) {
+                    public void call(Video video) {
                         trailerCallback.onTrailerLoaded(video);
                     }
                 });
@@ -106,8 +96,6 @@ public class MovieService {
 
     interface TrailerCallback {
         void onTrailerLoaded(Video video);
-
-        void onFailure(Throwable e);
     }
 
 }

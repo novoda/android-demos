@@ -77,11 +77,6 @@ public class MainActivity extends AppCompatActivity {
             public void onTrailerLoaded(Video video) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(video.trailerUrl())));
             }
-
-            @Override
-            public void onFailure(Throwable e) {
-                Log.e("Movies", "while loading videos", e);
-            }
         });
     }
 }
