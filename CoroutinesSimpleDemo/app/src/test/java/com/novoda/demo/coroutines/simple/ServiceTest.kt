@@ -16,4 +16,19 @@ class ServiceTest {
         }
     }
 
+    @Test
+    fun testSuspend() {
+        runBlocking {
+            val result = service.safeAsyncJob(false)
+            check(result == "HI from another Job")
+        }
+    }
+
+    @Test
+    fun testSuspendCrashes() {
+        runBlocking {
+            val result = service.safeAsyncJob(true)
+            check(result == "It burned properly")
+        }
+    }
 }
