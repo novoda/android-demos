@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.resume
+
 
 // TODO.
 // 1. On activity start we see a loading on main screen
@@ -23,6 +26,17 @@ import kotlin.coroutines.resume
 // 2. Transform data
 // 3. Display data on the screen
 
+// 12/12/2019
+//
+// Achieved:
+// 1. Configured remote endpoint fetching with retrofit
+// 2. Display fetched star wars quote
+//
+// Explore next time:
+// 1. add some delays to conversion adapter and move to suspension function
+// 2. try out Flow
+// 3. stretch goal - try Room coroutines and liveData support
+
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by lazy {
@@ -34,12 +48,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel.firstResult.observe(this, Observer {
-            main_text_view.text = it
+            //            main_text_view.text = it
+            quote.text = it
         })
 
         check_box.setOnClickListener {
             Log.e("COROUTINES", "CANCELLING")
             viewModel.viewModelScope.cancel()
+        }
+
+        let_the_force_be_with_us.setOnClickListener {
+            viewModel.fetchQuote()
         }
 
     }
@@ -57,6 +76,8 @@ class MainViewModel : ViewModel() {
     val firstResult: LiveData<String> = _firstResult
 
     private val service = Service()
+
+    private val starWarsService = StarWarsService()
 
     fun load() {
         Log.e("COROUTINES", "START")
@@ -86,9 +107,17 @@ class MainViewModel : ViewModel() {
             _firstResult.value = job3.await()*/
         }
 
-
 //    fun cancel() = uiScope?.cancel()
 
+    }
+
+    fun fetchQuote() {
+        viewModelScope.launch {
+            val job = async(Dispatchers.IO) {
+                starWarsService.fetchSW()
+            }
+            _firstResult.value = job.await()
+        }
     }
 
     class Service(private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO) {
@@ -136,5 +165,34 @@ class MainViewModel : ViewModel() {
                     "$first $second"
                 }
             }
+
     }
+
+    class StarWarsService {
+
+        private val retrofit = Retrofit.Builder()
+            .baseUrl("http://swquotesapi.digitaljedi.dk/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        private val service =
+            retrofit.create<StarWarsQuotesService>(StarWarsQuotesService::class.java)
+
+        private val quoteAdapter: QuoteAdapter = SimpleQuoteAdapter
+
+        suspend fun fetchSW(): String = service.getRandomStarWarsQuote().extractToString()
+
+        private fun Quote.extractToString(): String = quoteAdapter.convert(this)
+
+    }
+
+    interface QuoteAdapter {
+        fun convert(quote: Quote): String
+    }
+
+    object SimpleQuoteAdapter : QuoteAdapter {
+        // TODO add some delays to conversion and move to suspension function
+        override fun convert(quote: Quote): String = quote.starWarsQuote
+    }
+
 }
