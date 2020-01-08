@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.resume
 
 
@@ -77,7 +75,8 @@ class MainViewModel : ViewModel() {
 
     private val service = Service()
 
-    private val starWarsService = StarWarsService()
+    private val starWarsService =
+        StarWarsService()
 
     fun load() {
         Log.e("COROUTINES", "START")
@@ -165,24 +164,6 @@ class MainViewModel : ViewModel() {
                     "$first $second"
                 }
             }
-
-    }
-
-    class StarWarsService {
-
-        private val retrofit = Retrofit.Builder()
-            .baseUrl("http://swquotesapi.digitaljedi.dk/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        private val service =
-            retrofit.create<StarWarsQuotesService>(StarWarsQuotesService::class.java)
-
-        private val quoteAdapter: QuoteAdapter = SimpleQuoteAdapter
-
-        suspend fun fetchSW(): String = service.getRandomStarWarsQuote().extractToString()
-
-        private fun Quote.extractToString(): String = quoteAdapter.convert(this)
 
     }
 
