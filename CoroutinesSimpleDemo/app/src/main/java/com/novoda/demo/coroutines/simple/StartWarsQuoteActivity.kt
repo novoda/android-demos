@@ -8,11 +8,15 @@ import androidx.lifecycle.*
 import kotlinx.android.synthetic.main.activity_start_wars_quote.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.consume
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+
+// 06/02/2020 session details:
+// 1. We learned why live data was being used, by trying out the passing a callback function to OnEvent
+// instead of using stateChannel.offer method to emit the quote data
+// 2. We tried out emitting twice within a flow to see how emitAll works with it.
 
 class StartWarsQuoteActivity : AppCompatActivity(R.layout.activity_start_wars_quote) {
 
@@ -89,7 +93,8 @@ class StarWarsQuoteViewModel : ViewModel() {
 
 }
 
-private fun StarWarsService.fetchSWFlow() = flow {
+private fun StarWarsService.fetchSWFlow(): Flow<String> = flow {
+    emit(fetchSW())
     delay(1_000)
     emit(fetchSW())
 }
