@@ -1,7 +1,5 @@
 package com.novoda.demo.movies;
 
-import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.novoda.demo.movies.MoviesSate;
 import com.novoda.demo.movies.model.Movie;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -81,9 +80,12 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class MovieItem extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_item_title) TextView text;
-        @BindView(R.id.movie_item_poster) ImageView poster;
-        @BindView(R.id.movie_item_rating) TextView rating;
+        @BindView(R.id.movie_item_title)
+        TextView text;
+        @BindView(R.id.movie_item_poster)
+        ImageView poster;
+        @BindView(R.id.movie_item_rating)
+        TextView rating;
 
         MovieItem(View itemView, final Listener listener) {
             super(itemView);
@@ -108,7 +110,8 @@ class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static class LoadPageItem extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_item_title) TextView text;
+        @BindView(R.id.movie_item_title)
+        TextView text;
         Listener listener;
 
         LoadPageItem(View itemView, Listener listener) {

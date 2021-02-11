@@ -10,9 +10,9 @@ public interface MoviesApi {
 
     String API_KEY = "ENTER_YOUR_API_KEY";
 
-    @GET("movie/top_rated?api_key="+API_KEY)
+    @GET("movie/top_rated?api_key=" + API_KEY)
     Call<MoviesResponse> topRated(@Query("page") int page);
 
-    @GET("movie/{id}/videos?api_key="+API_KEY)
+    @GET("movie/{id}/videos?api_key=" + API_KEY)
     Single<VideosResponse> videos(@Path("id") String movieId);
 }

@@ -86,7 +86,7 @@ public class MovieService {
                         trailerCallback.onTrailerLoaded(video);
                     }
                 });
-         }
+    }
 
     interface Callback {
         void onNewData(MoviesSate moviesSate);
