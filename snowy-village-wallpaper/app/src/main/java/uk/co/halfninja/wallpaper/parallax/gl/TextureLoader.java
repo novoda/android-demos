@@ -92,13 +92,13 @@ public class TextureLoader {
         String msg;
         switch (error) {
             case GL_INVALID_VALUE:
-                msg = "invalid value";
+                msg = "Invalid value";
                 break;
             default:
                 msg = "" + error;
                 break;
         }
-        Log.d(TAG, "gl error " + msg);
+        Log.d(TAG, "GL error " + msg);
     }
 
     public void clear(GL10 gl) {
